@@ -100,8 +100,8 @@ begin
     ( 3, 2, "green");
     
     insert into customer values
-	(1, "Austin", "Shinnick", "austin@test.com","763-464-6002","827 413rd Ave NW"),
-    (2, "SythJacob", "Rosenbaum", "jacob@test.com","111-111-1111","that's no moon..."),
+	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW"),
+    (2, "SythJacob", "Rosenbaum", "jacob@yahoo.com","111-111-1111","that's no moon..."),
     (3, "Kendra", "Krosch", "kk@covidCustoms.com", "222-222-2222", "Colorful Colorado");
     
     insert into orders values
@@ -120,8 +120,8 @@ begin
     ( 4, 3, 1); -- add duplicate row and test what happens here
     
     insert into user_account values
-    ("austin@test.com", "password"),
-    ("jacob@test.com", "password"),
+    ("austin@aol.com", "password"),
+    ("jacob@yahoo.com", "password"),
     ("kk@covidCustoms.com", "password");
 
 end //
@@ -137,11 +137,43 @@ select * from user_account;
 
 
 
+
+-- sql query for customer model
+
+select
+	c.customer_id,
+    c.first_name,
+    c.last_name,
+    c.email,
+    ua.user_password,
+    c.address,
+    c.phone
+from customer c
+inner join user_account ua on c.email = ua.username;
+
+
+-- sql query for mask model less color list
+select
+	m.mask_id,
+    m.material,
+    m.style,
+    m.cost,
+    m.is_custom,
+    m.image_link
+from mask m;
+
+-- sql query for mask "color list"
+select * from color
+where mask_id = 2; -- the mask_id will need to be a variable in java
+
+
 -- sql query for order "total cost"
 select
 	o.order_id,
     c.email,
-	sum(om.quantity*m.cost) as Total
+	sum(om.quantity*m.cost) as Total,
+    o.purchased,
+    o.purchase_date
 from orders o
 inner join customer c on o.customer_id = c.customer_id
 inner join order_mask om on o.order_id = om.order_id
