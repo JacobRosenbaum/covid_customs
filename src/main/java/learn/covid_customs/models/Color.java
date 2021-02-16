@@ -13,8 +13,10 @@ public enum Color {
     INDIGO(6, "Indigo"),
     VIOLET(7, "Violet");
 
-    @Getter private final int value;
-    @Getter private final String name;
+    @Getter
+    private final int value;
+    @Getter
+    private final String name;
 
     public static Color findByValue(int value) {
         for (Color color : Color.values()) {
@@ -25,7 +27,7 @@ public enum Color {
         String message = String.format("No Color with value: %s.", value);
         throw new RuntimeException(message);
     }
-    
+
     public static Color findByName(String name) {
         for (Color color : Color.values()) {
             if (color.getName().equalsIgnoreCase(name)) {
