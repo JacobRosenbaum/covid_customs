@@ -25,7 +25,7 @@ public enum Color {
         String message = String.format("No Color with value: %s.", value);
         throw new RuntimeException(message);
     }
-    
+
     public static Color findByName(String name) {
         for (Color color : Color.values()) {
             if (color.getName().equalsIgnoreCase(name)) {
