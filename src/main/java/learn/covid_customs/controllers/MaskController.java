@@ -1,7 +1,10 @@
 package learn.covid_customs.controllers;
 
 import learn.covid_customs.domain.MaskService;
+import learn.covid_customs.models.Color;
 import learn.covid_customs.models.Mask;
+import learn.covid_customs.models.Material;
+import learn.covid_customs.models.Style;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +42,13 @@ public class MaskController {
     public ResponseEntity<Object> add(@RequestBody @Valid Mask mask) {
         Result<Mask> result = maskService.add(mask);
         if(result.isSuccess()) {
-            rteurn new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
     }
 
     @PutMapping("/{maskId}")
-    public ResponseEntity<Mask> update(@PathVariable int maskId, @RequestBody @Valid Mask mask) {
+    public ResponseEntity<Object> update(@PathVariable int maskId, @RequestBody @Valid Mask mask) {
         if (mask.getMaskId() != maskId) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -64,5 +67,41 @@ public class MaskController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/color/{color}")
+    public ResponseEntity<List<Mask>> findByColor(String color) {
+        Color colorEnum = Color.findByName(color);
+        List<Mask> masks = maskService.findByColor(colorEnum);
+
+        if (masks == null || masks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(masks);
+    }
+
+    @GetMapping("/style/{style}")
+    public ResponseEntity<List<Mask>> findByStyle(String style) {
+        Style styleEnum = Style.findByName(style);
+        List<Mask> masks = maskService.findByStyle(styleEnum);
+
+        if (masks == null || masks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(masks);
+    }
+
+    @GetMapping("/material/{material}")
+    public ResponseEntity<List<Mask>> findByMaterial(String material) {
+        Material materialEnum = Material.findByName(material);
+        List<Mask> masks = maskService.findByColor(materialEnum);
+
+        if (masks == null || masks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(masks);
     }
 }
