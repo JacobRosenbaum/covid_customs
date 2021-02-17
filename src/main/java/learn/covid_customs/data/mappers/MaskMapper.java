@@ -13,8 +13,6 @@ import java.util.List;
 
 public class MaskMapper implements RowMapper<Mask> {
 
-//    private final JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
     @Override
     public Mask mapRow(ResultSet resultSet, int i) throws SQLException {
         Mask mask = new Mask();
@@ -24,16 +22,8 @@ public class MaskMapper implements RowMapper<Mask> {
         mask.setCost(resultSet.getBigDecimal("cost"));
         mask.setCustom(resultSet.getBoolean("is_custom"));
         mask.setImage(resultSet.getString("image_link"));
-//        mask.setColors(addColors(mask.getMaskId()));
 
         return mask;
     }
 
-//    private List<Color> addColors(int maskId) {
-//        final String sql = "select color_id, color_name "
-//                + "from color "
-//                + "where mask_id = ?";
-//
-//        return jdbcTemplate.query(sql, new ColorMapper(), maskId);
-//    }
 }

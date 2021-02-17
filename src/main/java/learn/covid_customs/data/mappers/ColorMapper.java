@@ -1,7 +1,6 @@
 package learn.covid_customs.data.mappers;
 
 import learn.covid_customs.models.Color;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
