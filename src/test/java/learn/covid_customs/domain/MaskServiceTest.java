@@ -1,6 +1,7 @@
 package learn.covid_customs.domain;
 
 
+import learn.covid_customs.data.MaskRepository;
 import learn.covid_customs.models.Color;
 import learn.covid_customs.models.Mask;
 import learn.covid_customs.models.Material;
