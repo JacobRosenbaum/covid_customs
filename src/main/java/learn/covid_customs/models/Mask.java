@@ -15,29 +15,35 @@ public class Mask {
     @Getter
     @Setter
     private int maskId;
+
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Material cannot be null.")
     private Material material;
+
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Style cannot be null.")
     private Style style;
+
     @Getter
     @Setter
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Colors cannot be null.")
+    @NotEmpty(message = "Colors cannot be empty.")
     private List<Color> colors;
+
     @Getter
     @Setter
-    @Min(0)
+    @Min(value= 0, message = "Cost cannot be a negative number.")
     private BigDecimal cost;
+
     @Getter
     @Setter
     private boolean isCustom;
+
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Image cannot be null.")
     private String image;
 
 }

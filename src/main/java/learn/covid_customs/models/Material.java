@@ -1,8 +1,10 @@
 package learn.covid_customs.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 
+@AllArgsConstructor
 public enum Material {
     POLY_COT(1, "50% polyester and 50% cotton"),
     POLYESTER(2, "Polyester"),
@@ -10,6 +12,7 @@ public enum Material {
 
     @Getter
     private final int value;
+  
     @Getter
     private final String name;
 
@@ -37,4 +40,5 @@ public enum Material {
         String message = String.format("No Material with name: %s.", name);
         throw new RuntimeException(message);
     }
+
 }
