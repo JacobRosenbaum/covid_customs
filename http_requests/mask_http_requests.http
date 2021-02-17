@@ -11,7 +11,7 @@ GET http://localhost:8080/api/mask/999 HTTP/1.1
 
 ### should add
 
-POST http://localhost:8080/api/add HTTP/1.1
+POST http://localhost:8080/api/mask/add HTTP/1.1
 Content-Type: application/json 
 
 {
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 ### should not add
 
-POST http://localhost:8080/api/add HTTP/1.1
+POST http://localhost:8080/api/mask/add HTTP/1.1
 Content-Type: application/json 
 
 {
@@ -44,11 +44,11 @@ Content-Type: application/json
 
 ### should update
 
-PUT http://localhost:8080/api/4 HTTP/1.1
+PUT http://localhost:8080/api/mask/5 HTTP/1.1
 Content-Type: application/json
 
 {
-  "maskId": 4,
+  "maskId": 5,
   "material": "POLY_COT",
   "style": "ATHLETIC",
   "colors": [
@@ -62,7 +62,7 @@ Content-Type: application/json
 
 ### should not update (conflict)
 
-PUT http://localhost:8080/api/4 HTTP/1.1
+PUT http://localhost:8080/api/mask/4 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -80,16 +80,16 @@ Content-Type: application/json
 
 ### should delete
 
-DELETE http://localhost:8080/4 HTTP/1.1
+DELETE http://localhost:8080/api/mask/4 HTTP/1.1
 
 ### should not delete non existing
 
-DELETE http://localhost:8080/997 HTTP/1.1
+DELETE http://localhost:8080/api/mask997 HTTP/1.1
 
 
 ### should findByColor
 
-GET http://localhost:8080/api/mask/color/red HTTP/1.1
+GET http://localhost:8080/api/mask/color/blue HTTP/1.1
 
 ### should findByStyle
 

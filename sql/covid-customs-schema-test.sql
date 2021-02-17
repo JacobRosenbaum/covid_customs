@@ -1,6 +1,6 @@
-drop database if exists covid_customs_test;
-create database covid_customs_test;
-use covid_customs_test;
+drop database if exists covid_customs;
+create database covid_customs;
+use covid_customs;
 
 create table mask (
 	mask_id int primary key auto_increment,
@@ -75,30 +75,29 @@ delimiter //
 create procedure set_known_good_state()
 begin
 
-    delete from color;
-    alter table color auto_increment = 1;
-	delete from order_mask;
-	delete from orders;
-    alter table orders auto_increment = 1;
-	delete from user_account;
-    delete from customer;
-    alter table customer auto_increment = 1;
 	delete from mask;
     alter table mask auto_increment = 1;
- 
+    delete from color;
+    alter table color auto_increment = 1;
+    delete from customer;
+    alter table customer auto_increment = 1;
+    delete from orders;
+    alter table orders auto_increment = 1;
+    delete from order_mask;
+    delete from user_account;
 	
     insert into mask values
-    ( 1, "Polyester", "Athletic", 11.10, false, "imageURL-1"),
-    ( 2, "Cotton", "Wrap", 2.01, false, "imageURL-2"),
-    ( 3, "Polyester", "Athletic", 20.00, false, "imageURL-3");
+    ( 1, "cotton", "athletic", 11.10, false, "imageURL-1"),
+    ( 2, "cotton", "athletic", 2.01, false, "imageURL-2"),
+    ( 3, "cotton", "athletic", 20.00, false, "imageURL-3");
     
     insert into color values
-    ( 1, 1, "Blue"),
-    ( 1, 2, "Green"),
-    ( 1, 3, "Red"),
-    ( 2, 1, "Blue"),
-    ( 2, 3, "Red"),
-    ( 3, 2, "Green");
+    ( 1, 1, "blue"),
+    ( 1, 2, "green"),
+    ( 1, 3, "red"),
+    ( 2, 1, "blue"),
+    ( 2, 3, "red"),
+    ( 3, 2, "green");
     
     insert into customer values
 	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW"),

@@ -71,7 +71,7 @@ public class MaskController {
     }
 
     @GetMapping("/color/{color}")
-    public ResponseEntity<List<Mask>> findByColor(String color) {
+    public ResponseEntity<List<Mask>> findByColor(@PathVariable String color) {
         Color colorEnum = Color.findByName(color);
         List<Mask> masks = maskService.findByColor(colorEnum);
 
@@ -83,7 +83,7 @@ public class MaskController {
     }
 
     @GetMapping("/style/{style}")
-    public ResponseEntity<List<Mask>> findByStyle(String style) {
+    public ResponseEntity<List<Mask>> findByStyle(@PathVariable String style) {
         Style styleEnum = Style.findByName(style);
         List<Mask> masks = maskService.findByStyle(styleEnum);
 
@@ -95,7 +95,7 @@ public class MaskController {
     }
 
     @GetMapping("/material/{material}")
-    public ResponseEntity<List<Mask>> findByMaterial(String material) {
+    public ResponseEntity<List<Mask>> findByMaterial(@PathVariable String material) {
         Material materialEnum = Material.findByName(material);
         List<Mask> masks = maskService.findByMaterial(materialEnum);
 
