@@ -1,6 +1,7 @@
 package learn.covid_customs.controllers;
 
 import learn.covid_customs.domain.MaskService;
+import learn.covid_customs.domain.Result;
 import learn.covid_customs.models.Color;
 import learn.covid_customs.models.Mask;
 import learn.covid_customs.models.Material;
@@ -66,7 +67,7 @@ public class MaskController {
         if (maskService.deleteById(maskId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/color/{color}")
@@ -96,7 +97,7 @@ public class MaskController {
     @GetMapping("/material/{material}")
     public ResponseEntity<List<Mask>> findByMaterial(String material) {
         Material materialEnum = Material.findByName(material);
-        List<Mask> masks = maskService.findByColor(materialEnum);
+        List<Mask> masks = maskService.findByMaterial(materialEnum);
 
         if (masks == null || masks.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

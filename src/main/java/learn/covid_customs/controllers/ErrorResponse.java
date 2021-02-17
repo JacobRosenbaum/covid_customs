@@ -1,5 +1,7 @@
 package learn.covid_customs.controllers;
 
+import learn.covid_customs.domain.Result;
+import learn.covid_customs.domain.ResultType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

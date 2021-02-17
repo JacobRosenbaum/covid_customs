@@ -1,5 +1,6 @@
 package learn.covid_customs.domain;
 
+import learn.covid_customs.data.MaskRepository;
 import learn.covid_customs.models.Color;
 import learn.covid_customs.models.Mask;
 import learn.covid_customs.models.Material;
@@ -49,7 +50,7 @@ public class MaskService {
             result.addMessage("MaskId cannot be set for adding a mask.", ResultType.INVALID);
             return result;
         }
-        result.messages(repository.add(mask));
+        result.setPayload(repository.add(mask));
         return result;
     }
 

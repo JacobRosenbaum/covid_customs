@@ -16,11 +16,6 @@ public enum Material {
     @Getter
     private final String name;
 
-    Material(int value, String name) {
-        this.value = value;
-        this.name = name;
-    }
-
     public static Material findByValue(int value) {
         for (Material material : Material.values()) {
             if (material.getValue() == value) {
