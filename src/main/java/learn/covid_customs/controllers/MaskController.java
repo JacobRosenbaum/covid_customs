@@ -39,7 +39,7 @@ public class MaskController {
         return ResponseEntity.ok(mask);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Object> add(@RequestBody @Valid Mask mask) {
         Result<Mask> result = maskService.add(mask);
         if(result.isSuccess()) {
