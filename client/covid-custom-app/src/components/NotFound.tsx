@@ -1,18 +1,21 @@
-import nurse from '../images/nurse.jpg';
-import socialDistance from '../images/socialDistance.jpeg';
-import essentialWorker from '../images/essentialWorker.jpg';
-import washHands from '../images/washHands.jpeg';
-import wearMask from '../images/wearMask.jpg';
-import '../notfound.css';
+import nurse from '../assets/images/nurse.jpg';
+import socialDistance from '../assets/images/socialDistance.jpeg';
+import essentialWorker from '../assets/images/essentialWorker.jpg';
+import washHands from '../assets/images/washHands.jpeg';
+import wearMask from '../assets/images/wearMask.jpg';
+import '../assets/css/notfound.css';
+import Navbar from './Navbar';
+
 
 function NotFound() {
- 
+
     function getRandomNumber() {
         const randomNumber: number = Math.floor(Math.random() * Math.floor(5) + 1);
 
         switch (randomNumber) {
             case 1:
                 return (<>
+                <Navbar />
                     <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Thank You Health Care Works!</h2>
@@ -24,6 +27,7 @@ function NotFound() {
                 </>);
             case 2:
                 return (<>
+                    <Navbar />
                     <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Thank You Essential Works!</h2>
@@ -35,10 +39,11 @@ function NotFound() {
                 </>);
             case 3:
                 return (<>
+                <Navbar />
                     <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Please Wear Your Masks!</h2>
-                            <p className="card-text">Help save lives by wearing a mask. I know that at times wereing a mask can be difficult, but image the live we can save through wearing a mask. 
+                            <p className="card-text">Help save lives by wearing a mask. I know that at times wereing a mask can be difficult, but image the live we can save through wearing a mask.
                             Wearing a mask is not a political statement.</p>
                         </div>
                         <div className="img-box"><img src={wearMask} className="card-img-top" alt="image of wearing a mask" /></div>
@@ -46,34 +51,35 @@ function NotFound() {
                 </>);
             case 4:
                 return (<>
-                <div className="card m-2" >
+                <Navbar />
+                    <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Wash Your Hands!</h2>
-                            <p className="card-text">Do you best to protect yourself from covid. Make sure you wash you hands thouroughly throught the day. 
+                            <p className="card-text">Do you best to protect yourself from covid. Make sure you wash you hands thouroughly throught the day.
                             Use soap and and scrub you hand continuously for 20 sec before rincing. </p>
                         </div>
                         <div className="img-box"><img src={washHands} className="card-img-top" alt="image of washing hands" /></div>
                     </div>
                 </>);
             case 5:
-                    return (<>
+                return (<>
                     <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Social Distance</h2>
-                            <p className="card-text">I know that it is hard. But please make sure to social distance whenever 
+                            <p className="card-text">I know that it is hard. But please make sure to social distance whenever
                             possible and avoid social gatherings as much as possible.</p>
                         </div>
                         <div className="img-box"><img src={socialDistance} className="card-img-top" alt="image of social distancing" /></div>
                     </div>
-                    </>);
+                </>);
         }
     }
 
     return (
         <div className="container">
             <div className="move_down">
-            <h1 className="h1_special">Page Not Found</h1>
-            {getRandomNumber()}
+                <h1 className="h1_special">Page Not Found</h1>
+                {getRandomNumber()}
             </div>
         </div>
     );

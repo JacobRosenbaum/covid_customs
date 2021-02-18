@@ -1,6 +1,10 @@
-import '../aboutUs.css';
+import '../assets/css/aboutUs.css';
+import Navbar from './Navbar';
+
 function About() {
     return (
+        <>
+        <Navbar />
         <div className="container">
             <div className="move_down">
                 <h1>About Us</h1>
@@ -18,6 +22,7 @@ function About() {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
