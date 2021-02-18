@@ -1,0 +1,10 @@
+.move_down{
+    position: relative;
+    top: 85px;
+}
+
+.fancyBox{
+    background-color: rgb(182, 45, 45);
+    height: 30px;
+}
+

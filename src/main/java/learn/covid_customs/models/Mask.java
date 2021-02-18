@@ -28,7 +28,6 @@ public class Mask {
 
     @Getter
     @Setter
-    @NotNull(message = "Colors cannot be null.")
     @NotEmpty(message = "Colors cannot be empty.")
     private List<Color> colors;
 

@@ -1,0 +1,54 @@
+.move_down{
+    position: relative;
+    top: 85px;
+}
+
+.carsoleHeight{
+    position: relative;
+    height: 300px;
+}
+
+.carousel-control-prev{
+    background-color: rgba(0, 255, 255, 0);
+    border: none;
+}
+
+.carousel-control-next{
+    background-color: rgba(0, 255, 255, 0);
+    border: none;
+}
+
+.h1_special{
+    text-align: center;
+    font-size: 72px;
+    color: rgb(37, 37, 37);
+}
+
+.card{
+    padding: 0;
+    border: none;
+
+}
+
+.card-title{
+    position: relative;
+    top: 10px;
+    text-align: center;
+    color: rgb(182, 45, 45);
+}
+
+.card-text{
+    position: relative;
+    top: -25px;
+    text-align: left;
+    color: rgb(70, 70, 70);
+    padding: 35px 35px 0px 35px;
+}
+
+.img-box{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+    height: 500px;
+    overflow: hidden;
+}
