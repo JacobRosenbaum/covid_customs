@@ -16,7 +16,7 @@ function App() {
   return (
     <Router>
       <div >
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
           <Link to="/" className="navbar-brand">CovidCustoms</Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@ function App() {
           </div>
         </nav>
       </div>
-      <div className="container">
+     
       <Switch>
         <Route path="/aboutUs">
           <About />
@@ -59,7 +59,6 @@ function App() {
           <NotFound />
         </Route>
       </Switch>
-      </div>
     </Router>
 
 

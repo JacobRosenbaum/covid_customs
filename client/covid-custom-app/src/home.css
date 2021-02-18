@@ -1,0 +1,45 @@
+.carsoleHeight{
+    position: relative;
+    height: 300px;
+}
+
+.carousel-control-prev{
+    background-color: rgba(0, 255, 255, 0);
+    border: none;
+}
+
+.carousel-control-next{
+    background-color: rgba(0, 255, 255, 0);
+    border: none;
+}
+
+h1{
+    text-align: center;
+    color: rgb(37, 37, 37);
+}
+
+.card{
+    padding: 0;
+
+}
+
+.card-title{
+    position: relative;
+    top: 20px;
+    text-align: center;
+    color: rgb(182, 45, 45);
+}
+
+.card-text{
+    position: relative;
+    top: 13px;
+    text-align: center;
+    color: rgb(70, 70, 70);
+}
+
+.img-box{
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+    overflow: hidden;
+}

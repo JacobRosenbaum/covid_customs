@@ -76,7 +76,7 @@ class MaskServiceTest {
                 false, "image");
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
-        assertEquals("Colors cannot be null.", actual.getMessages().get(0));
+        assertEquals("Colors cannot be empty.", actual.getMessages().get(0));
     }
 
     @Test
@@ -109,7 +109,7 @@ class MaskServiceTest {
     @Test
     void shouldNotAddIfImageTagNull() {
         Mask maskIn = new Mask(0, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, null);
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("Image cannot be null.", actual.getMessages().get(0));
@@ -131,7 +131,7 @@ class MaskServiceTest {
         when(repository.update(maskIn)).thenReturn(false);
         Result<Mask> actual = service.update(maskIn);
         assertEquals(ResultType.NOT_FOUND, actual.getType());
-        assertEquals("Mask Id 4 not found.", actual.getMessages().get(0));
+        assertEquals("Mask Id 2 not found.", actual.getMessages().get(0));
     }
 
     @Test
