@@ -28,10 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/mask").permitAll()
+                .antMatchers(HttpMethod.GET,  "api/mask/*", "/api/mask").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/mask").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/mask/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/mask/*").hasRole("ADMIN")
+                .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(), jwtConverter))
                 .sessionManagement()

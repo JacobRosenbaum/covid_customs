@@ -29,6 +29,7 @@ create table customer (
     email varchar(50) not null,
     phone varchar(50) not null,
     address varchar(100) not null,
+    user_role varchar(50) not null,
     constraint uq_email
 		unique (email)
 );
@@ -60,7 +61,7 @@ create table order_mask (
 
 create table user_account (
 	username varchar(50) not null,
-    user_password varchar(100) not null,
+    user_password varchar(500) not null,
     constraint fk_user_account_username
 		foreign key (username)
         references customer(email),
