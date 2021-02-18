@@ -60,11 +60,12 @@ create table order_mask (
 
 
 create table user_account (
+	customer_id int not null,
 	username varchar(50) not null,
     user_password varchar(500) not null,
-    constraint fk_user_account_username
-		foreign key (username)
-        references customer(email),
+    constraint fk_user_account_customer_id
+		foreign key (customer_id)
+        references customer(customer_id),
 	constraint uq_username_password
 		unique (username, user_password)
 );

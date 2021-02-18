@@ -60,11 +60,12 @@ create table order_mask (
 
 
 create table user_account (
+	customer_id int not null,
 	username varchar(50) not null,
     user_password varchar(500) not null,
-    constraint fk_user_account_username
-		foreign key (username)
-        references customer(email),
+    constraint fk_user_account_customer_id
+		foreign key (customer_id)
+        references customer(customer_id),
 	constraint uq_username_password
 		unique (username, user_password)
 );
@@ -125,9 +126,9 @@ begin
     ( 4, 3, 1); -- add duplicate row and test what happens here
     
     insert into user_account values
-    ("austin@aol.com", "password"),
-    ("jacob@yahoo.com", "password"),
-    ("kk@covidCustoms.com", "password");
+    (1,"austin@aol.com", "password"),
+    (2,"jacob@yahoo.com", "password"),
+    (3,"kk@covidCustoms.com", "password");
 
 end //
 -- 4. Change the statement terminator back to the original.
@@ -155,7 +156,8 @@ select
     c.phone,
     c.user_role
 from customer c
-inner join user_account ua on c.email = ua.username;
+inner join user_account ua on c.customer_id = ua.customer_id
+where c.customer_id = 1;
 
 
 -- sql query for mask model less color list

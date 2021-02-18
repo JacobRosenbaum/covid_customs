@@ -28,7 +28,7 @@ class CustomerJdbcTemplateRepositoryTest {
     void shouldFindAll() {
         List<Customer> actual = repository.findAll();
         assertNotNull(actual);
-        assertEquals(3, actual.size());
+        assertTrue(actual.size() > 2);
         assertEquals("ADMIN", actual.get(0).getRole());
     }
 
@@ -53,6 +53,7 @@ class CustomerJdbcTemplateRepositoryTest {
     void shouldUpdate() {
         Customer customer = createValidCustomer();
         customer.setCustomerId(2);
+        customer.setEmail("test@update.com");
         assertTrue(repository.update(customer));
         assertEquals("ADMIN", repository.findById(2).getRole());
     }

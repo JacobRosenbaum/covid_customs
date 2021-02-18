@@ -2,6 +2,7 @@ package learn.covid_customs.models;
 
 import lombok.*;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,6 +30,7 @@ public class Customer {
     @Getter
     @Setter
     @NotNull
+    @Email(message = "Invalid Email Address")
     private String email;
 
     @Getter

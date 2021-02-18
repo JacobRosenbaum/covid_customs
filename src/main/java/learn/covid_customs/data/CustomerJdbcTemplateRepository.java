@@ -3,6 +3,7 @@ package learn.covid_customs.data;
 import com.mysql.cj.xdevapi.PreparableStatement;
 import learn.covid_customs.data.mappers.CustomerMapper;
 import learn.covid_customs.models.Customer;
+import learn.covid_customs.models.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -33,7 +34,7 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
                 " c.phone," +
                 " c.user_role" +
                 " from customer c" +
-                " inner join user_account ua on c.email = ua.username;";
+                " inner join user_account ua on c.customer_id = ua.customer_id;";
 
         List<Customer> customers = jdbcTemplate.query(sql, new CustomerMapper());
 
@@ -52,8 +53,8 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
                 " c.phone," +
                 " c.user_role" +
                 " from customer c" +
-                " inner join user_account ua on c.email = ua.username" +
-                " where customer_id = ?;";
+                " inner join user_account ua on c.customer_id = ua.customer_id" +
+                " where c.customer_id = ?;";
 
         Customer customer = jdbcTemplate.query(sql, new CustomerMapper(), customerId).stream()
                 .findAny().orElse(null);
@@ -66,8 +67,8 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
     public Customer add(Customer customer) {
         final String customerSql = "insert into customer (first_name, last_name, email, address, phone, user_role) " +
                                 "values (?,?,?,?,?,?);";
-        final String accountSql = "insert into user_account (username, user_password) " +
-                                    "values (?,?);";
+        final String accountSql = "insert into user_account (customer_id, username, user_password) " +
+                                    "values (?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -89,8 +90,9 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
 
         jdbcTemplate.update(connection -> {
            PreparedStatement ps = connection.prepareStatement(accountSql);
-           ps.setString(1, customer.getEmail());
-           ps.setString(2, customer.getPassword());
+           ps.setInt(1, customer.getCustomerId());
+           ps.setString(2, customer.getEmail());
+           ps.setString(3, customer.getPassword());
            return ps;
         });
 
@@ -98,12 +100,45 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
     }
 
     @Override
+    @Transactional
     public boolean update(Customer customer) {
-        return false;
+        final String accountSql = "update user_account set " +
+                "username = ?, " +
+                "user_password = ? " +
+                "where customer_id = ?;";
+        if (jdbcTemplate.update(accountSql, customer.getEmail(), customer.getPassword(), customer.getCustomerId()) <= 0) {
+            return false; //user not found
+        }
+
+        final String customerSql = "update customer set " +
+                "first_name = ?, " +
+                "last_name = ?, " +
+                "email = ?, " +
+                "phone = ?, " +
+                "address = ?, " +
+                "user_role = ? " +
+                "where customer_id = ?;";
+        return jdbcTemplate.update(customerSql,
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getEmail(),
+                customer.getPhone(),
+                customer.getAddress(),
+                customer.getRole(),
+                customer.getCustomerId()) > 0;
     }
 
     @Override
+    @Transactional
     public boolean deleteById(int customerId) {
-        return false;
+        List<Order> customerOrders = orderRepository.findByCustomerId();
+        for (Order order: customerOrders) {
+            jdbcTemplate.update("delete from orders where order_id = ?;", order.getOrderId());
+        }
+        jdbcTemplate.update("delete from user_account where customer_id = ?;", customerId);
+        jdbcTemplate.update("delete from order_mask where customer_id = ?;", customerId);
+        jdbcTemplate.update("delete from orders where customer_id = ?;", customerId);
+        return jdbcTemplate.update("delete from customer where customer_id = ?;", customerId) > 0;
+
     }
 }
