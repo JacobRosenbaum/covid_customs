@@ -1,15 +1,6 @@
 import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../assets/css/Mask.css';
-import mask1 from '../assets/images/mask_blue_polycot_ear.png';
-import mask2 from '../assets/images/mask_blue_white_polyester_wrap.jpg';
-import mask3 from '../assets/images/mask_black_polycot_ear.png';
-import mask4 from '../assets/images/mask_green_black_polyester_wrap.jpg';
-import mask5 from '../assets/images/mask_purple_white_black_polycot_ear.webp';
-import mask6 from '../assets/images/mask_orange_cotton_athletic.jpg';
-import mask7 from '../assets/images/mask_white_cotton_athletic.jpg';
-import mask8 from '../assets/images/mask_red_cotton_athletic.jpg';
-import mask9 from '../assets/images/mask_red_white_blue_polyester_wrap.jpg';
 
 function Mask() {
     const [masks, setMasks] = useState<any[]>([]);
@@ -22,15 +13,6 @@ function Mask() {
                 const data = await response.json();
                 setMasks(data)
                 console.log(data)
-                console.log(mask1)
-                console.log(mask2)
-                console.log(mask3)
-                console.log(mask4)
-                console.log(mask5)
-                console.log(mask6)
-                console.log(mask7)
-                console.log(mask8)
-                console.log(mask9)
             } catch (error) {
                 console.log(error);
             }
@@ -100,14 +82,14 @@ function Mask() {
                 <div className="row flexContainer">
                     {filteredMasks.length ? filteredMasks.map(mask => (
                         <div key={mask.maskId} className="col-sm-6 col-m-4 col-12 maskImage">
-                            <img id='mask' className="img" src={mask.image} alt="Mask" />
+                            <img id='mask' className="img" src={process.env.PUBLIC_URL + mask.image} alt="Mask" />
                             <p>
                                 ${mask.cost}
                             </p>
                         </div>
                     )) : masks.map(mask => (
                         <div key={mask.maskId} className="col-sm-6 col-m-4 col-12 maskImage">
-                            <img id='mask' className="img" src={mask.image} alt="Mask" />
+                            <img id='mask' className="img" src={process.env.PUBLIC_URL + mask.image} alt="Mask" />
                             <p>
                                 ${mask.cost}
                             </p>
