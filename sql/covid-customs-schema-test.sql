@@ -1,6 +1,6 @@
-drop database if exists covid_customs;
-create database covid_customs;
-use covid_customs;
+drop database if exists covid_customs_test;
+create database covid_customs_test;
+use covid_customs_test;
 
 create table mask (
 	mask_id int primary key auto_increment,
@@ -29,6 +29,7 @@ create table customer (
     email varchar(50) not null,
     phone varchar(50) not null,
     address varchar(100) not null,
+    user_role varchar(50) not null,
     constraint uq_email
 		unique (email)
 );
@@ -59,32 +60,37 @@ create table order_mask (
 
 
 create table user_account (
+	customer_id int not null,
 	username varchar(50) not null,
-    user_password varchar(100) not null,
-    constraint fk_user_account_username
-		foreign key (username)
-        references customer(email),
+    user_password varchar(500) not null,
+    constraint fk_user_account_customer_id
+		foreign key (customer_id)
+        references customer(customer_id),
 	constraint uq_username_password
 		unique (username, user_password)
 );
-
-
 
     
 delimiter //
 create procedure set_known_good_state()
 begin
 
-	delete from mask;
-    alter table mask auto_increment = 1;
-    delete from color;
+	delete from color;
     alter table color auto_increment = 1;
-    delete from customer;
-    alter table customer auto_increment = 1;
+    
+	delete from order_mask;
+    delete from user_account;
+    
     delete from orders;
     alter table orders auto_increment = 1;
-    delete from order_mask;
-    delete from user_account;
+    
+	delete from mask;
+    alter table mask auto_increment = 1;
+    
+    delete from customer;
+    alter table customer auto_increment = 1;
+    
+   
 	
     insert into mask values
     ( 1, "cotton", "athletic", 11.10, false, "imageURL-1"),
@@ -100,9 +106,9 @@ begin
     ( 3, 2, "green");
     
     insert into customer values
-	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW"),
-    (2, "SythJacob", "Rosenbaum", "jacob@yahoo.com","111-111-1111","that's no moon..."),
-    (3, "Kendra", "Krosch", "kk@covidCustoms.com", "222-222-2222", "Colorful Colorado");
+	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW", "ADMIN"),
+    (2, "SythJacob", "Rosenbaum", "jacob@yahoo.com","111-111-1111","that's no moon...", "USER"),
+    (3, "Kendra", "Krosch", "kk@covidCustoms.com", "222-222-2222", "Colorful Colorado", "USER");
     
     insert into orders values
     ( 1, 1, false, null),
@@ -120,9 +126,9 @@ begin
     ( 4, 3, 1); -- add duplicate row and test what happens here
     
     insert into user_account values
-    ("austin@aol.com", "password"),
-    ("jacob@yahoo.com", "password"),
-    ("kk@covidCustoms.com", "password");
+    (1,"austin@aol.com", "password"),
+    (2,"jacob@yahoo.com", "password"),
+    (3,"kk@covidCustoms.com", "password");
 
 end //
 -- 4. Change the statement terminator back to the original.
@@ -147,9 +153,11 @@ select
     c.email,
     ua.user_password,
     c.address,
-    c.phone
+    c.phone,
+    c.user_role
 from customer c
-inner join user_account ua on c.email = ua.username;
+inner join user_account ua on c.customer_id = ua.customer_id
+where c.customer_id = 1;
 
 
 -- sql query for mask model less color list
