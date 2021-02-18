@@ -1,3 +1,4 @@
+import Navbar from './Navbar';
 import { useState} from 'react';
 
 function CovidAPI(){
@@ -24,6 +25,7 @@ function CovidAPI(){
 functionAPI();
     return(
         <>
+        <Navbar />
         <h2>Covid Info</h2>
         </>
     );

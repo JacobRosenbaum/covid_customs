@@ -1,8 +1,9 @@
-import banner1 from '../images/download.jpg';
-import banner2 from '../images/banner.jpg';
-import banner3 from '../images/banner2.jpg';
-import customMasks from '../images/customization.jpg';
-import '../home.css';
+import banner1 from '../assets/images/download.jpg';
+import banner2 from '../assets/images/banner.jpg';
+import banner3 from '../assets/images/banner2.jpg';
+import customMasks from '../assets/images/customization.jpg';
+import '../assets/css/home.css';
+import Navbar from './Navbar';
 
 import { Link } from 'react-router-dom';
 
@@ -12,6 +13,7 @@ function Home() {
     return (
 
         <>
+        <Navbar />
             <div id="carouselExampleDark" className="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     <div className="carousel-item carsoleHeight active" data-bs-interval="10000">
