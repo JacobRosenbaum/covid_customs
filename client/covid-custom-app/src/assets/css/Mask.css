@@ -1,0 +1,27 @@
+.jumbotron{
+    margin-top: 50px
+}
+
+.title{
+    color: firebrick;
+    text-align: center
+}
+
+img {
+    width: 300px;
+    height: 220px;
+}
+
+.col-m-4 {
+    margin: auto;
+    margin-top: 30px;
+}
+
+.flexContainer {
+    text-align: center
+} 
+
+.img:hover{
+    zoom: 101%;
+    cursor: pointer
+}

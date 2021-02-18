@@ -11,7 +11,9 @@ public enum Color {
     GREEN(4, "Green"),
     BLUE(5, "Blue"),
     INDIGO(6, "Indigo"),
-    VIOLET(7, "Violet");
+    VIOLET(7, "Violet"),
+    WHITE(8, "White"),
+    BLACK(9, "Black");
 
     @Getter
     private final int value;

@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("/api/mask")
 public class MaskController {
 
