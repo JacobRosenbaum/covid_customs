@@ -1,9 +1,10 @@
 package learn.covid_customs.data;
 
-import com.mysql.cj.xdevapi.PreparableStatement;
 import learn.covid_customs.data.mappers.CustomerMapper;
+import learn.covid_customs.data.mappers.OrderMapper;
 import learn.covid_customs.models.Customer;
 import learn.covid_customs.models.Order;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -131,14 +132,30 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
     @Override
     @Transactional
     public boolean deleteById(int customerId) {
-        List<Order> customerOrders = orderRepository.findByCustomerId();
+
+        final String sql = "select " +
+                "o.order_id, " +
+                "c.email, " +
+                "sum(om.quantity*m.cost) as total, " +
+                "o.purchased, " +
+                "o.purchase_date " +
+                "from orders o " +
+                "inner join customer c on o.customer_id = c.customer_id " +
+                "inner join order_mask om on o.order_id = om.order_id " +
+                "inner join mask m on om.mask_id = m.mask_id " +
+                "where c.customer_id = ? " +
+                "group by order_id;";
+
+        List<Order> customerOrders = jdbcTemplate.query(sql, new OrderMapper(), customerId);
+
         for (Order order: customerOrders) {
-            jdbcTemplate.update("delete from orders where order_id = ?;", order.getOrderId());
+            jdbcTemplate.update("delete from order_mask where order_id = ?;", order.getOrderId());
         }
         jdbcTemplate.update("delete from user_account where customer_id = ?;", customerId);
-        jdbcTemplate.update("delete from order_mask where customer_id = ?;", customerId);
+        //jdbcTemplate.update("delete from order_mask where customer_id = ?;", customerId);
         jdbcTemplate.update("delete from orders where customer_id = ?;", customerId);
         return jdbcTemplate.update("delete from customer where customer_id = ?;", customerId) > 0;
 
     }
+
 }
