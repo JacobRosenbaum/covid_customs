@@ -22,6 +22,7 @@ public class MaskMapper implements RowMapper<Mask> {
         mask.setCost(resultSet.getBigDecimal("cost"));
         mask.setCustom(resultSet.getBoolean("is_custom"));
         mask.setImage(resultSet.getString("image_link"));
+        mask.setDeleted(resultSet.getBoolean("is_deleted"));
 
         return mask;
     }

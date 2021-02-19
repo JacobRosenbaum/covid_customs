@@ -165,7 +165,7 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
 //                int value = map.get(mask);
 //                map.replace(mask, findQuantity(mask.getMaskId(), order.getOrderId()) + value);
 //            }
-           // System.out.println("OrderID: " +order.getOrderId()+ "\nMask: "+ mask);
+           System.out.println("OrderID: " +order.getOrderId()+ "\nMask: "+ mask);
             map.put(mask, findQuantity(mask.getMaskId(), order.getOrderId()));
           //  System.out.println("Quantity: "+ map.get(mask));
         }

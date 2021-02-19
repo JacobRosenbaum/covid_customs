@@ -34,7 +34,27 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
                 "style, " +
                 "cost, " +
                 "is_custom, " +
-                "image_link " +
+                "image_link, " +
+                "is_deleted "+
+                "from mask " +
+                "where is_deleted = ?;";
+        List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), false);
+
+        for (Mask m : masks) {
+            addColors(m);
+        }
+        return masks;
+    }
+
+    @Override
+    public List<Mask> findAllAdmin() {
+        final String sql = "select mask_id, " +
+                "material, " +
+                "style, " +
+                "cost, " +
+                "is_custom, " +
+                "image_link, " +
+                "is_deleted "+
                 "from mask;";
         List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper());
 
@@ -51,7 +71,8 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
                 "style, " +
                 "cost, " +
                 "is_custom, " +
-                "image_link " +
+                "image_link, " +
+                "is_deleted "+
                 "from mask " +
                 "where mask_id = ?;";
 
@@ -72,12 +93,13 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
                 "m.style, " +
                 "m.cost, " +
                 "m.is_custom, " +
-                "m.image_link " +
+                "m.image_link, " +
+                "m.is_deleted "+
                 "from mask m " +
                 "inner join color c on c.mask_id = m.mask_id " +
-                "where c.color_name = ?;";
+                "where c.color_name = ? and is_deleted = ?;";
 
-        List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), color.getName());
+        List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), color.getName(), false);
 
         for (Mask m : masks) {
             addColors(m);
@@ -92,10 +114,11 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
                 "style, " +
                 "cost, " +
                 "is_custom, " +
-                "image_link " +
+                "image_link, " +
+                "is_deleted "+
                 "from mask " +
-                "where style = ?;";
-        List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), style.getName());
+                "where style = ? and is_deleted = ?;";
+        List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), style.getName(), false);
 
         for (Mask m : masks) {
             addColors(m);
@@ -111,10 +134,11 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
                 "style, " +
                 "cost, " +
                 "is_custom, " +
-                "image_link " +
+                "image_link, " +
+                "is_deleted "+
                 "from mask " +
-                "where material = ?;";
-        List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), material.getName());
+                "where material = ? and is_deleted = ?;";
+        List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), material.getName(), false);
 
         for (Mask m : masks) {
             addColors(m);
@@ -125,8 +149,8 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
     @Override
     @Transactional
     public Mask add(Mask mask) {
-        final String maskSql = "insert into mask (material, style, cost, is_custom, image_link) "
-                + " values (?,?,?,?,?);";
+        final String maskSql = "insert into mask (material, style, cost, is_custom, image_link, is_deleted) "
+                + " values (?,?,?,?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -136,6 +160,7 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
             ps.setBigDecimal(3, mask.getCost());
             ps.setBoolean(4, mask.isCustom());
             ps.setString(5, mask.getImage());
+            ps.setBoolean(6, mask.isDeleted());
             return ps;
         }, keyHolder);
 
@@ -184,7 +209,8 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
                 + "style = ?, "
                 + "cost = ?, "
                 + "is_custom = ?, "
-                + "image_link = ? "
+                + "image_link = ?, "
+                + "is_deleted = ? "
                 + "where mask_id = ?;";
         return jdbcTemplate.update(maskSql,
                 mask.getMaterial().getName(),
@@ -192,15 +218,21 @@ public class MaskJdbcTemplateRepository implements MaskRepository {
                 mask.getCost(),
                 mask.isCustom(),
                 mask.getImage(),
+                mask.isDeleted(),
                 mask.getMaskId()) > 0;
     }
 
     @Override
     @Transactional
     public boolean deleteById(int maskId) {
-        jdbcTemplate.update("delete from color where mask_id = ?", maskId);
-        jdbcTemplate.update("delete from order_mask where mask_id = ?", maskId);
-        return jdbcTemplate.update("delete from mask where mask_id = ?", maskId) > 0;
+//        jdbcTemplate.update("delete from color where mask_id = ?", maskId);
+//        jdbcTemplate.update("delete from order_mask where mask_id = ?", maskId);
+//        return jdbcTemplate.update("delete from mask where mask_id = ?", maskId) > 0;
+        final String maskSql = "update mask set "
+                + "is_deleted = true "
+                + "where mask_id = ? and is_deleted= false;";
+        return jdbcTemplate.update(maskSql,
+                maskId) > 0;
     }
 
     private void addColors(Mask mask) {

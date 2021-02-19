@@ -29,6 +29,11 @@ public class MaskController {
         return maskService.findAll();
     }
 
+    @GetMapping("/admin")
+    public List<Mask> findAllAdmin() {
+        return maskService.findAllAdmin();
+    }
+
     @GetMapping("/{maskId}")
     public ResponseEntity<Mask> findById(@PathVariable int maskId) {
         Mask mask = maskService.findById(maskId);
