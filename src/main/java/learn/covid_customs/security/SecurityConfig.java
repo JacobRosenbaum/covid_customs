@@ -1,17 +1,16 @@
 package learn.covid_customs.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,9 +26,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/create_account").permitAll()
+
+                .antMatchers("/api/customer/create_account").permitAll()
                 .antMatchers("/authenticate").permitAll()
-                .antMatchers(HttpMethod.GET,  "api/mask/*", "/api/mask").permitAll()
+
+                .antMatchers(HttpMethod.GET,  "/api/customer/*", "/api/customer").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/customer").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/customer/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/customer/*").hasAnyRole("USER", "ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/api/mask/*", "/api/mask").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/mask").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/mask/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/mask/*").hasRole("ADMIN")
@@ -52,4 +58,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+
+        return new WebMvcConfigurer() {
+
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("*");
+            }
+        };
+    }
 }

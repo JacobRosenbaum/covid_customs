@@ -1,24 +1,17 @@
 package learn.covid_customs.controllers;
 
-import learn.covid_customs.domain.CustomerService;
-import learn.covid_customs.domain.Result;
-import learn.covid_customs.models.Customer;
 import learn.covid_customs.security.JwtConverter;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.ValidationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +36,7 @@ public class AuthController {
             Authentication authentication = authenticationManager.authenticate(authToken);
 
             if (authentication.isAuthenticated()) {
-                User user = (User)authentication.getPrincipal();
+                User user = (User) authentication.getPrincipal();
 
                 String jwtToken = jwtConverter.getTokenFromUser(user);
 
