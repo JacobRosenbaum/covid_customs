@@ -24,7 +24,7 @@ public class Order {
 
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message= "Customer cannot be null")
     private Customer customer;
 
     @Getter
