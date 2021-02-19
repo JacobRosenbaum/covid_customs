@@ -19,19 +19,19 @@ public class Customer {
 
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "First name required")
     private String firstName;
 
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Last name required")
     private String lastName;
 
     @Getter
     @Setter
-    @NotNull
-    @Email(message = "Invalid Email Address")
-    @NoDuplicateEmail
+    @NotNull(message = "Email required")
+    @Email(message = "Invalid Email")
+    //@NoDuplicateEmail
     private String email;
 
     @Getter
@@ -41,16 +41,15 @@ public class Customer {
 
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Address required")
     private String address;
 
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Phone number required")
     private String phone;
 
     @Getter
     @Setter
-    @NotNull
     private String role;
 }

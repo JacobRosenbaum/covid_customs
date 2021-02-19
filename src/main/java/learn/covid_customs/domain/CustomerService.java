@@ -1,6 +1,7 @@
 package learn.covid_customs.domain;
 
 import learn.covid_customs.data.CustomerJdbcTemplateRepository;
+import learn.covid_customs.data.CustomerRepository;
 import learn.covid_customs.models.Customer;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +25,7 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class CustomerService implements UserDetailsService {
-    private final CustomerJdbcTemplateRepository repository;
+    private final CustomerRepository repository;
     private final PasswordEncoder encoder;
 
 
@@ -58,8 +59,17 @@ public class CustomerService implements UserDetailsService {
         if (!result.isSuccess()) {
             return result;
         }
+        if(repository.findByEmail(customer.getEmail()) != null) {
+            result.addMessage("Email already in use", ResultType.INVALID);
+            return result;
+        }
 
-        customer.setPassword(encoder.encode(customer.getPassword()));
+        try {
+            customer.setPassword(encoder.encode(customer.getPassword()));
+        } catch (IllegalArgumentException ex) {
+            result.addMessage("Password required", ResultType.INVALID);
+            return result;
+        }
         if (customer.getCustomerId() > 0) {
             result.addMessage("CustomerId cannot be set for adding a customer.", ResultType.INVALID);
             return result;
@@ -78,7 +88,7 @@ public class CustomerService implements UserDetailsService {
             return result;
         }
         if (!repository.update(customer)) {
-            String message = String.format("Customer not found", customer.getCustomerId());
+            String message = String.format("Customer ID %s not found", customer.getCustomerId());
             result.addMessage(message, ResultType.NOT_FOUND);
             return result;
         }
@@ -94,7 +104,7 @@ public class CustomerService implements UserDetailsService {
     public Result<Customer> validate(Customer customer) {
         Result<Customer> result = new Result<>();
         if (customer == null) {
-            result.addMessage("Customer cannot null.", ResultType.INVALID);
+            result.addMessage("Customer cannot be null.", ResultType.INVALID);
             return result;
         }
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
