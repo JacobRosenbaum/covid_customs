@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {DuplicateEmailValidator.class})
 @Documented
 public @interface NoDuplicateEmail {
-    String message() default "{Email already in use}";
+    String message() default "Email already in use";
 
     Class<?>[] groups() default {};
 

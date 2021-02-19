@@ -1,5 +1,6 @@
 package learn.covid_customs.validation;
 
+import learn.covid_customs.data.CustomerJdbcTemplateRepository;
 import learn.covid_customs.data.CustomerRepository;
 import learn.covid_customs.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import javax.validation.ConstraintValidatorContext;
 public class DuplicateEmailValidator implements ConstraintValidator<NoDuplicateEmail, String> {
 
     @Autowired
-    CustomerRepository repository;
+    CustomerJdbcTemplateRepository repository;
 
     @Override
     public void initialize(NoDuplicateEmail constraintAnnotation) {
@@ -23,13 +24,7 @@ public class DuplicateEmailValidator implements ConstraintValidator<NoDuplicateE
         if (string == null) {
             return true;
         }
-        Customer existingCustomer = null;
-        try {
-            existingCustomer = repository.findByEmail(string);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-
-        return (existingCustomer == null || existingCustomer.getCustomerId() == existingCustomer.getCustomerId());
+        Customer existingCustomer = repository.findByEmail(string);
+        return (existingCustomer == null);
     }
 }
