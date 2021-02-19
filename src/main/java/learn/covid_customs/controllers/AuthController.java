@@ -3,12 +3,10 @@ package learn.covid_customs.controllers;
 import learn.covid_customs.security.JwtConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,11 +20,11 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtConverter jwtConverter;
 
+
     public AuthController(AuthenticationManager authenticationManager, JwtConverter jwtConverter) {
         this.authenticationManager = authenticationManager;
         this.jwtConverter = jwtConverter;
     }
-
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody Map<String, String> credentials) {
@@ -38,7 +36,7 @@ public class AuthController {
             Authentication authentication = authenticationManager.authenticate(authToken);
 
             if (authentication.isAuthenticated()) {
-                User user = (User)authentication.getPrincipal();
+                User user = (User) authentication.getPrincipal();
 
                 String jwtToken = jwtConverter.getTokenFromUser(user);
 

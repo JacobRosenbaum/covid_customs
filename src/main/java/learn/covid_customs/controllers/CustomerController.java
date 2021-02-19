@@ -3,11 +3,14 @@ package learn.covid_customs.controllers;
 import learn.covid_customs.domain.CustomerService;
 import learn.covid_customs.domain.Result;
 import learn.covid_customs.models.Customer;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -37,14 +40,18 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
-    @PostMapping
-    public ResponseEntity<Object> add(@RequestBody @Valid Customer customer) {
+    @PostMapping("/create_account")
+    public ResponseEntity<Object> createAccount(@RequestBody @Valid Customer customer) {
+
+        customer.setRole("USER");
         Result<Customer> result = customerService.add(customer);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
+
     }
+
 
     @PutMapping("/{customerId}")
     public ResponseEntity<Object> update(@PathVariable int customerId, @RequestBody @Valid Customer customer) {

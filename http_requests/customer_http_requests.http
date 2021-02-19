@@ -1,0 +1,82 @@
+### findAll
+GET http://localhost:8080/api/customer HTTP/1.1
+
+### should findById
+
+GET http://localhost:8080/api/customer/1 HTTP/1.1
+
+### should not findById
+
+GET http://localhost:8080/api/customer/999 HTTP/1.1
+
+
+### should update
+
+PUT http://localhost:8080/api/customer/5 HTTP/1.1
+Content-Type: application/json
+
+{
+  "maskId": 5,
+  "material": "POLY_COT",
+  "style": "ATHLETIC",
+  "colors": [
+    "RED",
+    "GREEN"
+  ],
+  "cost": 12.00,
+  "isCustom": false,
+  "image": "Updated_image"
+}
+
+### should not update (conflict)
+
+PUT http://localhost:8080/api/customer/4 HTTP/1.1
+Content-Type: application/json
+
+{
+  "maskId": 5,
+  "material": "POLY_COT",
+  "style": "ATHLETIC",
+  "colors": [
+    "RED",
+    "GREEN"
+  ],
+  "cost": 12.00,
+  "isCustom": false,
+  "image": "Updated_image"
+}
+
+### should delete
+
+DELETE http://localhost:8080/api/customer/10 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb3ZpZF9jdXN0b21zIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2MTM2MTEwNDN9.RXvwyvIeL-dySgJMHEugXbhCuPBFJm2iRQ3ahQVsOfw
+
+### should not delete non existing
+
+DELETE http://localhost:8080/api/customer/997 HTTP/1.1
+
+
+### User login
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin1234!"
+}
+
+### account creation
+
+POST http://localhost:8080/api/customer/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+  "firstName": "fake_data",
+  "lastName": "fake_data",
+  "email": "admin",
+  "password": "admin1234!",
+  "address": "fake_data",
+  "phone": "fake_data",
+  "role": "fake_data"
+}

@@ -64,6 +64,28 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
     }
 
     @Override
+    public Customer findByEmail(String email) {
+        final String sql = "select" +
+                " c.customer_id," +
+                " c.first_name," +
+                " c.last_name," +
+                " c.email," +
+                " ua.user_password," +
+                " c.address," +
+                " c.phone," +
+                " c.user_role" +
+                " from customer c" +
+                " inner join user_account ua on c.customer_id = ua.customer_id" +
+                " where c.email = ?;";
+
+        Customer customer = jdbcTemplate.query(sql, new CustomerMapper(), email).stream()
+                .findAny().orElse(null);
+
+        return customer;
+    }
+
+
+    @Override
     @Transactional
     public Customer add(Customer customer) {
         final String customerSql = "insert into customer (first_name, last_name, email, address, phone, user_role) " +
@@ -135,7 +157,7 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
 
         final String sql = "select " +
                 "o.order_id, " +
-                "c.email, " +
+                "c.customer_id, " +
                 "sum(om.quantity*m.cost) as total, " +
                 "o.purchased, " +
                 "o.purchase_date " +
