@@ -38,7 +38,13 @@ class CustomerJdbcTemplateRepositoryTest {
 
         assertNotNull(actual);
         assertEquals("ADMIN", actual.getRole());
+    }
 
+    @Test
+    void shouldNotFindMissingId() {
+        Customer actual = repository.findById(11111111);
+
+        assertNull(actual);
     }
 
     @Test
@@ -59,12 +65,22 @@ class CustomerJdbcTemplateRepositoryTest {
     }
 
     @Test
+    void shouldNotUpdateMissingId() {
+        Customer customer = new Customer();
+        customer.setCustomerId(23456678);
+        assertFalse(repository.update(customer));
+    }
+
+    @Test
     void shouldDelete() {
         assertTrue(repository.deleteById(3));
         assertNull(repository.findById(3));
     }
 
-
+    @Test
+    void shouldNotDelete() {
+        assertFalse(repository.deleteById(33333333));
+    }
 
     private Customer createValidCustomer() {
         Customer customer = new Customer();
