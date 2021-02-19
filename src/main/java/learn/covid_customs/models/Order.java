@@ -1,11 +1,9 @@
 package learn.covid_customs.models;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -19,23 +17,22 @@ public class Order {
 
     @Getter
     @Setter
-    @Positive   //includes zero? make test
+   // @Positive   //includes zero? make test
     private int orderId;
 
     @Getter
     @Setter
-    @NotNull
+    @NotNull(message = "Customer cannot be null.")
     private Customer customer;
 
     @Getter
     @Setter
-    @NotNull
     private HashMap<Mask, Integer> masks;
 
     @Getter
     @Setter
-    @NotNull
-    @Min(value = 0, message = "Total must be zero or greater")
+    @NotNull(message = "Total cost cannot be null")
+    @Min(value = 0, message = "Total cost must be zero or greater.")
     private BigDecimal total;
 
     @Getter
@@ -44,6 +41,8 @@ public class Order {
 
     @Getter
     @Setter
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @PastOrPresent(message = "Purchase date must be in the past.")
     private LocalDate purchaseDate;
 
 }
