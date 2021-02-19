@@ -27,6 +27,12 @@ function Navbar({ cartCount }:any) {
                             <li className="nav-item">
                                 <Link to="/covidInfo" className="nav-link">Covid Info</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link to="/register" className="nav-link">Sign Up</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/login" className="nav-link">Login</Link>
+                            </li>
                             {/* <div>
                                 <li className="nav-item">
                                     <Link to="/shoppingCart" className="nav-link">
