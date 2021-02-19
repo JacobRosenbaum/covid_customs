@@ -10,6 +10,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -80,6 +81,12 @@ public class OrderService {
                 result.addMessage(violation.getMessage(), ResultType.INVALID);
             }
         }
+//        if (order.getPurchaseDate()!=null && order.getPurchaseDate().isAfter(LocalDate.now())) {
+//            result.addMessage("Purchase date must be in the past.", ResultType.INVALID);
+//        }
+        //Not for sure if I need to account for this
+        order.setPurchased(order.getPurchaseDate()!=null);
+
         return result;
     }
 

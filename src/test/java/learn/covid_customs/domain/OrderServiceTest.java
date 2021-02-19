@@ -1,6 +1,9 @@
 package learn.covid_customs.domain;
 
 import learn.covid_customs.data.OrderRepository;
+import learn.covid_customs.models.Customer;
+import learn.covid_customs.models.Mask;
+import learn.covid_customs.models.Order;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +12,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,34 +31,115 @@ class OrderServiceTest {
     OrderRepository repository;
 
     @Test
-    void shouldAddOrder() {}
+    void shouldNotAddIfNull(){
+        Result<Order> actual= service.add(null);
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("Order cannot null.", actual.getMessages().get(0));
+    }
 
     @Test
-    void shouldNotAddOrderIfCustomerNull() {}
+    void shouldAddOrder() {
+        Order orderIn= makeOrder();
+        Order orderOut= makeOrder();
+        orderOut.setOrderId(3);
+
+        when(repository.add(orderIn)).thenReturn(orderOut);
+        Result<Order> actual= service.add(orderIn);
+        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(orderOut, actual.getPayload());
+    }
 
     @Test
-    void shouldNotAddOrderIfPurchaseDateIsInFuture() {}
+    void shouldNotAddOrderIfCustomerNull() {
+        Order orderIn= makeOrder();
+        orderIn.setCustomer(null);
+        Result<Order> actual= service.add(orderIn);
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("Customer cannot be null.", actual.getMessages().get(0));
+    }
 
     @Test
-    void shouldNotAddOrderIfTotalCostIsNegative() {}
+    void shouldNotAddOrderIfPurchaseDateIsInFuture() {
+        Order orderIn= makeOrder();
+        orderIn.setPurchased(true);
+        orderIn.setPurchaseDate(LocalDate.now().plusDays(3));
+        Result<Order> actual= service.add(orderIn);
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("Purchase date must be in the past.", actual.getMessages().get(0));
+    }
 
     @Test
-    void shouldNotAddIfMasksIsNull() {}
+    void shouldNotAddOrderIfTotalCostIsNegative() {
+        Order orderIn= makeOrder();
+        orderIn.setTotal(new BigDecimal("-5"));
+        Result<Order> actual= service.add(orderIn);
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("Total cost must be zero or greater.", actual.getMessages().get(0));
+    }
 
     @Test
-    void shouldUpdate() {}
+    void shouldAddIfMasksIsEmptyHash() {
+        Order orderIn= makeOrder();
+        HashMap<Mask, Integer> maskMap= new HashMap<>();
+        orderIn.setMasks(maskMap);
+        Order orderOut= makeOrder();
+        orderOut.setMasks(maskMap);
+        orderOut.setOrderId(3);
+        when(repository.add(orderIn)).thenReturn(orderOut);
+        Result<Order> actual= service.add(orderIn);
+        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(orderOut, actual.getPayload());
+    }
 
     @Test
-    void shouldNotUpdateIfNotFound() {}
+    void shouldNotAddIfIdSet(){
+        Order orderIn= makeOrder();
+        orderIn.setOrderId(3);
+        Result<Order> actual= service.add(orderIn);
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("OrderId cannot be set for adding a order.", actual.getMessages().get(0));
+    }
 
     @Test
-    void shouldDelete() {}
+    void shouldUpdate() {
+        Order orderIn= makeOrder();
+        orderIn.setOrderId(3);
+        when(repository.update(orderIn)).thenReturn(true);
+        Result<Order> actual= service.update(orderIn);
+        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(orderIn, actual.getPayload());
+    }
 
     @Test
-    void shouldNotDeleteIfNotFound() {}
+    void shouldNotUpdateIfNotFound() {
+        Order orderIn= makeOrder();
+        orderIn.setOrderId(300);
+        when(repository.update(orderIn)).thenReturn(false);
+        Result<Order> actual= service.update(orderIn);
+        assertEquals(ResultType.NOT_FOUND, actual.getType());
+        assertEquals("Mask Id 300 not found.", actual.getMessages().get(0));
+    }
 
     @Test
-    void shouldNotAddIfOrderIsNull() {}
+    void shouldNotUpdateIfIdNotSet(){
+        Order orderIn= makeOrder();
+        Result<Order> actual= service.update(orderIn);
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("OrderId must be set for update a order.", actual.getMessages().get(0));
+    }
+
+    @Test
+    void shouldDelete() {
+        when(repository.deleteById(3)).thenReturn(true);
+        assertTrue(service.deleteById(3));
+    }
+
+    @Test
+    void shouldNotDeleteIfNotFound() {
+        when(repository.deleteById(300)).thenReturn(false);
+        assertFalse(service.deleteById(300));
+    }
+
 
     //May Not need the below
 //    @Test
@@ -62,4 +148,25 @@ class OrderServiceTest {
 //    @Test
 //    void shouldNotCalculateTotalWhenDateSet() {}
 
+    private Order makeOrder(){
+        Customer customer= new Customer();
+        customer.setCustomerId(1);
+        Order order= new Order();
+        order.setMasks(maskMap());
+        order.setCustomer(customer);
+        order.setPurchased(false);
+        order.setTotal(new BigDecimal(0));
+        return order;
+    }
+
+    private HashMap<Mask, Integer> maskMap(){
+        Mask mask1= new Mask();
+        mask1.setMaskId(1);
+        Mask mask2= new Mask();
+        mask2.setMaskId(2);
+        HashMap<Mask, Integer> maskMap= new HashMap<>();
+        maskMap.put(mask1, 3);
+        maskMap.put(mask2, 4);
+        return maskMap;
+    }
 }
