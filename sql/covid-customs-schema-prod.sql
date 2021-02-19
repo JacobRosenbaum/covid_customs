@@ -8,7 +8,8 @@ create table mask (
     style varchar(50) not null,
     cost decimal(10,2) not null,
     is_custom boolean not null,
-    image_link varchar(100) not null
+    image_link varchar(100) not null,
+    is_deleted boolean not null
 );
 
 create table color (

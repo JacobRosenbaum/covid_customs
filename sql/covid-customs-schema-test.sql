@@ -8,7 +8,8 @@ create table mask (
     style varchar(50) not null,
     cost decimal(10,2) not null,
     is_custom boolean not null,
-    image_link varchar(100) not null
+    image_link varchar(100) not null,
+    is_deleted boolean not null
 );
 
 create table color (
@@ -93,9 +94,10 @@ begin
    
 	
     insert into mask values
-    ( 1, "cotton", "athletic", 11.10, false, "imageURL-1"),
-    ( 2, "cotton", "athletic", 2.01, false, "imageURL-2"),
-    ( 3, "cotton", "athletic", 20.00, false, "imageURL-3");
+    ( 1, "cotton", "athletic", 11.10, false, "imageURL-1", false),
+    ( 2, "cotton", "athletic", 2.01, false, "imageURL-2", false),
+    ( 3, "cotton", "athletic", 20.00, false, "imageURL-3", false),
+    ( 4, "cotton", "athletic", 50.00, false, "imageURL-4", true);
     
     insert into color values
     ( 1, 1, "blue"),
@@ -167,7 +169,8 @@ select
     m.style,
     m.cost,
     m.is_custom,
-    m.image_link
+    m.image_link,
+    m.is_deleted
 from mask m;
 
 -- sql query for mask "color list"
@@ -189,8 +192,22 @@ inner join mask m on om.mask_id = m.mask_id
 group by order_id;
 
 -- sql query for order "mask list"
-select * from order_mask
-where order_id = 2; -- the number will need to be a variable in java
+select * from order_mask om
+-- inner join mask m on om.mask_id = m.mask_id
+where order_id = 1; -- the number will need to be a variable in java
     
     
+select
+	o.order_id,
+	c.customer_id, 
+	sum(om.quantity*m.cost) as total, 
+	o.purchased, 
+	o.purchase_date 
+from orders o 
+inner join customer c on o.customer_id = c.customer_id 
+inner join order_mask om on o.order_id = om.order_id 
+inner join mask m on om.mask_id = m.mask_id 
+-- where o.customer_id = 3
+group by order_id;
+
 
