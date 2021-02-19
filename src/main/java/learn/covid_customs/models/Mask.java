@@ -46,4 +46,8 @@ public class Mask {
     @NotNull(message = "Image cannot be null.")
     private String image;
 
+    @Getter
+    @Setter
+    private boolean isDeleted;
+
 }

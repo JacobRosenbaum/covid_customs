@@ -25,6 +25,8 @@ public class MaskService {
         return repository.findAll();
     }
 
+    public List<Mask> findAllAdmin(){ return repository.findAllAdmin();}
+
     public Mask findById(int maskId) {
         return repository.findById(maskId);
     }

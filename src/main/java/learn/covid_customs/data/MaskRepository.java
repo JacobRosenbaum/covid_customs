@@ -11,6 +11,8 @@ import java.util.List;
 public interface MaskRepository {
     List<Mask> findAll();
 
+    List<Mask> findAllAdmin();
+
     Mask findById(int maskId);
 
     List<Mask> findByColor(Color color);

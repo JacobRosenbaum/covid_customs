@@ -33,9 +33,9 @@ class MaskServiceTest {
     @Test
     void shouldAdd() {
         Mask maskIn = new Mask(0, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, "image", false);
         Mask maskOut = new Mask(5, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, "image",false);
 
         when(repository.add(maskIn)).thenReturn(maskOut);
 
@@ -54,7 +54,7 @@ class MaskServiceTest {
     @Test
     void shouldNotAddWhenMaskIdAbove0() {
         Mask maskIn = new Mask(1, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, "image",false);
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("MaskId cannot be set for adding a mask.", actual.getMessages().get(0));
@@ -64,7 +64,7 @@ class MaskServiceTest {
     void shouldNotAddIfColorEmpty() {
         List<Color> colors = new ArrayList<>();
         Mask maskIn = new Mask(0, Material.COTTON, Style.OVER_EAR, colors, new BigDecimal("5.00"),
-                false, "image");
+                false, "image",false);
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("Colors cannot be empty.", actual.getMessages().get(0));
@@ -73,7 +73,7 @@ class MaskServiceTest {
     @Test
     void shouldNotAddIfColorNull() {
         Mask maskIn = new Mask(0, Material.COTTON, Style.OVER_EAR, null, new BigDecimal("5.00"),
-                false, "image");
+                false, "image", false);
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("Colors cannot be empty.", actual.getMessages().get(0));
@@ -82,7 +82,7 @@ class MaskServiceTest {
     @Test
     void shouldNotAddIfMaterialNull() {
         Mask maskIn = new Mask(0, null, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, "image",false);
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("Material cannot be null.", actual.getMessages().get(0));
@@ -91,7 +91,7 @@ class MaskServiceTest {
     @Test
     void shouldNotAddIfStyleNull() {
         Mask maskIn = new Mask(0, Material.COTTON, null, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, "image",false);
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("Style cannot be null.", actual.getMessages().get(0));
@@ -100,7 +100,7 @@ class MaskServiceTest {
     @Test
     void shouldNotAddIfCostNegative() {
         Mask maskIn = new Mask(0, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("-5.00"),
-                false, "image");
+                false, "image",false);
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("Cost cannot be a negative number.", actual.getMessages().get(0));
@@ -109,7 +109,7 @@ class MaskServiceTest {
     @Test
     void shouldNotAddIfImageTagNull() {
         Mask maskIn = new Mask(0, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, null);
+                false, null,false);
         Result<Mask> actual = service.add(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("Image cannot be null.", actual.getMessages().get(0));
@@ -118,7 +118,7 @@ class MaskServiceTest {
     @Test
     void shouldUpdate() {
         Mask maskIn = new Mask(1, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, "image",false);
         when(repository.update(maskIn)).thenReturn(true);
         Result<Mask> actual = service.update(maskIn);
         assertEquals(ResultType.SUCCESS, actual.getType());
@@ -127,7 +127,7 @@ class MaskServiceTest {
     @Test
     void shouldNotAddWhenMaskIdNotSet() {
         Mask maskIn = new Mask(0, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, "image",false);
         Result<Mask> actual = service.update(maskIn);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("MaskId must be set for update a mask.", actual.getMessages().get(0));
@@ -136,7 +136,7 @@ class MaskServiceTest {
     @Test
     void shouldNotUpdateIfNotFound() {
         Mask maskIn = new Mask(2, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
-                false, "image");
+                false, "image",false);
         when(repository.update(maskIn)).thenReturn(false);
         Result<Mask> actual = service.update(maskIn);
         assertEquals(ResultType.NOT_FOUND, actual.getType());

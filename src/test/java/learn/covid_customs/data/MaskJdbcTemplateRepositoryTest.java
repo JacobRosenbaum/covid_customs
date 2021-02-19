@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class MaskJdbcTemplateRepositoryTest {
 
-    final static int NEXT_ID = 4;
+    final static int NEXT_ID = 5;
 
     @Autowired
     MaskJdbcTemplateRepository repository;
@@ -33,12 +33,21 @@ class MaskJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindAllMasks() {
+    void shouldFindMasksOnlyNotDeleted() {
         List<Mask> actual = repository.findAll();
         assertNotNull(actual);
-        assertTrue(actual.size() >= 3);
+        assertTrue(actual.size() >= 2);
         assertEquals(actual.get(0).getStyle().getName(), "Athletic");
     }
+
+    @Test
+    void shouldFindAllMaskEvenDeleted(){
+        List<Mask> actual = repository.findAllAdmin();
+        assertNotNull(actual);
+        assertTrue(actual.size() >= 3);
+        assertTrue(actual.size() > repository.findAll().size());
+    }
+
 
     @Test
     void shouldFindByMaskId() {
@@ -83,9 +92,9 @@ class MaskJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindByMaterial() {
-        List<Mask> actual = repository.findByMaterial(Material.POLYESTER);
+        List<Mask> actual = repository.findByMaterial(Material.COTTON);
         assertNotNull(actual);
-        assertTrue(actual.size() >= 2);
+        assertTrue(actual.size() >= 1);
         assertEquals(actual.get(0).getCost().doubleValue(), 11.10);
     }
 
@@ -122,8 +131,12 @@ class MaskJdbcTemplateRepositoryTest {
 
     @Test
     void shouldDelete() {
+        int startSize= repository.findAll().size();
+        int unchangedMaskSize= repository.findAllAdmin().size();
         assertTrue(repository.deleteById(3));
         assertFalse(repository.deleteById(3));
+        assertEquals(repository.findAll().size(), startSize-1);
+        assertEquals(repository.findAllAdmin().size(), unchangedMaskSize);
     }
 
     @Test
@@ -143,6 +156,7 @@ class MaskJdbcTemplateRepositoryTest {
         mask.setCost(new BigDecimal("12.50"));
         mask.setImage("Image Placeholder Text");
         mask.setColors(colors);
+        mask.setDeleted(false);
 
         return mask;
     }
