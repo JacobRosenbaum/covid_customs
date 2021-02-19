@@ -53,7 +53,13 @@ class CustomerJdbcTemplateRepositoryTest {
 
         assertNotNull(actual);
         assertEquals("ADMIN", actual.getRole());
+    }
 
+    @Test
+    void shouldNotFindMissingEmail() {
+        Customer actual = repository.findByEmail("austsdfwfwefefewin@aol.com");
+
+        assertNull(actual);
     }
 
     @Test
