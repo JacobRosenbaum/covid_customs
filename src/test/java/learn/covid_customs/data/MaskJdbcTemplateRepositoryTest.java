@@ -104,7 +104,7 @@ class MaskJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldUpdate(){
+    void shouldUpdate() {
         List<Color> colors = new ArrayList<>();
         colors.add(Color.ORANGE);
         colors.add(Color.RED);

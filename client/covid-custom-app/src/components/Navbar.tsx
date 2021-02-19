@@ -12,7 +12,9 @@ function Navbar({ cartCount }:any) {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
+                        <ul className="navbar-nav" 
+                        // style={{marginTop: "35px"}}
+                        >
                             {/* <li className="nav-item">
                             <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                             </li> */}
@@ -25,7 +27,7 @@ function Navbar({ cartCount }:any) {
                             <li className="nav-item">
                                 <Link to="/covidInfo" className="nav-link">Covid Info</Link>
                             </li>
-                            <div>
+                            {/* <div>
                                 <li className="nav-item">
                                     <Link to="/shoppingCart" className="nav-link">
                                         <span className="fa-stack fa-2x has-badge" data-count={cartCount}>
@@ -33,7 +35,7 @@ function Navbar({ cartCount }:any) {
                                         </span>
                                     </Link>
                                 </li>
-                            </div>
+                            </div> */}
                         </ul>
                     </div>
                 </div>

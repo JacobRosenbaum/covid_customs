@@ -91,7 +91,9 @@ function Mask() {
                     <div className="row flexContainer">
                         {filteredMasks.length ? filteredMasks.map(mask => (
                             <div key={mask.maskId} className="col-sm-6 col-m-4 col-12 maskImage">
-                                <img id='mask' className="img" src={process.env.PUBLIC_URL + mask.image} alt="Mask" />
+                                <img
+                                onClick={() => (addToCart(mask))}
+                                 id='mask' className="img" src={process.env.PUBLIC_URL + mask.image} alt="Mask" />
                                 <p>
                                     ${mask.cost}
                                 </p>
