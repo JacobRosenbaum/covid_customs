@@ -125,6 +125,15 @@ class MaskServiceTest {
     }
 
     @Test
+    void shouldNotAddWhenMaskIdNotSet() {
+        Mask maskIn = new Mask(0, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
+                false, "image");
+        Result<Mask> actual = service.update(maskIn);
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("MaskId must be set for update a mask.", actual.getMessages().get(0));
+    }
+
+    @Test
     void shouldNotUpdateIfNotFound() {
         Mask maskIn = new Mask(2, Material.COTTON, Style.OVER_EAR, listOfColors(), new BigDecimal("5.00"),
                 false, "image");
