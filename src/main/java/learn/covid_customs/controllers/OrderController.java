@@ -38,15 +38,11 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
-//    @GetMapping("/customer/{customerId}")
-//    public ResponseEntity<Order> findByCustomerId(@PathVariable int customerId) {
-//        Order order = orderService.findByCustomerId(customerId);
-//
-//        if (order == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return ResponseEntity.ok(order);
-//    }
+
+    @GetMapping("/customer/{customerId}")
+    public List<Order> findByCustomerId(@PathVariable int customerId) {
+        return orderService.findByCustomerId(customerId);
+    }
 
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody @Valid Order order) {
@@ -79,3 +75,4 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
+

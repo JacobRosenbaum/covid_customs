@@ -5,7 +5,8 @@
 .title {
     color: gray;
     text-align: center;
-    font-size: 60px !important
+    font-size: 60px !important;
+    margin-top: 160px !important
 }
 
 img {

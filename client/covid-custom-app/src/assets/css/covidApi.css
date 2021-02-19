@@ -1,0 +1,23 @@
+#covidTitle {
+    margin-top: 150px !important;
+    color: firebrick !important
+}
+
+#table {
+    text-align: center;
+    overflow-y: scroll;
+    height: 550px !important;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    font-weight: bolder;
+    z-index: 100;
+    background-color: firebrick !important;
+    color: white
+}
+
+tr {
+    z-index: 0;
+}
