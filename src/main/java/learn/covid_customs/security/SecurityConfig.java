@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
+                .antMatchers("/create_account").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers(HttpMethod.GET,  "api/mask/*", "/api/mask").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/mask").hasRole("ADMIN")
@@ -44,24 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
-    }
-
-    @Autowired
-    private PasswordEncoder encoder;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        var userBuilder = User.withUsername("user")
-                .password("user").passwordEncoder(password -> encoder.encode(password))
-                .roles("USER");
-
-        var adminBuilder = User.withUsername("admin")
-                .password("admin").passwordEncoder(password -> encoder.encode(password))
-                .roles("ADMIN");
-
-        auth.inMemoryAuthentication()
-                .withUser(userBuilder)
-                .withUser(adminBuilder);
     }
 
     @Bean

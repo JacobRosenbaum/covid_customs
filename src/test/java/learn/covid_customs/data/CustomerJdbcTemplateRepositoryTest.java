@@ -42,6 +42,15 @@ class CustomerJdbcTemplateRepositoryTest {
     }
 
     @Test
+    void shouldFindByEmail() {
+        Customer actual = repository.findByEmail("austin@aol.com");
+
+        assertNotNull(actual);
+        assertEquals("ADMIN", actual.getRole());
+
+    }
+
+    @Test
     void shouldAdd() {
         Customer actual = repository.add(createValidCustomer());
 

@@ -1,11 +1,11 @@
 package learn.covid_customs.models;
 
+import learn.covid_customs.validation.NoDuplicateEmail;
+import learn.covid_customs.validation.PasswordStrength;
 import lombok.*;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,10 +31,12 @@ public class Customer {
     @Setter
     @NotNull
     @Email(message = "Invalid Email Address")
+    @NoDuplicateEmail
     private String email;
 
     @Getter
     @Setter
+    @PasswordStrength
     private String password;
 
     @Getter

@@ -30,7 +30,7 @@ public class OrderController {
 
     @GetMapping("/{orderId}")
     public ResponseEntity<Order> findByOrderId(@PathVariable int orderId) {
-        Order order = orderService.findByOrderId(orderId);
+        Order order = orderService.findById(orderId);
 
         if (order == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -38,15 +38,15 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
-    @GetMapping("/customer/{customerId}")
-    public ResponseEntity<Order> findByCustomerId(@PathVariable int customerId) {
-        Order order = orderService.findByCustomerId(customerId);
-
-        if (order == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(order);
-    }
+//    @GetMapping("/customer/{customerId}")
+//    public ResponseEntity<Order> findByCustomerId(@PathVariable int customerId) {
+//        Order order = orderService.findByCustomerId(customerId);
+//
+//        if (order == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return ResponseEntity.ok(order);
+//    }
 
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody @Valid Order order) {

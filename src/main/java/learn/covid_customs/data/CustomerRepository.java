@@ -11,6 +11,8 @@ public interface CustomerRepository {
 
     Customer findById(int customerId);
 
+    Customer findByEmail(String email);
+
     @Transactional
     Customer add(Customer customer);
 
