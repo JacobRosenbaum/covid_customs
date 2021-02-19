@@ -10,6 +10,7 @@ import java.util.List;
 
 @EqualsAndHashCode
 @AllArgsConstructor
+@ToString
 @NoArgsConstructor
 public class Mask {
     @Getter
