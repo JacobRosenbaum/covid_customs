@@ -31,7 +31,10 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
                 " c.last_name," +
                 " c.email," +
                 " ua.user_password," +
-                " c.address," +
+                " c.address_line," +
+                " c.city," +
+                " c.state," +
+                " c.zip_code," +
                 " c.phone," +
                 " c.user_role" +
                 " from customer c" +
@@ -50,7 +53,10 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
                 " c.last_name," +
                 " c.email," +
                 " ua.user_password," +
-                " c.address," +
+                " c.address_line," +
+                " c.city," +
+                " c.state," +
+                " c.zip_code," +
                 " c.phone," +
                 " c.user_role" +
                 " from customer c" +
@@ -71,7 +77,10 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
                 " c.last_name," +
                 " c.email," +
                 " ua.user_password," +
-                " c.address," +
+                " c.address_line," +
+                " c.city," +
+                " c.state," +
+                " c.zip_code," +
                 " c.phone," +
                 " c.user_role" +
                 " from customer c" +
@@ -88,8 +97,9 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
     @Override
     @Transactional
     public Customer add(Customer customer) {
-        final String customerSql = "insert into customer (first_name, last_name, email, address, phone, user_role) " +
-                                "values (?,?,?,?,?,?);";
+        final String customerSql = "insert into customer (first_name, last_name, email, " +
+                "address_line, city, state, zip_code, phone, user_role) " +
+                                "values (?,?,?,?,?,?,?,?,?);";
         final String accountSql = "insert into user_account (customer_id, username, user_password) " +
                                     "values (?,?,?);";
 
@@ -99,9 +109,12 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
             ps.setString(1, customer.getFirstName());
             ps.setString(2, customer.getLastName());
             ps.setString(3, customer.getEmail());
-            ps.setString(4, customer.getAddress());
-            ps.setString(5, customer.getPhone());
-            ps.setString(6, customer.getRole());
+            ps.setString(4, customer.getAddressLine());
+            ps.setString(5, customer.getCity());
+            ps.setString(6, customer.getState());
+            ps.setInt(7, customer.getZipCode());
+            ps.setString(8, customer.getPhone());
+            ps.setString(9, customer.getRole());
             return ps;
         }, keyHolder);
 
@@ -138,7 +151,10 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
                 "last_name = ?, " +
                 "email = ?, " +
                 "phone = ?, " +
-                "address = ?, " +
+                "address_line = ?, " +
+                "city = ?, " +
+                "state = ?, " +
+                "zip_code = ?, " +
                 "user_role = ? " +
                 "where customer_id = ?;";
         return jdbcTemplate.update(customerSql,
@@ -146,7 +162,10 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository{
                 customer.getLastName(),
                 customer.getEmail(),
                 customer.getPhone(),
-                customer.getAddress(),
+                customer.getAddressLine(),
+                customer.getCity(),
+                customer.getState(),
+                customer.getZipCode(),
                 customer.getRole(),
                 customer.getCustomerId()) > 0;
     }

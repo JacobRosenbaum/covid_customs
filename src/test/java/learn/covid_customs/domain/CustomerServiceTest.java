@@ -71,7 +71,7 @@ class CustomerServiceTest {
 
         //address
         customer = makeCustomer();
-        customer.setAddress(null);
+        customer.setAddressLine(null);
         result = service.add(customer);
         assertEquals("Address required", result.getMessages().get(0));
 
@@ -156,7 +156,10 @@ class CustomerServiceTest {
         customer.setLastName("lastName");
         customer.setEmail("email@email.com");
         customer.setPassword("password1234!");
-        customer.setAddress("address");
+        customer.setAddressLine("test address");
+        customer.setCity("tesCity");
+        customer.setZipCode(55414);
+        customer.setState("MN");
         customer.setPhone("phone");
         return customer;
     }
