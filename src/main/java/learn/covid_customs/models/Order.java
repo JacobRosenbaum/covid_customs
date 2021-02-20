@@ -27,7 +27,7 @@ public class Order {
 
     @Getter
     @Setter
-    private HashMap<Mask, Integer> masks;
+    private List<MaskOrders> masks;
 
     @Getter
     @Setter

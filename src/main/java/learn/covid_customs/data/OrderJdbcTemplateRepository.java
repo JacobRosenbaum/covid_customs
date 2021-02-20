@@ -3,6 +3,7 @@ package learn.covid_customs.data;
 import learn.covid_customs.data.mappers.*;
 import learn.covid_customs.models.Customer;
 import learn.covid_customs.models.Mask;
+import learn.covid_customs.models.MaskOrders;
 import learn.covid_customs.models.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -154,22 +156,16 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
     }
 
     private void addMasks(Order order) {
-        //System.out.println("First Round!");
         final String sql = "select * from order_mask om " +
                 "inner join mask m on om.mask_id = m.mask_id " +
                 "where order_id = ?;";
         List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), order.getOrderId());
-        HashMap<Mask, Integer> map = new HashMap<>();
+        List<MaskOrders> maskOrdersList = new ArrayList<>();
         for (Mask mask : masks) {
-//            if (map.containsKey(mask)) {
-//                int value = map.get(mask);
-//                map.replace(mask, findQuantity(mask.getMaskId(), order.getOrderId()) + value);
-//            }
-           System.out.println("OrderID: " +order.getOrderId()+ "\nMask: "+ mask);
-            map.put(mask, findQuantity(mask.getMaskId(), order.getOrderId()));
-          //  System.out.println("Quantity: "+ map.get(mask));
+            MaskOrders maskOrder= new MaskOrders(mask.getMaskId(), findQuantity(mask.getMaskId(), order.getOrderId()));
+            maskOrdersList.add(maskOrder);
         }
-        order.setMasks(map);
+        order.setMasks(maskOrdersList);
     }
 
     private int findQuantity(int maskId, int orderId) {
@@ -195,9 +191,9 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
     }
 
     private void addingToOrderMaskTable(Order order) {
-        HashMap<Mask, Integer> map = order.getMasks();
-        for (Mask mask : map.keySet()) {
-            addOrderMask(order.getOrderId(), mask.getMaskId(), map.get(mask));
+        List<MaskOrders> maskOrdersList = order.getMasks();
+        for (MaskOrders maskOrders : maskOrdersList) {
+            addOrderMask(order.getOrderId(), maskOrders.getMaskId(), maskOrders.getQuantity());
         }
     }
 

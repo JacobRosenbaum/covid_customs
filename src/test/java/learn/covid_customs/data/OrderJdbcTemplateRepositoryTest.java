@@ -116,15 +116,10 @@ class OrderJdbcTemplateRepositoryTest {
         return order;
     }
 
-    private HashMap<Mask, Integer> maskMap(){
-        Mask mask1= new Mask();
-        mask1.setMaskId(1);
-        Mask mask2= new Mask();
-        mask2.setMaskId(2);
-        HashMap<Mask, Integer> maskMap= new HashMap<>();
-        maskMap.put(mask1, 3);
-        maskMap.put(mask2, 4);
-        return maskMap;
+    private List<MaskOrders> maskMap(){
+        MaskOrders mask1= new MaskOrders(1, 3);
+        MaskOrders mask2= new MaskOrders(2, 4);
+        return List.of(mask1, mask2);
     }
 
 }
