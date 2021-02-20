@@ -1,6 +1,9 @@
 ### findAll
 GET http://localhost:8080/api/mask HTTP/1.1
 
+###
+GET http://localhost:8080/api/mask/admin HTTP/1.1
+
 ### should findById
 
 GET http://localhost:8080/api/mask/1 HTTP/1.1

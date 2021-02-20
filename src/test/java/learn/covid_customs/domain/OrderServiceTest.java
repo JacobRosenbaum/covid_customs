@@ -3,6 +3,7 @@ package learn.covid_customs.domain;
 import learn.covid_customs.data.OrderRepository;
 import learn.covid_customs.models.Customer;
 import learn.covid_customs.models.Mask;
+import learn.covid_customs.models.MaskOrders;
 import learn.covid_customs.models.Order;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.Test;
@@ -14,12 +15,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -80,7 +79,7 @@ class OrderServiceTest {
     @Test
     void shouldAddIfMasksIsEmptyHash() {
         Order orderIn= makeOrder();
-        HashMap<Mask, Integer> maskMap= new HashMap<>();
+        List<MaskOrders> maskMap= new ArrayList<>();
         orderIn.setMasks(maskMap);
         Order orderOut= makeOrder();
         orderOut.setMasks(maskMap);
@@ -159,14 +158,9 @@ class OrderServiceTest {
         return order;
     }
 
-    private HashMap<Mask, Integer> maskMap(){
-        Mask mask1= new Mask();
-        mask1.setMaskId(1);
-        Mask mask2= new Mask();
-        mask2.setMaskId(2);
-        HashMap<Mask, Integer> maskMap= new HashMap<>();
-        maskMap.put(mask1, 3);
-        maskMap.put(mask2, 4);
-        return maskMap;
+    private List<MaskOrders> maskMap(){
+        MaskOrders mask1= new MaskOrders(1, 3);
+        MaskOrders mask2= new MaskOrders(2, 4);
+        return List.of(mask1, mask2);
     }
 }
