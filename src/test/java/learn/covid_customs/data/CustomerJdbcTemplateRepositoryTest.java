@@ -103,7 +103,10 @@ class CustomerJdbcTemplateRepositoryTest {
         customer.setLastName("testing");
         customer.setEmail("test@test.com");
         customer.setPassword("test password");
-        customer.setAddress("test address");
+        customer.setAddressLine("test address");
+        customer.setCity("tesCity");
+        customer.setZipCode(55414);
+        customer.setState("MN");
         customer.setPhone("1-800-testing");
         customer.setRole("ADMIN");
         return customer;

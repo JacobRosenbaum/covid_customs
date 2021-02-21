@@ -29,7 +29,10 @@ create table customer (
     last_name varchar(50) not null,
     email varchar(50) not null,
     phone varchar(50) not null,
-    address varchar(100) not null,
+    address_line varchar(100) not null,
+    city varchar(50) not null,
+    state varchar(2) not null,
+    zip_code int not null,
     user_role varchar(50) not null,
     constraint uq_email
 		unique (email)
@@ -108,9 +111,9 @@ begin
     ( 3, 2, "green");
     
     insert into customer values
-	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW", "ADMIN"),
-    (2, "SythJacob", "Rosenbaum", "jacob@yahoo.com","111-111-1111","that's no moon...", "USER"),
-    (3, "Kendra", "Krosch", "kk@covidCustoms.com", "222-222-2222", "Colorful Colorado", "USER");
+	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW", "Minneapolis", "MN", 55414, "ADMIN"),
+    (2, "SythJacob", "Rosenbaum", "jacob@yahoo.com","111-111-1111","that's no moon...", "Minneapolis", "MN", 55414, "USER"),
+    (3, "Kendra", "Krosch", "kk@covidCustoms.com", "222-222-2222", "Colorful Colorado", "Minneapolis", "MN", 55414, "USER");
     
     insert into orders values
     ( 1, 1, false, null),
@@ -154,12 +157,15 @@ select
     c.last_name,
     c.email,
     ua.user_password,
-    c.address,
+    c.address_line,
+    c.city,
+    c.state,
+    c.zip_code,
     c.phone,
     c.user_role
 from customer c
-inner join user_account ua on c.customer_id = ua.customer_id
-where c.customer_id = 1;
+inner join user_account ua on c.customer_id = ua.customer_id;
+-- where c.customer_id = 1;
 
 
 -- sql query for mask model less color list

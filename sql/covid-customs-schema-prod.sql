@@ -29,7 +29,10 @@ create table customer (
     last_name varchar(50) not null,
     email varchar(50) not null,
     phone varchar(50) not null,
-    address varchar(100) not null,
+    address_line varchar(100) not null,
+    city varchar(50) not null,
+    state varchar(2) not null,
+    zip_code int not null,
     user_role varchar(50) not null,
     constraint uq_email
 		unique (email)
