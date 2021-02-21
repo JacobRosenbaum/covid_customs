@@ -4,6 +4,7 @@ import Errors from './Errors';
 import AuthContext from './AuthContext';
 import Navbar from './Navbar';
 import '../assets/css/register.css';
+import Modal from 'react-modal';
 
 
 function Register() {
@@ -11,6 +12,7 @@ function Register() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordShown, setPasswordShown] = useState(false);
     const [errors, setErrors] = useState<any>([]);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -19,8 +21,37 @@ function Register() {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zipCode, setZipCode] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
 
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: "550px",
+            height: "550px",
+            fontSize: "24px",
+            marginTop: "20px",
+            backgroundColor: "lightslategray",
+            color: "white",
+            borderColor: "firebrick",
+            borderRadius: "6px",
+            border: ".5px solid white",
+            padding: 5
+        }
+    };
+
+    function closeModal() {
+        setModalIsOpen(false);
+    }
+
+    function openModel() {
+        setModalIsOpen(true);
+    }
 
     const history = useHistory();
 
@@ -61,58 +92,68 @@ function Register() {
 
     }
 
+    const togglePasswordVisiblity = () => {
+        setPasswordShown(passwordShown ? false : true);
+    };
+
     return (
-        <>
+        <div id='body'>
             <Navbar />
             <div id='register-page' className='jumbotron'>
-                <h2 id='signUp'>Sign Up</h2>
+                <h3 className='signUp'>Hey There! </h3>
+                <h4 className='signUp'>
+                    Let's get you started with your FREE account
+                </h4>
                 <Errors errors={errors} />
-                {/* <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Username:</label>
-                        <input type="text" onChange={(event) => setUsername(event.target.value)} />
+                <div className='row flexContainer'>
+                    <div className="form-group col-sm-6 col-m-4 col-12 firstForm">
+                        <input className='form-control' id='lastName' type="email" onChange={(event) => setUsername(event.target.value)} placeholder='Email' />
+                        <div>
+                            <input className='form-control' id='lastName' type={passwordShown ? "text" : "password"} onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
+                            <i onClick={togglePasswordVisiblity} id='eye' className="fa fa-eye"></i>
+                        </div>
                     </div>
-                    <div>
-                        <label>Password:</label>
-                        <input type="password" onChange={(event) => setPassword(event.target.value)} />
-                    </div>
-                    <div>
-                        <button type="submit">Register</button>
-                        <Link to={'/login'}>I already have a Login</Link>
-                    </div>
-                </form> */}
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <input type="text" onChange={(event) => setFirstName(event.target.value)} placeholder='First Name' />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" onChange={(event) => setLastName(event.target.value)} placeholder='Last Name' />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" onChange={(event) => setAddress(event.target.value)} placeholder='Address Name' />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" onChange={(event) => setCity(event.target.value)} placeholder='Address Name' />
-                    </div>
-                                        <div className="form-group">
-                        <input type="text" onChange={(event) => setState(event.target.value)} placeholder='Address Name' />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" onChange={(event) => setZipCode(event.target.value)} placeholder='Address Name' />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" onChange={(event) => setPhone(event.target.value)} placeholder='Phone Number' />
-                    </div>
-                    <div className="form-group">
-                        <input type="text" onChange={(event) => setUsername(event.target.value)} placeholder='Username' />
-                    </div>
-                    <div className="form-group">
-                        <input type="password" onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
-                    </div>
-                    <button type="submit" className="btn btn-primary justify-content-center submitButton">Submit</button>
-                </form>
+                </div>
+                <button
+                    onClick={openModel}
+                    className="btn btn-primary create">Create my Account!</button>
+                <h5 className='signUp'>
+                    Already have an account with us? <Link to={'/login'}> <span id='clickHere'>Login</span> </Link>
+                </h5>
+
+                <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    style={customStyles}
+                    ariaHideApp={false} >
+                    <i id="close" className="fa fa-times" onClick={closeModal}></i>
+                    <h1 className='modalTitle'>
+                        Just a bit more info!
+                    </h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className='row flexContainer'>
+                            <div className="form-group col-sm-6 col-m-4 col-12">
+                                <input onChange={e => { setFirstName(e.target.value); console.log('first ' + e.target.value) }}
+                                    type="text" className="form-control" placeholder="First name" />
+                                <input onChange={e => { setLastName(e.target.value); console.log('last ' + e.target.value) }}
+                                    type="text" className="form-control" placeholder="Last name" />
+                                <input onChange={e => { setAddress(e.target.value); console.log('address ' + e.target.value) }}
+                                    type="text" className="form-control" placeholder="Address" />
+                                <input onChange={e => { setCity(e.target.value); console.log('city ' + e.target.value) }}
+                                    type="text" className="form-control" placeholder="City" />
+                                <input onChange={e => { setState(e.target.value); console.log('state ' + e.target.value) }}
+                                    type="text" className="form-control" placeholder="State" />
+                                <input onChange={e => { setZipCode(e.target.value); console.log('zip ' + e.target.value) }}
+                                    type="text" className="form-control" placeholder="Zip code" />
+                                <input onChange={e => { setPhone(e.target.value); console.log('phone ' + e.target.value) }}
+                                    type="text" className="form-control" placeholder="Phone number" />
+                            </div>
+                        </div>
+                        <button type='submit' className="btn btn-primary submitButton">Submit</button>
+                    </form>
+                </Modal>
             </div>
-        </>
+        </div>
     );
 }
 

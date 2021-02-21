@@ -12,6 +12,7 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState<any>([]);
+    const [passwordShown, setPasswordShown] = useState(false);
 
     const history = useHistory();
     const location = useLocation();
@@ -29,6 +30,10 @@ function Login() {
         }
     }
 
+    const togglePasswordVisiblity = () => {
+        setPasswordShown(passwordShown ? false : true);
+    };
+
     return (
         <>
             <Navbar />
@@ -36,18 +41,16 @@ function Login() {
                 <h2>Login</h2>
                 <Errors errors={errors} />
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Username:</label>
-                        <input type="text" onChange={(event) => setUsername(event.target.value)} />
+                    <div className='row flexContainer'>
+                        <div className="form-group col-sm-6 col-m-4 col-12 firstForm">
+                            <input className='form-control' id='lastName' type="email" onChange={(event) => setUsername(event.target.value)} placeholder='Email' />
+                            <div>
+                                <input className='form-control' id='lastName' type={passwordShown ? "text" : "password"} onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
+                                <i onClick={togglePasswordVisiblity} id='eye' className="fa fa-eye"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label>Password:</label>
-                        <input type="password" onChange={(event) => setPassword(event.target.value)} />
-                    </div>
-                    <div>
-                        <button type="submit">Login</button>
-                        <Link to={from}>Cancel</Link>
-                    </div>
+                    <button type='submit' className="btn btn-primary create">Login</button>
                 </form>
             </div>
         </>

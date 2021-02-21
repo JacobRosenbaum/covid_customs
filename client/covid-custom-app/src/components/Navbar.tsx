@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import '../assets/css/navbar.css';
+import AuthContext from './AuthContext';
+import { useContext } from 'react';
 
-function Navbar({ cartCount }:any) {
+
+function Navbar({ cartCount }: any) {
+    const auth = useContext(AuthContext);
     return (
         <>
+
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">CovidCustoms</Link>
@@ -12,12 +17,18 @@ function Navbar({ cartCount }:any) {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav" 
+                        <ul className="navbar-nav"
                         // style={{marginTop: "35px"}}
                         >
                             {/* <li className="nav-item">
                             <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                             </li> */}
+                            {auth.user && (
+                                <div>
+                                    <p>Hello {auth.user.username}!</p>
+                                    <button onClick={auth.logout}>Logout</button>
+                                </div>
+                            )}
                             <li className="nav-item">
                                 <Link to="/shopMask" className="nav-link">Shop</Link>
                             </li>
@@ -27,12 +38,22 @@ function Navbar({ cartCount }:any) {
                             <li className="nav-item">
                                 <Link to="/covidInfo" className="nav-link">Covid Info</Link>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link to="/register" className="nav-link">Sign Up</Link>
                             </li>
                             <li className="nav-item">
                                 <Link to="/login" className="nav-link">Login</Link>
-                            </li>
+                            </li> */}
+                            {!auth.user && (
+                                <>
+                                    <li className="nav-item">
+                                        <Link to="/login">Login</Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link to="/register">Sign Up</Link>
+                                    </li>
+                                </>
+                            )}
                             <div>
                                 <li className="nav-item">
                                     <Link to="/shoppingCart" className="nav-link">

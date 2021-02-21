@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import './assets/css/app.css'
 
 import jwt_decode from 'jwt-decode';
 import About from './components/About';
