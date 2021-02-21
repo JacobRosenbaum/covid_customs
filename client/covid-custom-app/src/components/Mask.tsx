@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import '../assets/css/Mask.css';
+import '../assets/css/mask.css';
 import Navbar from './Navbar';
 
 function Mask() {

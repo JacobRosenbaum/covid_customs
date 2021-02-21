@@ -33,7 +33,7 @@ function Navbar({ cartCount }:any) {
                             <li className="nav-item">
                                 <Link to="/login" className="nav-link">Login</Link>
                             </li>
-                            {/* <div>
+                            <div>
                                 <li className="nav-item">
                                     <Link to="/shoppingCart" className="nav-link">
                                         <span className="fa-stack fa-2x has-badge" data-count={cartCount}>
@@ -41,7 +41,7 @@ function Navbar({ cartCount }:any) {
                                         </span>
                                     </Link>
                                 </li>
-                            </div> */}
+                            </div>
                         </ul>
                     </div>
                 </div>
