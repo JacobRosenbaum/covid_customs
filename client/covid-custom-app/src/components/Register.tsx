@@ -76,7 +76,7 @@ function Register() {
                 })
             })
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 try {
                     await auth.authenticate(username, password);
                     history.push('/');
@@ -86,10 +86,13 @@ function Register() {
             }
             else {
                 console.log(response);
+                setErrors(['Please try again']);
+                closeModal();
                 // setErrors(response);
             }
         } catch (err: any) {
             setErrors([err.message]);
+            closeModal();
         }
 
     }
