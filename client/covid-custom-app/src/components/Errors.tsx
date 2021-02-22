@@ -1,7 +1,7 @@
 function Errors({ errors }:any) {
     
     if (errors.length === 0) {
-      return null;
+      return (<></>);
     }
   
     return (
