@@ -68,9 +68,11 @@ function Register() {
                     lastName,
                     email: username,
                     password: password,
-                    address,
+                    addressLine: address,
+                    city, 
+                    state,
+                    zipCode,
                     phone,
-                    role: ''
                 })
             })
 

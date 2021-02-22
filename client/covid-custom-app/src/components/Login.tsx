@@ -24,7 +24,9 @@ function Login() {
         console.log(username, password);
 
         try {
-            await auth.authenticate(username, password);
+            await auth.authenticate(username, password)
+            // .then(auth.findCustomerByCustomerEmail())
+            // .then(auth.findOrderByCustomerId())
             history.push(from);
         } catch (err) {
             setErrors([err.message]);
