@@ -12,40 +12,31 @@
 import React from 'react';
 
 export interface AuthContextInterface {
-  authenticate: any;
-  user: any
-  logout: any;
-  customerId: number;
-  orderId: number
-//   checkingSession: boolean;
-//   token: string | null;
-//   idToken: string | null;
-//   expiresAt: number | null;
-//   isAuthenticated: boolean;
-//   handleAuthentication: () => void;
-//   login: () => void;
-//   logout: () => void;
+    authenticate: any;
+    findCustomerByCustomerEmail: any;
+    findOrderByCustomerId: any;
+    user: any
+    logout: any;
+    customerId: number;
+    orderId: number;
+    customer: [];
+    order: []
 }
 
 export const authContextDefaults: AuthContextInterface = {
-  authenticate: false,
-  user: null,
-  logout: null,
-  customerId: 0,
-  orderId: 0
-
-//   checkingSession: false,
-//   expiresAt: null,
-//   token: null,
-//   idToken: null,
-//   isAuthenticated: false,
-//   handleAuthentication: () => null,
-//   login: () => null,
-//   logout: () => null
+    authenticate: false,
+    findCustomerByCustomerEmail: false,
+    findOrderByCustomerId: false,
+    user: null,
+    logout: null,
+    customerId: 0,
+    orderId: 0,
+    customer: [],
+    order: []
 };
 
 const AuthContext = React.createContext<AuthContextInterface>(
-  authContextDefaults
+    authContextDefaults
 );
 
 export default AuthContext;
