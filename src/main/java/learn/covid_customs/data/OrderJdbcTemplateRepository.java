@@ -176,7 +176,7 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
 
     private void addCustomer(Order order) {
         final String sql = "select c.customer_id, c.first_name, c.last_name, c.email, ua.user_password, " +
-                "c.address, c.phone, c.user_role " +
+                "c.address_line, c.city, c.state, c.zip_code, c.phone, c.user_role " +
                 "from customer c " +
                 "inner join user_account ua on c.customer_id = ua.customer_id " +
                 "where c.customer_id = ?;";

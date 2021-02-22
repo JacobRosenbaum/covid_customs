@@ -25,7 +25,7 @@ function AdminMasks() {
             .then(data => setMasks(data))
             .catch(error => console.log(error));
     }
-    
+
     useEffect(() => {
        getAllMasks();
     }, []);
@@ -45,7 +45,7 @@ function AdminMasks() {
         if (response.status === 204) {
             getAllMasks();
         } else if (response.status === 404) {
-          Promise.reject(`ToDo ID #${e.target.value} not found.`);
+          Promise.reject(`Mask Id #${e.target.value} not found.`);
         } else {
           Promise.reject('Something went wrong!');
         }
