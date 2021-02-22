@@ -25,6 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
+        http.cors();
+
         http.authorizeRequests()
 
                 .antMatchers("/create_account").permitAll()
@@ -37,14 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/customer/*").hasAnyRole("USER", "ADMIN")
 
                 .antMatchers(HttpMethod.GET,  "/api/order/*", "/api/order").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/order").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/order/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/order/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/order").permitAll()//.hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/order/*").permitAll()//.hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/order/*").permitAll()//.hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/order/customer/*").permitAll()//.hasAnyRole("USER", "ADMIN")
 
                 .antMatchers(HttpMethod.GET, "/api/mask/*", "/api/mask").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/mask").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/mask/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/mask/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/mask/admin").permitAll()//.hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/mask").permitAll()//.hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/mask/*").permitAll()//.hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/mask/*").permitAll()//.hasRole("ADMIN")
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(), jwtConverter))

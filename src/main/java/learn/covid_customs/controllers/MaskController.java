@@ -45,7 +45,7 @@ public class MaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody @Valid Mask mask) {
+    public ResponseEntity<Object> add(@RequestBody Mask mask) {
         Result<Mask> result = maskService.add(mask);
         if(result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
@@ -54,7 +54,7 @@ public class MaskController {
     }
 
     @PutMapping("/{maskId}")
-    public ResponseEntity<Object> update(@PathVariable int maskId, @RequestBody @Valid Mask mask) {
+    public ResponseEntity<Object> update(@PathVariable int maskId, @RequestBody Mask mask) {
         if (mask.getMaskId() != maskId) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }

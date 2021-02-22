@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect
 } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
@@ -14,6 +15,11 @@ import NotFound from './components/NotFound';
 import Login from './components/Login';
 import Register from './components/Register';
 import AuthContext from './components/AuthContext';
+import AdminCustomers from './components/Admin/AdminCustomers';
+import AdminMasks from './components/Admin/AdminMasks';
+import AdminOrders from './components/Admin/AdminOrders';
+import MaskAdd from './components/Admin/MaskAdd';
+import MaskEdit from './components/Admin/MaskEdit';
 import { useState } from 'react';
 
 
@@ -83,19 +89,37 @@ function App() {
     <AuthContext.Provider value={auth}>
       <Router>
         <Switch>
-          <Route path="/aboutUs">
+        <Route exact path="/admin">
+          <Redirect to="/admin/masks" />
+        </Route>
+        <Route exact path="/admin/masks/add">
+            <MaskAdd />
+        </Route>
+        <Route path="/admin/masks/edit/:maskId">
+            <MaskEdit />
+        </Route>
+        <Route exact path="/admin/masks">
+            <AdminMasks />
+        </Route>
+        <Route exact path="/admin/orders">
+            <AdminOrders />
+        </Route>
+        <Route exact path="/admin/customers">
+            <AdminCustomers />
+        </Route>
+          <Route exact path="/aboutUs">
             <About />
           </Route>
-          <Route path="/register">
+          <Route exact path="/register">
           <Register />
         </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <Login />
           </Route>
-          <Route path="/shopMask">
+          <Route exact path="/shopMask">
             <Mask />
           </Route>
-          <Route path="/covidInfo">
+          <Route exact path="/covidInfo">
             <CovidAPI />
           </Route>
           <Route exact path="/">
