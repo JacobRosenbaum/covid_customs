@@ -36,7 +36,7 @@ function Register() {
             height: "550px",
             fontSize: "24px",
             marginTop: "20px",
-            backgroundColor: "lightslategray",
+            backgroundColor: "lightgrey",
             color: "white",
             borderColor: "firebrick",
             borderRadius: "6px",
@@ -107,9 +107,9 @@ function Register() {
                 <Errors errors={errors} />
                 <div className='row flexContainer'>
                     <div className="form-group col-sm-6 col-m-4 col-12 firstForm">
-                        <input className='form-control' id='lastName' type="email" onChange={(event) => setUsername(event.target.value)} placeholder='Email' />
+                        <input className='form-control' id='userName' type="email" onChange={(event) => setUsername(event.target.value)} placeholder='Email' />
                         <div>
-                            <input className='form-control' id='lastName' type={passwordShown ? "text" : "password"} onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
+                            <input className='form-control' id='password' type={passwordShown ? "text" : "password"} onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
                             <i onClick={togglePasswordVisiblity} id='eye' className="fa fa-eye"></i>
                         </div>
                     </div>

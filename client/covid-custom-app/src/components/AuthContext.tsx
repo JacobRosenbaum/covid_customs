@@ -14,7 +14,9 @@ import React from 'react';
 export interface AuthContextInterface {
   authenticate: any;
   user: any
-  logout: any
+  logout: any;
+  customerId: number;
+  orderId: number
 //   checkingSession: boolean;
 //   token: string | null;
 //   idToken: string | null;
@@ -28,7 +30,10 @@ export interface AuthContextInterface {
 export const authContextDefaults: AuthContextInterface = {
   authenticate: false,
   user: null,
-  logout: null
+  logout: null,
+  customerId: 0,
+  orderId: 0
+
 //   checkingSession: false,
 //   expiresAt: null,
 //   token: null,

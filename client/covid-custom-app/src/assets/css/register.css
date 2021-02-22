@@ -33,6 +33,10 @@ input {
     color: firebrick
 }
 
+#clickHere:hover{
+    cursor: pointer
+}
+
 .firstForm {
     margin: 0 auto;
     width: 20%;

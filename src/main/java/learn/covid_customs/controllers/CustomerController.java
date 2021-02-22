@@ -40,6 +40,16 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
+    @GetMapping("/email/{customerEmail}")
+    public ResponseEntity<Customer> findByEmail(@PathVariable String customerEmail) {
+        Customer customer = customerService.findByEmail(customerEmail);
+
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(customer);
+    }
+
     @PostMapping("/create_account")
     public ResponseEntity<Object> createAccount(@RequestBody @Valid Customer customer) {
 

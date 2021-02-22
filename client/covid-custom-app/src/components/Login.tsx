@@ -21,6 +21,7 @@ function Login() {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+        console.log(username, password);
 
         try {
             await auth.authenticate(username, password);
@@ -43,10 +44,10 @@ function Login() {
                 <form onSubmit={handleSubmit}>
                     <div className='row flexContainer'>
                         <div className="form-group col-sm-6 col-m-4 col-12 firstForm">
-                            <input className='form-control' id='lastName' type="email" onChange={(event) => setUsername(event.target.value)} placeholder='Email' />
+                            <input className='form-control' id='userName' type="email" onChange={(event) => setUsername(event.target.value)} placeholder='Email' />
                             <div>
-                                <input className='form-control' id='lastName' type={passwordShown ? "text" : "password"} onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
-                                <i onClick={togglePasswordVisiblity} id='eye' className="fa fa-eye"></i>
+                                <input className='form-control' id='password' type={passwordShown ? "text" : "password"} onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
+                                <i onClick={togglePasswordVisiblity} id='loginEye' className="fa fa-eye"></i>
                             </div>
                         </div>
                     </div>

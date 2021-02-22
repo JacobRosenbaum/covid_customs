@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
-
+        http.cors();
         http.authorizeRequests()
 
                 .antMatchers("/create_account").permitAll()
@@ -32,11 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate").permitAll()
 
                 .antMatchers(HttpMethod.GET,  "/api/customer/*", "/api/customer").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/customer/email/*").hasAnyRole("USER", "ADMIN")
+//                .antMatchers(HttpMethod.GET, "/api/customer/email/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/customer").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/customer/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/customer/*").hasAnyRole("USER", "ADMIN")
 
                 .antMatchers(HttpMethod.GET,  "/api/order/*", "/api/order").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/order/customer/*").hasAnyRole("USER", "ADMIN")
+//                .antMatchers(HttpMethod.GET, "/api/order/customer/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/order").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/order/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/order/*").hasAnyRole("USER", "ADMIN")
