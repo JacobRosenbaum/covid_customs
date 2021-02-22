@@ -53,6 +53,9 @@ public class CustomerService implements UserDetailsService {
         return repository.findById(customerId);
     }
 
+    public Customer findByEmail(String customerEmail) {
+        return repository.findByEmail(customerEmail);
+    }
 
     public Result<Customer> add(Customer customer) {
         Result<Customer> result = validate(customer);

@@ -3,3 +3,14 @@
     margin-top: 150px !important;
     margin: 0 auto;
 }
+
+#loginEye {
+    position: absolute;
+    top: 34.45%;
+    right: 41.5%;
+}
+
+#loginEye:hover {
+    color: firebrick;
+    cursor: pointer;
+}
