@@ -1,5 +1,95 @@
-#register-page{
+#register-page {
     text-align: center;
     margin-top: 150px !important;
     margin: 0 auto;
+}
+
+h3 {
+    font-size: 40px
+}
+
+label {
+    text-align: left !important
+}
+
+.col-m-4 {
+    margin: auto;
+    margin-top: 30px;
+    border-radius: 5px
+}
+
+input {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.flexContainer {
+    text-align: center
+}
+
+
+#clickHere {
+    text-decoration: underline;
+    color: firebrick
+}
+
+#clickHere:hover{
+    cursor: pointer
+}
+
+.firstForm {
+    margin: 0 auto;
+    width: 20%;
+}
+
+.create {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: firebrick !important;
+    border-color: firebrick !important
+}
+
+.create:hover {
+    background-color: salmon !important;
+    border-color: salmon !important;
+}
+
+#eye {
+    position: absolute;
+    top: 40.5%;
+    right: 41.5%;
+}
+
+#eye:hover {
+    color: firebrick;
+    cursor: pointer;
+}
+
+#close {
+    font-size: 22px;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    color: black !important
+}
+
+#close:hover {
+    zoom: 101%;
+}
+
+.submitButton {
+    font-size: 15px;
+    background-color: firebrick !important;
+    border-color: firebrick !important;
+    margin: 0;
+    position: absolute;
+    bottom: 1%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.submitButton:hover {
+    background-color: salmon !important;
+    border-color: salmon !important;
 }

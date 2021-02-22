@@ -23,6 +23,12 @@
     text-align: center
 }
 
+#addButton{
+    background-color: firebrick;
+    border-color: firebrick;
+    color: white
+}
+
 .img:hover {
     zoom: 101%;
     cursor: pointer
