@@ -68,13 +68,15 @@ function Register() {
                     lastName,
                     email: username,
                     password: password,
-                    address,
+                    addressLine: address,
+                    city, 
+                    state,
+                    zipCode,
                     phone,
-                    role: ''
                 })
             })
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 try {
                     await auth.authenticate(username, password);
                     history.push('/');
@@ -84,10 +86,13 @@ function Register() {
             }
             else {
                 console.log(response);
+                setErrors(['Please try again']);
+                closeModal();
                 // setErrors(response);
             }
         } catch (err: any) {
             setErrors([err.message]);
+            closeModal();
         }
 
     }

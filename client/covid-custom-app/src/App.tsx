@@ -27,18 +27,19 @@ import CustomerAccount from './components/CustomerAccount';
 
 
 
+
+
 function App() {
   interface User {
     email: string;
     roles: string;
     token: string;
-    // hasRole: boolean
   }
 
   const [user, setUser] = useState({} as User);
-  const [customerEmail, setCustomerEmail] = useState('');
   const [customerId, setCustomerId] = useState<number>(0);
-  // const [customer, setCustomer] = useState<any[]>([]);
+  const [customer, setCustomer] = useState<any[]>([]);
+  const [order, setOrder] = useState<any[]>([]);
   const [orderId, setOrderId] = useState<number>(0);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ function App() {
 
   const findCustomerByCustomerEmail = async () => {
     console.log(auth.user.email);
-
+    console.log(user.email);
     try {
       const response = await fetch(`http://localhost:8080/api/customer/email/${auth.user.email}`, {
         method: 'GET',
@@ -64,7 +65,7 @@ function App() {
       const data = await response.json();
       if (response.status === 200) {
         setCustomerId(data.customerId)
-        // findOrderByCustomerId()
+        setCustomer(data)
       }
     } catch (error) {
       console.log(error);
@@ -88,6 +89,7 @@ function App() {
         if (data[0].orderId) {
           setOrderId(data[0].orderId);
           console.log(data[0].orderId)
+          console.log(customer)
         }
         else {
           console.log('here')
@@ -111,7 +113,14 @@ function App() {
   async function addOrder() {
     const newOrder = {
       orderId: auth.orderId,
-      customerId: auth.customerId,
+      customer: auth.customer,
+      masks: [
+        {
+          maskId: 0,
+          quantity: 0
+        }
+      ],
+      total: 0.00,
       purchased: false,
       purchaseDate: null
     };
@@ -127,7 +136,9 @@ function App() {
       });
       const data = await response.json();
       if (response.status === 200 || response.status === 400) {
+        console.log(response.status + ' hit message')
         console.log(data)
+        setOrder(data)
       } else {
         console.log(response.status)
         let message = 'Error Error! Sorry:(';
@@ -148,9 +159,6 @@ function App() {
       email,
       roles,
       token,
-      // hasRole(role: boolean) {
-      //   return this.roles.includes(role);
-      // }
     }
 
     setUser(userObject)
@@ -190,9 +198,13 @@ function App() {
     user,
     login,
     authenticate,
+    findCustomerByCustomerEmail,
+    findOrderByCustomerId,
     logout,
     customerId,
-    orderId
+    orderId,
+    customer,
+    order
   }
 
   return (

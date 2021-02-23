@@ -5,6 +5,8 @@ set sql_safe_updates = 0;
 delete from color;
 delete from order_mask;
 delete from mask;
+delete from user_account;
+delete from customer;
 set sql_safe_updates = 1;
 
     insert into mask values
@@ -35,13 +37,9 @@ set sql_safe_updates = 1;
     ( 9, 5, "Blue"),
     ( 9, 8, "White");
     
+
     --   added below for testing purposes ---------------------------------------------------------------------------------------------------------------------------------
 
-
-
- --    insert into user_account values
---     (1, 'austin@aol.com', 'Password1234!');
---     select * from user_account;
     
 	insert into customer values
 	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW","andover","MN",55304, "ADMIN"),
@@ -70,3 +68,4 @@ set sql_safe_updates = 1;
    
    insert into user_account values
      (1, 'austin@aol.com', 'Password1234!');
+
