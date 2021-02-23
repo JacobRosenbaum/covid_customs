@@ -117,9 +117,27 @@ class OrderJdbcTemplateRepositoryTest {
     }
 
     private List<MaskOrders> maskMap(){
-        MaskOrders mask1= new MaskOrders(1, 3);
-        MaskOrders mask2= new MaskOrders(2, 4);
+        MaskOrders mask1= new MaskOrders(makeMask(1), 3);
+        MaskOrders mask2= new MaskOrders(makeMask(2), 4);
         return List.of(mask1, mask2);
+    }
+
+    private Mask makeMask(int maskId) {
+        List<Color> colors = new ArrayList<>();
+        colors.add(Color.VIOLET);
+        colors.add(Color.GREEN);
+
+        Mask mask = new Mask();
+        mask.setMaskId(maskId);
+        mask.setMaterial(Material.POLYESTER);
+        mask.setStyle(Style.ATHLETIC);
+        mask.setCustom(false);
+        mask.setCost(new BigDecimal("12.50"));
+        mask.setImage("Image Placeholder Text");
+        mask.setColors(colors);
+        mask.setDeleted(false);
+
+        return mask;
     }
 
 }

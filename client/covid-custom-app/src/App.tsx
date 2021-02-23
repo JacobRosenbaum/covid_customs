@@ -23,6 +23,7 @@ import AdminOrders from './components/Admin/AdminOrders';
 import MaskAdd from './components/Admin/MaskAdd';
 import MaskEdit from './components/Admin/MaskEdit';
 import { useState, useEffect } from 'react';
+import CustomerAccount from './components/CustomerAccount';
 
 
 
@@ -198,41 +199,54 @@ function App() {
     <AuthContext.Provider value={auth}>
       <Router>
         <Switch>
-        <Route exact path="/admin">
-          <Redirect to="/admin/masks" />
-        </Route>
-        <Route exact path="/admin/masks/add">
-            <MaskAdd />
-        </Route>
-        <Route path="/admin/masks/edit/:maskId">
-            <MaskEdit />
-        </Route>
-        <Route exact path="/admin/masks">
-            <AdminMasks />
-        </Route>
-        <Route exact path="/admin/orders">
-            <AdminOrders />
-        </Route>
-        <Route exact path="/admin/customers">
-            <AdminCustomers />
-        </Route>
+          <Route exact path="/admin">
+            <Redirect to="/admin/masks" />
+          </Route>
+
+          <Route exact path="/admin/masks/add">
+              <MaskAdd />
+          </Route>
+
+          <Route path="/admin/masks/edit/:maskId">
+              <MaskEdit />
+          </Route>
+
+          <Route exact path="/admin/masks">
+              <AdminMasks />
+          </Route>
+
+          <Route exact path="/admin/orders">
+              <AdminOrders />
+          </Route>
+
+          <Route exact path="/admin/customers">
+              <AdminCustomers />
+          </Route>
+
           <Route exact path="/aboutUs">
             <About />
           </Route>
 
           <Route exact path="/register">
-          <Register />
-        </Route>
-          <Route exact path="/login">
+            <Register />
+          </Route>
 
+          <Route exact path="/login">
             <Login />
           </Route>
+
           <Route exact path="/shopMask">
             <Mask />
           </Route>
+
           <Route exact path="/covidInfo">
             <CovidAPI />
           </Route>
+
+          <Route exact path="/account">
+            <CustomerAccount />
+          </Route>
+
           <Route exact path="/">
             <Home />
           </Route>
