@@ -7,9 +7,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MaskOrders {
+//    @Getter
+//    @Setter
+//    private int maskId;
+
     @Getter
     @Setter
-    private int maskId;
+    private Mask mask;
 
     @Getter @Setter
     private int quantity;

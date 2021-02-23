@@ -25,10 +25,17 @@ import MaskAdd from './components/Admin/MaskAdd';
 import MaskEdit from './components/Admin/MaskEdit';
 import { useState, useEffect } from 'react';
 
+import CustomerAccount from './components/CustomerAccount';
+import OrderHistory from './components/OrderHistory';
+import Cart from './components/Cart';
+import LogoutPage from './components/LogoutPage';
+import EditCustomer from './components/EditCustomer';
+
+
 function App() {
   interface User {
     email: string;
-    roles: string;
+    roles: String[];
     token: string;
   }
 
@@ -78,6 +85,7 @@ function App() {
     console.log(auth.customerId);
 
     try {
+      console.log(auth.user.token);
       const response = await fetch(`http://localhost:8080/api/order/customer/${auth.customerId}`, {
         method: 'GET',
         headers: {
@@ -206,6 +214,16 @@ function App() {
     updateOrder
   }
 
+  const adminExists = () => {
+    console.log(user.email);
+    if (user.email!==undefined)
+    {if (user.roles[0] == "ROLE_ADMIN"){
+      return true;
+    }
+    } 
+    return false;
+  }
+
   return (
     <AuthContext.Provider value={auth}>
       <Router>
@@ -213,21 +231,28 @@ function App() {
           <Route exact path="/admin">
             <Redirect to="/admin/masks" />
           </Route>
+
+
           <Route exact path="/admin/masks/add">
-            <MaskAdd />
+            {adminExists() ? (<MaskAdd />) : (<Redirect to="/login" />)}
           </Route>
           <Route path="/admin/masks/edit/:maskId">
-            <MaskEdit />
+            {adminExists() ? (<MaskEdit />) : (<Redirect to="/login" />)}
           </Route>
+
           <Route exact path="/admin/masks">
-            <AdminMasks />
+            {adminExists()? (<AdminMasks />) : (<Redirect to="/login" />)}
           </Route>
+
           <Route exact path="/admin/orders">
-            <AdminOrders />
+            {adminExists() ? (<AdminOrders />) : (<Redirect to="/login" />)}
           </Route>
+
           <Route exact path="/admin/customers">
-            <AdminCustomers />
+            {adminExists()? (<AdminCustomers />) : (<Redirect to="/login" />)}
           </Route>
+
+
           <Route exact path="/aboutUs">
             <About />
           </Route>
@@ -235,16 +260,39 @@ function App() {
           <Route exact path="/register">
             <Register />
           </Route>
-          <Route exact path="/login">
 
+          <Route exact path="/login">
             <Login />
           </Route>
+
           <Route exact path="/shopMask">
             <Mask />
           </Route>
+
           <Route exact path="/covidInfo">
             <CovidAPI />
           </Route>
+
+          <Route exact path="/account">
+            <CustomerAccount />
+          </Route>
+
+          <Route exact path="/edit_customer">
+            <EditCustomer />
+          </Route>
+
+          <Route exact path="/order_history">
+            <OrderHistory />
+          </Route>
+
+          <Route exact path="/cart">
+            <Cart />
+          </Route>
+
+          <Route exact path="/logout">
+            <LogoutPage />
+          </Route>
+
           <Route exact path="/">
             <Home />
           </Route>

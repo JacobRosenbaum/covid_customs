@@ -1,5 +1,5 @@
 ### findAll
-GET http://localhost:8080/api/customer HTTP/1.1
+GET http://localhost:8080/api/order/customer/4 HTTP/1.1
 
 ### should findById
 

@@ -1,6 +1,8 @@
 import Navbar from './Navbar';
 import { useState, useEffect } from 'react';
-import '../assets/css/covidApi.css'
+import '../assets/css/covidApi.css';
+import UsaMap from './UsaMap';
+
 
 function CovidAPI() {
 
@@ -43,7 +45,17 @@ function CovidAPI() {
 
     return (
         <>
-            <Navbar />
+            <div className='container'>
+              <Navbar />
+            </div>
+            <div className='container'>
+              <h1>Blank Space</h1>
+              <h1>Blank Space</h1>
+              <h1>Blank Space</h1>
+            </div>
+            <div className='container'>
+              <UsaMap/>
+            </div>
             <div className='container'>
                 <div className='jumbotron'>
                     <h1 id='covidTitle'>

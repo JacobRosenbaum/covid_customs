@@ -7,6 +7,15 @@ import { useContext } from 'react';
 
 function Navbar({ cartCount }: any) {
     const auth: AuthContextInterface = useContext(AuthContext);
+    const adminExists = () => {
+        if (auth.user.email===undefined){
+          return false;
+        } else if (auth.user.roles[0] == "ROLE_ADMIN"){
+          return true;
+        }
+        return false;
+      }
+
     return (
         <>
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -29,6 +38,14 @@ function Navbar({ cartCount }: any) {
                             <li className="nav-item">
                                 <Link to="/covidInfo" className="nav-link">Covid Info</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link to={auth.customerId ? "/account":"/login"} className="nav-link">My Account</Link>
+                            </li>
+                            {adminExists() ? (
+                                <li className="nav-item">
+                                    <Link to="/admin">Admin</Link>
+                                </li>
+                            ): (<></>)}
                             {/* <li className="nav-item">
                                 <Link to="/register" className="nav-link">Sign Up</Link>
                             </li>

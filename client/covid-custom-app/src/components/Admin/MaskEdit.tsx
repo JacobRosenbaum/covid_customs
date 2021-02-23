@@ -3,29 +3,9 @@ import AdminControls from "./AdminControls";
 import Errors from '../../components/Errors';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import AuthContext from '../AuthContext';
+import { Color, Mask } from '../Interfaces';
 
-interface Mask {
-    maskId: number;
-    material: string;
-    style: string;
-    colors: String[];
-    cost: number;
-    image: any;
-    custom: boolean;
-    deleted: boolean;
-};
-
-interface Color {
-    red: boolean;
-    orange: boolean;
-    blue: boolean;
-    white: boolean;
-    black: boolean;
-    green: boolean;
-    violet: boolean;
-};
-
-const DEFAULT_COLOR: Color={
+const DEFAULT_COLOR: Color = {
     red: false,
     orange: false,
     blue: false,
@@ -50,22 +30,20 @@ const DEFAULT_MASK: Mask = {
 function MaskEdit() {
     const auth = useContext(AuthContext);
     const { maskId }: any = useParams();
-    console.log(maskId);
     const history = useHistory();
+
     const [mask, setMask] = useState(DEFAULT_MASK);
     const [errors, setErrors] = useState([] as String[]);
     const [colors, setColors] = useState(DEFAULT_COLOR);
+
     useEffect(() => {
-        console.log(maskId)
         fetch(`http://localhost:8080/api/mask/${maskId}`)
             .then(response => response.json())
             .then(data => setMask(data))
             .catch(error => console.log(error));
-        console.log(mask);
     }, [maskId]);
 
     useEffect(() => {
-        //console.log(mask.colors);
         setColors(setStartingColors());
     }, [mask.maskId]);
 
@@ -97,7 +75,6 @@ function MaskEdit() {
     };
 
     const setStartingColors = () => {
-        console.log(mask);
         const colorStart: Color = {
             red: false,
             orange: false,
@@ -123,7 +100,7 @@ function MaskEdit() {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                //"Authorization": `Bearer ${auth.user.token}`
+                "Authorization": `Bearer ${auth.user.token}`
             },
             body
         })
@@ -165,7 +142,6 @@ function MaskEdit() {
 
     const handlingOnChange = (e: any) => {
         const updatedMask: any = { ...mask };
-        console.log(e.target.name + " " + e.target.value)
         updatedMask[e.target.name] = e.target.value;
         setMask(updatedMask);
     };
