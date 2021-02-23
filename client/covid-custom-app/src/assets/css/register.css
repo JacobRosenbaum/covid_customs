@@ -55,9 +55,12 @@ input {
 }
 
 #eye {
-    position: absolute;
+    /* position: relative;
     top: 40.5%;
-    right: 41.5%;
+    right: 41.5%; */
+    position: relative;
+    left: 93px;
+    bottom: 31.5px
 }
 
 #eye:hover {

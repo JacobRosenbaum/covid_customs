@@ -41,7 +41,7 @@ function Login() {
         <>
             <Navbar />
             <div id='login-page' className='jumbotron'>
-                <h2>Login</h2>
+                <h3>Login</h3>
                 <Errors errors={errors} />
                 <form onSubmit={handleSubmit}>
                     <div className='row flexContainer'>
@@ -54,6 +54,9 @@ function Login() {
                         </div>
                     </div>
                     <button type='submit' className="btn btn-primary create">Login</button>
+                    <h5 className='signUp'>
+                    Don't have an account yet? <Link to={'/register'}> <span id='clickHere'>Sign Up!</span> </Link>
+                </h5>
                 </form>
             </div>
         </>

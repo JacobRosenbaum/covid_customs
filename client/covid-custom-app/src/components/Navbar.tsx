@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import '../assets/css/navbar.css';
-import AuthContext from './AuthContext';
+import AuthContext, { AuthContextInterface } from './AuthContext';
 import { useContext } from 'react';
 
 
 function Navbar({ cartCount }: any) {
-    const auth = useContext(AuthContext);
+    const auth: AuthContextInterface = useContext(AuthContext);
     return (
         <>
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -37,17 +37,21 @@ function Navbar({ cartCount }: any) {
                             </li> */}
                             {auth.user.token && (
                                 <li className="nav-item" id='user'>
-                                        Hello {auth.user.email}
-                                    <span className="nav-item" id='logout' onClick={auth.logout}>
-                                        Logout
-                                    </span>
+                                    Hello {auth.customerName}
+                                    <p style={{ textAlign: 'center' }}>
+                                        <a href="/" className="nav-item" id='logout' onClick={auth.logout}>
+                                            Logout
+                                    </a>
+                                    </p>
                                 </li>
                             )}
-                            {!auth.user.email && (
+                            {!auth.user.token && (
                                 <li>
                                     {/* <li className="nav-item"> */}
+                                    <p style={{ textAlign: 'center' }}>
                                         <Link to="/login">Login</Link>
-                                    {/* </li> */}
+                                        {/* </li> */}
+                                    </p>
                                     <span className="nav-item">
                                         <Link id='signUpLink' to="/register">Sign Up</Link>
                                     </span>
@@ -56,7 +60,7 @@ function Navbar({ cartCount }: any) {
                             <div>
                                 <li className="nav-item">
                                     <Link to="/shoppingCart" className="nav-link">
-                                        <span className="fa-stack fa-2x has-badge" data-count={cartCount}>
+                                        <span className="fa-stack fa-2x has-badge" data-count={auth?.order?.masks?.length ?? 0}>
                                             <i className="fa fa-shopping-cart fa-stack-2x red-cart"></i>
                                         </span>
                                     </Link>

@@ -1,9 +1,3 @@
-/* #cart{
-    font-size: 20px;
-    text-align: right !important;
-    float: right !important
-} */
-
 .fa-stack[data-count]:after {
     position: absolute;
     right: 0%;
@@ -31,22 +25,22 @@
     float: right !important
 }
 
-#signUpLink{
+/* #signUpLink{
     margin-left: 7px
-}
+} */
 
-#logout{
+/* #logout{
     margin-left: 7px
-}
+} */
 
 #logout:hover{
     cursor: pointer;
 }
 
-.user {
-    color: white
-}
+/* .user {
+    color: #0d6efd !important;
+} */
 
 #navbarNav{
-    color: white !important
+    color: gray !important;
 }
