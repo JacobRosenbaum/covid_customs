@@ -24,6 +24,10 @@ import MaskAdd from './components/Admin/MaskAdd';
 import MaskEdit from './components/Admin/MaskEdit';
 import { useState, useEffect } from 'react';
 import CustomerAccount from './components/CustomerAccount';
+import OrderHistory from './components/OrderHistory';
+import Cart from './components/Cart';
+import LogoutPage from './components/LogoutPage';
+import EditCustomer from './components/EditCustomer';
 
 
 
@@ -257,6 +261,22 @@ function App() {
 
           <Route exact path="/account">
             <CustomerAccount />
+          </Route>
+
+          <Route exact path="/edit_customer">
+            <EditCustomer />
+          </Route>
+
+          <Route exact path="/order_history">
+            <OrderHistory />
+          </Route>
+
+          <Route exact path="/cart">
+            <Cart />
+          </Route>
+
+          <Route exact path="/logout">
+            <LogoutPage />
           </Route>
 
           <Route exact path="/">

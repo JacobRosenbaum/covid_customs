@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Navbar from './Navbar';
 import OrderTable from './OrderTable';
+import '../assets/css/customer.css';
 
 
 function OrderHistory() {
 
-  // var testCustomer: any = {
-  //   customerId: 1,
-  // }
 
   const [customer, setCustomer] = useState<any>([]);
   const [orders, setOrders] = useState<any[]>([]);
@@ -48,9 +46,15 @@ function OrderHistory() {
   return (
     <>
       <Navbar />
+      <div className="sidenav">
+        <a href="/account">My Info</a>
+        <a href="/cart">View Cart</a>
+        <a href="/order_history">Order History</a>
+        <a href="/logout">Logout</a>
+      </div>
       <div>
-        <div >
-          <h1>Here lie thy Order History</h1>
+        <div className="main">
+          <h1>Order History</h1>
           <div className="accordion">
             {orders.map(order => (
               <div key={order.orderId}>
@@ -63,7 +67,6 @@ function OrderHistory() {
                     <div id={"collapse"+order.orderId} className="accordion-collapse collapse" aria-labelledby={"heading"+order.orderId} >
                       <div className="accordion-body">
                         <OrderTable order={order}/>
-
                     </div>
                   </div>
                 </div>
