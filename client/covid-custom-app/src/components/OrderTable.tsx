@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import '../assets/css/customer.css';
+import AuthContext from './AuthContext';
 
 
 function OrderTable(props:any) {
@@ -8,6 +9,7 @@ function OrderTable(props:any) {
   const [total, setTotal] = useState<any>(0);
 
 
+ 
 
 
 

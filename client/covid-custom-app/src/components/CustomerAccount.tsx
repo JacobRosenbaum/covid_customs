@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import AuthContext from './AuthContext';
 import '../assets/css/customer.css';
 import Button from 'react-bootstrap/esm/Button';
+import { Link } from 'react-router-dom';
 
 //must login then declare const auth to get credentials of user
 
@@ -15,46 +16,32 @@ function CustomerAccount() {
 
   const auth = useContext(AuthContext);
 
-  console.log(auth.customerId)
-
 
   const [customer, setCustomer] = useState<any>([]);
-  const [activeOrder, setActiveOrder] = useState<any>([]);
   const [error, setErrors] = useState<any>([0]);
 
-  //setCustomer(auth.user);
-
-
-
-  //setCustomer(testCustomer);
 
   useEffect( () => {
     fetch(`http://localhost:8080/api/customer/${auth.customerId}`)
       .then(response => response.json())
       .then(data => setCustomer(data))
-      .catch(error => console.log(error));
+      .catch(error => console.log(error)); //set errors here?
   },[]);
 
 
-  // useEffect(() => {
-  //   fetch('http://localhost:8080/api/customer/1')
-  //     .then(response => response.json())
-  //     .then(data => setCustomer(data))
-  //     .catch(error => console.log(error));
-  // }, []);
 
 
-
+//all links in my sideNav need to be <Link to=/abc.src /> because my current setup causes a refresh which loses my auth.user
 
 
   return (
     <>
       <Navbar/>
       <div className="sidenav">
-        <a href="/account">My Info</a>
-        <a href="/cart">View Cart</a>
-        <a href="/order_history">Order History</a>
-        <a href="/logout">Logout</a>
+        <Link to="/account">My Info</Link>
+        <Link to="/cart">View Cart</Link>
+        <Link to="/order_history">Order History</Link>
+        <Link to="/logout">Logout</Link>
       </div>
 
       <div className="main">

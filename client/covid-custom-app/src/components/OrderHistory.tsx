@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Navbar from './Navbar';
 import OrderTable from './OrderTable';
 import '../assets/css/customer.css';
+import AuthContext from './AuthContext';
 
 
 function OrderHistory() {
 
 
-  const [customer, setCustomer] = useState<any>([]);
+  //const [customer, setCustomer] = useState<any>([]);
   const [orders, setOrders] = useState<any[]>([]);
 
   const [error, setErrors] = useState<any>([0]);
 
+  const auth = useContext(AuthContext);
 
 
   //setCustomer(testCustomer);
@@ -25,22 +27,24 @@ function OrderHistory() {
   // },[]);
 
 
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/api/customer/1')
+  //     .then(response => response.json())
+  //     .then(data => setCustomer(data))
+  //     .catch(error => console.log(error));
+  // }, []);
+
+  console.log(auth.customerId);
+
   useEffect(() => {
-    fetch('http://localhost:8080/api/customer/1')
-      .then(response => response.json())
-      .then(data => setCustomer(data))
-      .catch(error => console.log(error));
-  }, []);
-
-
-
-  useEffect(() => {
-    fetch('http://localhost:8080/api/order/customer/1')
+    fetch(`http://localhost:8080/api/order/customer/${auth.customerId}`)
       .then(response => response.json())
       .then(data => setOrders(data))
       .catch(error => console.log(error));
   }, []);
 
+
+console.log(orders);
 
 
   return (
