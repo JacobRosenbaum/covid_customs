@@ -15,7 +15,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -162,7 +161,7 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
         List<Mask> masks = jdbcTemplate.query(sql, new MaskMapper(), order.getOrderId());
         List<MaskOrders> maskOrdersList = new ArrayList<>();
         for (Mask mask : masks) {
-            MaskOrders maskOrder= new MaskOrders(mask.getMaskId(), findQuantity(mask.getMaskId(), order.getOrderId()));
+            MaskOrders maskOrder= new MaskOrders(mask, findQuantity(mask.getMaskId(), order.getOrderId()));
             maskOrdersList.add(maskOrder);
         }
         order.setMasks(maskOrdersList);
@@ -193,13 +192,13 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
     private void addingToOrderMaskTable(Order order) {
         List<MaskOrders> maskOrdersList = order.getMasks();
         for (MaskOrders maskOrders : maskOrdersList) {
-            addOrderMask(order.getOrderId(), maskOrders.getMaskId(), maskOrders.getQuantity());
+            addOrderMask(order.getOrderId(), maskOrders.getMask(), maskOrders.getQuantity());
         }
     }
 
-    private void addOrderMask(int orderId, int maskId, int quantity) {
+    private void addOrderMask(int orderId, Mask mask, int quantity) {
         final String sql = "insert into order_mask (order_id, mask_id, quantity) values (?, ?, ?);";
-        jdbcTemplate.update(sql, orderId, maskId, quantity);
+        jdbcTemplate.update(sql, orderId, mask, quantity);
         //System.out.println("Adding to Table: "+ orderId + ", " +maskId + ", " + quantity );
     }
 
