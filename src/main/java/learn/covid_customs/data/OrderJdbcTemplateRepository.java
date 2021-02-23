@@ -199,7 +199,7 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
 
     private void addOrderMask(int orderId, Mask mask, int quantity) {
         final String sql = "insert into order_mask (order_id, mask_id, quantity) values (?, ?, ?);";
-        jdbcTemplate.update(sql, orderId, mask, quantity);
+        jdbcTemplate.update(sql, orderId, mask.getMaskId(), quantity);
         //System.out.println("Adding to Table: "+ orderId + ", " +maskId + ", " + quantity );
     }
 

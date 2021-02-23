@@ -74,7 +74,6 @@ function Navbar({ cartCount }: any) {
                                     </span>
                                 </li>
                             )}
-                            <div>
                                 <li className="nav-item">
                                     <Link to="/shoppingCart" className="nav-link">
                                         <span className="fa-stack fa-2x has-badge" data-count={auth?.order?.masks?.length ?? 0}>
@@ -82,7 +81,6 @@ function Navbar({ cartCount }: any) {
                                         </span>
                                     </Link>
                                 </li>
-                            </div>
                         </ul>
                     </div>
                 </div>
