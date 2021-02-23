@@ -1,3 +1,5 @@
+import '../assets/css/errors.css'
+
 function Errors({ errors }:any) {
     
     if (errors.length === 0) {

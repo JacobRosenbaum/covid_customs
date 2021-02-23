@@ -13,26 +13,28 @@ import React from 'react';
 
 export interface AuthContextInterface {
     authenticate: any;
-    findCustomerByCustomerEmail: any;
-    findOrderByCustomerId: any;
+    login: any;
     user: any
     logout: any;
     customerId: number;
-    orderId: number;
     customer: [];
-    order: []
+    order: any;
+    customerName: string;
+    updateOrder: (order: any) => void
 }
 
 export const authContextDefaults: AuthContextInterface = {
     authenticate: false,
-    findCustomerByCustomerEmail: false,
-    findOrderByCustomerId: false,
+    login: null,
     user: null,
     logout: null,
     customerId: 0,
-    orderId: 0,
     customer: [],
-    order: []
+    order: {
+        masks: []
+    },
+    customerName: 'Loyal Shopper',
+    updateOrder: (order: any) => {}
 };
 
 const AuthContext = React.createContext<AuthContextInterface>(

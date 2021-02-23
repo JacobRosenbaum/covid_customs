@@ -5,7 +5,8 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import './assets/css/app.css'
+import './assets/css/app.css';
+import { useHistory } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
 import About from './components/About';
@@ -15,7 +16,7 @@ import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Login from './components/Login';
 import Register from './components/Register';
-import AuthContext from './components/AuthContext';
+import AuthContext, { AuthContextInterface } from './components/AuthContext';
 
 import AdminCustomers from './components/Admin/AdminCustomers';
 import AdminMasks from './components/Admin/AdminMasks';
@@ -23,14 +24,12 @@ import AdminOrders from './components/Admin/AdminOrders';
 import MaskAdd from './components/Admin/MaskAdd';
 import MaskEdit from './components/Admin/MaskEdit';
 import { useState, useEffect } from 'react';
+
 import CustomerAccount from './components/CustomerAccount';
 import OrderHistory from './components/OrderHistory';
 import Cart from './components/Cart';
 import LogoutPage from './components/LogoutPage';
 import EditCustomer from './components/EditCustomer';
-
-
-
 
 
 function App() {
@@ -42,9 +41,10 @@ function App() {
 
   const [user, setUser] = useState({} as User);
   const [customerId, setCustomerId] = useState<number>(0);
-  const [customer, setCustomer] = useState<any[]>([]);
-  const [order, setOrder] = useState<any[]>([]);
-  const [orderId, setOrderId] = useState<number>(0);
+  const [customer, setCustomer] = useState<[]>([]);
+  const [customerName, setCustomerName] = useState<string>('Loyal Customer');
+  const [order, setOrder] = useState<[]>([]);
+  const history = useHistory();
 
   useEffect(() => {
     findCustomerByCustomerEmail();
@@ -54,6 +54,9 @@ function App() {
     findOrderByCustomerId()
   }, [customerId]);
 
+  const updateOrder = (order: any) => {
+    setOrder(order)
+  }
 
   const findCustomerByCustomerEmail = async () => {
     console.log(auth.user.email);
@@ -63,13 +66,14 @@ function App() {
         method: 'GET',
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${user.token}`
+          "Authorization": `Bearer ${auth.user.token}`
         },
       })
       const data = await response.json();
       if (response.status === 200) {
         setCustomerId(data.customerId)
         setCustomer(data)
+        setCustomerName(data.firstName)
       }
     } catch (error) {
       console.log(error);
@@ -92,9 +96,10 @@ function App() {
       const data = await response.json();
       if (response.status === 200) {
         if (data[0].orderId) {
-          setOrderId(data[0].orderId);
-          console.log(data[0].orderId)
           console.log(customer)
+          console.log(data[0])
+          updateOrder(data[0])
+
         }
         else {
           console.log('here')
@@ -117,12 +122,11 @@ function App() {
 
   async function addOrder() {
     const newOrder = {
-      orderId: auth.orderId,
       customer: auth.customer,
       masks: [
         {
-          maskId: 0,
-          quantity: 0
+          maskId: 1,
+          quantity: 1
         }
       ],
       total: 0.00,
@@ -140,7 +144,7 @@ function App() {
         body
       });
       const data = await response.json();
-      if (response.status === 200 || response.status === 400) {
+      if (response.status === 201 || response.status === 400) {
         console.log(response.status + ' hit message')
         console.log(data)
         setOrder(data)
@@ -165,9 +169,7 @@ function App() {
       roles,
       token,
     }
-
     setUser(userObject)
-
   }
 
   const authenticate = async (username: any, password: any) => {
@@ -185,8 +187,6 @@ function App() {
     if (response.status === 200) {
       const { jwt_token } = await response.json();
       login(jwt_token);
-      // console.log(auth.user.token)
-      // findCustomerByCustomerEmail()
 
     } else if (response.status === 403) {
       throw new Error('Bad username or password');
@@ -195,21 +195,23 @@ function App() {
     }
   }
 
+
   const logout = () => {
     setUser({} as User);
+    setOrder([]);
+    history.push('/');
   }
 
-  const auth: any = {
+  const auth: AuthContextInterface = {
     user,
     login,
     authenticate,
-    findCustomerByCustomerEmail,
-    findOrderByCustomerId,
     logout,
     customerId,
-    orderId,
     customer,
-    order
+    order,
+    customerName,
+    updateOrder
   }
 
   const adminExists = () => {
@@ -230,6 +232,7 @@ function App() {
             <Redirect to="/admin/masks" />
           </Route>
 
+
           <Route exact path="/admin/masks/add">
             {adminExists() ? (<MaskAdd />) : (<Redirect to="/login" />)}
           </Route>
@@ -248,6 +251,7 @@ function App() {
           <Route exact path="/admin/customers">
             {adminExists()? (<AdminCustomers />) : (<Redirect to="/login" />)}
           </Route>
+
 
           <Route exact path="/aboutUs">
             <About />

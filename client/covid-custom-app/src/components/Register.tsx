@@ -76,7 +76,7 @@ function Register() {
                 })
             })
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 try {
                     await auth.authenticate(username, password);
                     history.push('/');
@@ -86,7 +86,7 @@ function Register() {
             }
             else {
                 console.log(response);
-                setErrors(['Please try again']);
+                setErrors(['Form is missing required fields']);
                 closeModal();
                 // setErrors(response);
             }
@@ -112,9 +112,9 @@ function Register() {
                 <Errors errors={errors} />
                 <div className='row flexContainer'>
                     <div className="form-group col-sm-6 col-m-4 col-12 firstForm">
-                        <input className='form-control' id='userName' type="email" onChange={(event) => setUsername(event.target.value)} placeholder='Email' />
+                        <input required className='form-control' id='userName' type="email" onChange={(event) => setUsername(event.target.value)} placeholder='Email' />
                         <div>
-                            <input className='form-control' id='password' type={passwordShown ? "text" : "password"} onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
+                            <input required className='form-control' id='password' type={passwordShown ? "text" : "password"} onChange={(event) => setPassword(event.target.value)} placeholder='Password' />
                             <i onClick={togglePasswordVisiblity} id='eye' className="fa fa-eye"></i>
                         </div>
                     </div>
@@ -139,19 +139,19 @@ function Register() {
                         <div className='row flexContainer'>
                             <div className="form-group col-sm-6 col-m-4 col-12">
                                 <input onChange={e => { setFirstName(e.target.value); console.log('first ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="First name" />
+                                    type="text" className="form-control" placeholder="First name" required  />
                                 <input onChange={e => { setLastName(e.target.value); console.log('last ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="Last name" />
+                                    type="text" className="form-control" placeholder="Last name" required />
                                 <input onChange={e => { setAddress(e.target.value); console.log('address ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="Address" />
+                                    type="text" className="form-control" placeholder="Address" required />
                                 <input onChange={e => { setCity(e.target.value); console.log('city ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="City" />
+                                    type="text" className="form-control" placeholder="City" required />
                                 <input onChange={e => { setState(e.target.value); console.log('state ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="State" />
+                                    type="text" className="form-control" placeholder="State" required />
                                 <input onChange={e => { setZipCode(e.target.value); console.log('zip ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="Zip code" />
+                                    type="text" className="form-control" placeholder="Zip code" required />
                                 <input onChange={e => { setPhone(e.target.value); console.log('phone ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="Phone number" />
+                                    type="text" className="form-control" placeholder="Phone number" required />
                             </div>
                         </div>
                         <button type='submit' className="btn btn-primary submitButton">Submit</button>

@@ -61,7 +61,7 @@ public class OrderController {
 
         Result<Order> result = orderService.update(order);
         if (result.isSuccess()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
         return ErrorResponse.build(result);

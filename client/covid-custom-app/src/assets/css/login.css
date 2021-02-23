@@ -5,12 +5,19 @@
 }
 
 #loginEye {
-    position: absolute;
+    /* position: absolute;
     top: 34.45%;
-    right: 41.5%;
+    right: 41.5%; */
+    position: relative;
+    left: 93px;
+    bottom: 31.5px
 }
 
 #loginEye:hover {
     color: firebrick;
     cursor: pointer;
+}
+
+h3{
+    font-size: 40px
 }

@@ -173,6 +173,7 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
         return jdbcTemplate.query(sql, new QuantityMapper(), maskId, orderId).stream().findAny().orElse(0);
     }
 
+
     private void addCustomer(Order order) {
         final String sql = "select c.customer_id, c.first_name, c.last_name, c.email, ua.user_password, " +
                 "c.address_line, c.city, c.state, c.zip_code, c.phone, c.user_role " +

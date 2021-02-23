@@ -59,7 +59,6 @@ public class CustomerController {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
-
     }
 
 

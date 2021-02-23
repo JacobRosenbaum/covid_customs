@@ -5,10 +5,11 @@ import Navbar from './Navbar';
 import AuthContext from './AuthContext';
 
 
-function Mask(props:any) {
+function Mask(props: any) {
     const auth = useContext(AuthContext);
 
     const [masks, setMasks] = useState<any[]>([]);
+    const [customerMasks, setCustomerMasks] = useState<any[]>([]);
     const [customer, setCustomer] = useState<any[]>([]);
     const [order, setOrder] = useState<any[]>([]);
     const [filteredMasks, setFilteredMasks] = useState<any[]>([]);
@@ -24,7 +25,6 @@ function Mask(props:any) {
                 setMasks(data)
                 console.log(data)
                 console.log(auth.customerId)
-                console.log(auth.orderId)
 
             } catch (error) {
                 console.log(error);
@@ -42,43 +42,102 @@ function Mask(props:any) {
         console.log(s)
     }
 
-    const handleAddSubmit = async (event: any) => {
-        event.preventDefault();
-        const newOrder = {
-            maskId,
-        };
-        const body = JSON.stringify(newOrder);
+    // const getCustomerMasks = async () => {
+    //     console.log(auth.user);
+    //     console.log(auth.customerId);
 
-        try {
-            const response = await fetch('http://localhost:8080/api/order', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${auth.user.token}`
-                },
-                body
+    //     try {
+    //         const response = await fetch(`http://localhost:8080/api/order/customer/${auth.customerId}`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Authorization": `Bearer ${auth.user.token}`
+    //             },
+    //         })
+    //         const data = await response.json();
+    //         if (response.status === 200) {
+    //             if (data[0].orderId) {
+    //                 setCustomerMasks(data[0].masks[0]);
+    //                 console.log(data[0].masks[0])
+    //                 console.log(customerMasks)
+    //             }
+    //             else {
+    //                 console.log('bad status')
+    //             }
+    //         }
+    //         else {
+    //             console.log(response)
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
+
+    const handleAddSubmit = async (maskId: number) => {
+        console.log(auth.order)
+        if (auth.user.token) {
+            // console.log(auth.order[0].masks)
+            console.log(auth.order.masks)
+            let test = [...auth.order.masks];
+            console.log(test)
+            test.push({
+                maskId,
+                quantity: 1
             });
-            const data = await response.json();
-            if (response.status === 200 || response.status === 400) {
-                if (data) {
-                    console.log(data)
-                    setErrors([]);
-                    // setCartCount(order.length)
-                } else {
-                    // setErrors(data.messages);
-                    console.log(errors)
-                }
-            } else {
-                console.log(response.status)
-                let message = 'Error Error! Sorry:(';
-                // setErrors(message)
-                throw new Error(message);
-            }
-        } catch (e) {
-            console.log(e);
-        };
-    }
+            const newOrder = {
+                orderId: auth.order.orderId,
+                customer: auth.customer,
+                masks: test,
+                total: 0.00,
+                purchased: false,
+                purchaseDate: null
+            };
+            const body = JSON.stringify(newOrder);
 
+            try {
+                console.log(body)
+                const response = await fetch(`http://localhost:8080/api/order/${auth.order.orderId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${auth.user.token}`
+                    },
+                    body
+                });
+                if (response.status === 200 || response.status === 400) {
+                    const data = await response.json();
+                    console.log(data)
+                    if (response.status === 200) {
+                        setErrors([]);
+                        auth.updateOrder(data.payload)
+                        console.log(data.payload)
+                    } 
+                    // else if(response.status === 500){
+
+                    // }
+                    
+                    else if (response.status === 400) {
+                        // setErrors(data.messages);
+                        // console.log(errors)
+                        setErrors(data);
+                    }
+                
+                }
+                else {
+                    console.log(response.status)
+                    let message = 'Error Error! Sorry:(';
+                    // setErrors(message)
+                    throw new Error(message);
+                }
+            } catch (e) {
+                console.log(e);
+            };
+        }
+        else {
+            setErrors('Please log in to purchase our masks!')
+            console.log('undefined')
+        }
+    }
     return (
         <>
             <Navbar cartCount={cartCount} />
@@ -138,7 +197,7 @@ function Mask(props:any) {
                                 <p>
                                     ${mask.cost}
                                 </p>
-                                <button onClick={handleAddSubmit} className='btn' id='addButton'>
+                                <button onClick={() => (handleAddSubmit(mask.maskId))} className='btn' id='addButton'>
                                     Add to Cart
                                     </button>
                             </div>
@@ -148,7 +207,7 @@ function Mask(props:any) {
                                 <p>
                                     ${mask.cost}
                                 </p>
-                                <button onClick={handleAddSubmit} className='btn' id='addButton'>
+                                <button onClick={() => (handleAddSubmit(mask.maskId))} className='btn' id='addButton'>
                                     Add to Cart
                                     </button>
                             </div>))}
