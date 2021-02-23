@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Navbar from './Navbar';
 import OrderTable from './OrderTable';
+import '../assets/css/customer.css';
+import AuthContext from './AuthContext';
 
 
 function OrderHistory() {
 
-  // var testCustomer: any = {
-  //   customerId: 1,
-  // }
 
-  const [customer, setCustomer] = useState<any>([]);
+  //const [customer, setCustomer] = useState<any>([]);
   const [orders, setOrders] = useState<any[]>([]);
 
   const [error, setErrors] = useState<any>([0]);
 
+  const auth = useContext(AuthContext);
 
 
   //setCustomer(testCustomer);
@@ -27,30 +27,38 @@ function OrderHistory() {
   // },[]);
 
 
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/api/customer/1')
+  //     .then(response => response.json())
+  //     .then(data => setCustomer(data))
+  //     .catch(error => console.log(error));
+  // }, []);
+
+  console.log(auth.customerId);
+
   useEffect(() => {
-    fetch('http://localhost:8080/api/customer/1')
-      .then(response => response.json())
-      .then(data => setCustomer(data))
-      .catch(error => console.log(error));
-  }, []);
-
-
-
-  useEffect(() => {
-    fetch('http://localhost:8080/api/order/customer/1')
+    fetch(`http://localhost:8080/api/order/customer/${auth.customerId}`)
       .then(response => response.json())
       .then(data => setOrders(data))
       .catch(error => console.log(error));
   }, []);
 
 
+console.log(orders);
+
 
   return (
     <>
       <Navbar />
+      <div className="sidenav">
+        <a href="/account">My Info</a>
+        <a href="/cart">View Cart</a>
+        <a href="/order_history">Order History</a>
+        <a href="/logout">Logout</a>
+      </div>
       <div>
-        <div >
-          <h1>Here lie thy Order History</h1>
+        <div className="main">
+          <h1>Order History</h1>
           <div className="accordion">
             {orders.map(order => (
               <div key={order.orderId}>
@@ -63,7 +71,6 @@ function OrderHistory() {
                     <div id={"collapse"+order.orderId} className="accordion-collapse collapse" aria-labelledby={"heading"+order.orderId} >
                       <div className="accordion-body">
                         <OrderTable order={order}/>
-
                     </div>
                   </div>
                 </div>

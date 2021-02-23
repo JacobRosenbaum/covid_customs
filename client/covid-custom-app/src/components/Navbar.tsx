@@ -39,7 +39,7 @@ function Navbar({ cartCount }: any) {
                                 <Link to="/covidInfo" className="nav-link">Covid Info</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/account" className="nav-link">My Account</Link>
+                                <Link to={auth.customerId ? "/account":"/login"} className="nav-link">My Account</Link>
                             </li>
                             {adminExists() ? (
                                 <li className="nav-item">
