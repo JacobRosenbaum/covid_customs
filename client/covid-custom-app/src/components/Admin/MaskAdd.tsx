@@ -3,10 +3,10 @@ import AdminControls from "./AdminControls";
 import Errors from '../../components/Errors';
 import { Link, useHistory } from 'react-router-dom';
 import AuthContext from '../AuthContext';
-import { Color, Mask } from '../Interfaces';
+import { Color, MaskInterface } from '../Interfaces';
 
 
-const DEFAULT_MASK: Mask = {
+const DEFAULT_MASK: MaskInterface = {
     maskId: 0,
     material: "COTTON",
     style: "OVER_EAR",
@@ -73,7 +73,7 @@ function MaskAdd() {
         e.preventDefault();
         console.log(mask);
         console.log(auth.user.token);
-        const newMask: Mask = mask;
+        const newMask: MaskInterface = mask;
 
         const body = JSON.stringify(newMask);
 
@@ -109,7 +109,7 @@ function MaskAdd() {
         setColors(colorStart);
         const colorsArray: String[] = [];
         Object.keys(colorStart).map(color => colorStart[color] ? colorsArray.push(color.toLocaleUpperCase()) : console.log())
-        const updatedMask: Mask = { ...mask };
+        const updatedMask: MaskInterface = { ...mask };
         updatedMask.colors = colorsArray;
         setMask(updatedMask);
     };

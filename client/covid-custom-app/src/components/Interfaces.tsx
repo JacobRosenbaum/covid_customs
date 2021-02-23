@@ -12,7 +12,7 @@ export interface Customer {
     role: string;
 };
 
-export interface Mask {
+export interface MaskInterface {
     maskId: number;
     material: string;
     style: string;
@@ -24,7 +24,7 @@ export interface Mask {
 }
 
 export interface MaskOrder {
-    mask: Mask;
+    mask: MaskInterface;
     quantity: number;
 };
 

@@ -52,7 +52,6 @@ function Navbar() {
                             {auth.user.email !== undefined && (<div className="nav-item">
                                 <Link to="/account" className="nav-link">My Account</Link>
                             </div>)}
-
                             {adminExists() ? (
                                 <div className="nav-item">
                                     <Link className="nav-link" to="/admin">Admin</Link>
