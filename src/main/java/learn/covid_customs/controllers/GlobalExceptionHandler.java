@@ -12,6 +12,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -35,8 +36,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<?> handleException(HttpMessageNotReadableException ex) {
-        return new ResponseEntity<>("Data Body was not entered correctly. Please try again.",
+    public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+        return new ResponseEntity<>(List.of("Invalid form input. Please try again."),
                 HttpStatus.BAD_REQUEST);
     }
 

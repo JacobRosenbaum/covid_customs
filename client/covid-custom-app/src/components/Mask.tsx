@@ -3,19 +3,49 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import '../assets/css/mask.css';
 import Navbar from './Navbar';
 import AuthContext from './AuthContext';
-
+import Modal from 'react-modal';
+import Errors from './Errors';
 
 function Mask(props: any) {
     const auth = useContext(AuthContext);
 
     const [masks, setMasks] = useState<any[]>([]);
-    const [customerMasks, setCustomerMasks] = useState<any[]>([]);
-    const [customer, setCustomer] = useState<any[]>([]);
-    const [order, setOrder] = useState<any[]>([]);
+    const [customerMask, setCustomerMask] = useState<any>('');
+    const [errors, setErrors] = useState<any>([]);
     const [filteredMasks, setFilteredMasks] = useState<any[]>([]);
     const [cartCount, setCartCount] = useState<number>(0)
-    const [maskId, setMaskId] = useState<number>();
-    const [errors, setErrors] = useState<any>([]);
+    const [quantity, setQuantity] = useState<number>(1);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: "550px",
+            height: "550px",
+            fontSize: "24px",
+            marginTop: "20px",
+            backgroundColor: "white",
+            color: "firebrick",
+            borderColor: "firebrick",
+            borderRadius: "6px",
+            border: ".5px solid white",
+            padding: 5
+        }
+    };
+
+    function closeModal() {
+        setModalIsOpen(false);
+    }
+
+    function openModal(mask: any) {
+        setModalIsOpen(true);
+        setCustomerMask(mask)
+    }
 
     useEffect(() => {
         const getData = async () => {
@@ -42,52 +72,32 @@ function Mask(props: any) {
         console.log(s)
     }
 
-    // const getCustomerMasks = async () => {
-    //     console.log(auth.user);
-    //     console.log(auth.customerId);
-
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/api/order/customer/${auth.customerId}`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 "Authorization": `Bearer ${auth.user.token}`
-    //             },
-    //         })
-    //         const data = await response.json();
-    //         if (response.status === 200) {
-    //             if (data[0].orderId) {
-    //                 setCustomerMasks(data[0].masks[0]);
-    //                 console.log(data[0].masks[0])
-    //                 console.log(customerMasks)
-    //             }
-    //             else {
-    //                 console.log('bad status')
-    //             }
-    //         }
-    //         else {
-    //             console.log(response)
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
     const handleAddSubmit = async (maskId: number) => {
         console.log(auth.order)
         if (auth.user.token) {
             // console.log(auth.order[0].masks)
             console.log(auth.order.masks)
-            let test = [...auth.order.masks];
-            console.log(test)
-            test.push({
-                maskId,
-                quantity: 1
+            let maskOrder = [...auth.order.masks];
+            let updatedQuantity = quantity;
+            for (let i = 0; i < maskOrder.length; i++) {
+                if (maskOrder[i].mask.maskId == customerMask.maskId) {
+                    updatedQuantity = maskOrder[i].quantity + updatedQuantity;
+                    maskOrder.splice(i, 1)
+                }
+                else if (maskOrder[i].quantity == 0) {
+                    maskOrder.splice(i, 1)
+                }
+            }
+            console.log(maskOrder)
+            console.log(updatedQuantity)
+            maskOrder.push({
+                mask: customerMask,
+                quantity: updatedQuantity
             });
             const newOrder = {
                 orderId: auth.order.orderId,
                 customer: auth.customer,
-                masks: test,
+                masks: maskOrder,
                 total: 0.00,
                 purchased: false,
                 purchaseDate: null
@@ -111,41 +121,41 @@ function Mask(props: any) {
                         setErrors([]);
                         auth.updateOrder(data.payload)
                         console.log(data.payload)
-                    } 
-                    // else if(response.status === 500){
-
-                    // }
-                    
-                    else if (response.status === 400) {
-                        // setErrors(data.messages);
-                        // console.log(errors)
-                        setErrors(data);
+                        closeModal()
                     }
-                
+                    else if (response.status === 400) {
+                        setErrors(data);
+                        closeModal()
+                    }
+
                 }
                 else {
                     console.log(response.status)
                     let message = 'Error Error! Sorry:(';
-                    // setErrors(message)
+                    closeModal()
                     throw new Error(message);
+
                 }
             } catch (e) {
                 console.log(e);
+                closeModal()
             };
         }
         else {
-            setErrors('Please log in to purchase our masks!')
+            setErrors(['Please log in to purchase our masks!'])
             console.log('undefined')
+            closeModal()
         }
     }
     return (
         <>
-            <Navbar cartCount={cartCount} />
+            <Navbar />
             <div className='container'>
                 <div className='jumbotron'>
                     <h1 className='title'>
-                        <a href='shopMask'>Shop Masks</a>
+                        Shop Masks
                     </h1>
+                    <Errors errors={errors} />
                     <div className='row dropdown'>
                         <Dropdown className='col-md-4'>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -197,7 +207,8 @@ function Mask(props: any) {
                                 <p>
                                     ${mask.cost}
                                 </p>
-                                <button onClick={() => (handleAddSubmit(mask.maskId))} className='btn' id='addButton'>
+                                <button onClick={openModal}
+                                    className='btn' id='addButton'>
                                     Add to Cart
                                     </button>
                             </div>
@@ -207,15 +218,37 @@ function Mask(props: any) {
                                 <p>
                                     ${mask.cost}
                                 </p>
-                                <button onClick={() => (handleAddSubmit(mask.maskId))} className='btn' id='addButton'>
+                                <button onClick={() => (openModal(mask))} className='btn' id='addButton'>
                                     Add to Cart
                                     </button>
+                                <Modal
+                                    isOpen={modalIsOpen}
+                                    onRequestClose={closeModal}
+                                    style={customStyles}
+                                    ariaHideApp={false} >
+                                    <i id="closeMask" className="fa fa-times" onClick={closeModal}></i>
+                                    <h1 style={{ color: 'gray' }} className='modalTitle'>
+                                        {customerMask.material}
+                                    </h1>
+                                    <form>
+                                        <div className='row flexContainer'>
+                                            <div className="form-group col-sm-6 col-m-4 col-12">
+                                                <img id='customerMask' className="img" src={process.env.PUBLIC_URL + customerMask.image} alt="Mask" />
+                                                <p id='cost'>
+                                                    ${customerMask.cost}
+                                                </p>
+                                                <input id='quantity' onChange={e => { setQuantity(parseInt(e.target.value)); console.log('quantity ' + e.target.value) }}
+                                                    type="number" min="1" className="form-control" placeholder="Quanity" />
+                                            </div>
+                                        </div>
+                                        <button onClick={() => (handleAddSubmit(customerMask))} type='button' className="btn btn-primary submitButton">Add to Cart</button>
+                                    </form>
+                                </Modal>
                             </div>))}
                     </div>
                 </div>
             </div>
         </>
-
     );
 };
 

@@ -3,7 +3,7 @@ import AdminControls from "./AdminControls";
 import Errors from '../../components/Errors';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import AuthContext from '../AuthContext';
-import { Color, Mask } from '../Interfaces';
+import { Color, MaskInterface } from '../Interfaces';
 
 const DEFAULT_COLOR: Color = {
     red: false,
@@ -15,7 +15,7 @@ const DEFAULT_COLOR: Color = {
     violet: false
 };
 
-const DEFAULT_MASK: Mask = {
+const DEFAULT_MASK: MaskInterface = {
     maskId: 0,
     material: "COTTON",
     style: "OVER_EAR",
@@ -92,7 +92,7 @@ function MaskEdit() {
 
     const handlingFormSubmit = (e: any) => {
         e.preventDefault();
-        const newMask: Mask = mask;
+        const newMask: MaskInterface = mask;
 
         const body = JSON.stringify(newMask);
 
@@ -129,13 +129,13 @@ function MaskEdit() {
         setColors(colorStart);
         const colorsArray: String[] = [];
         Object.keys(colorStart).map(color => colorStart[color] ? colorsArray.push(color.toLocaleUpperCase()) : console.log())
-        const updatedMask: Mask = { ...mask };
+        const updatedMask: MaskInterface = { ...mask };
         updatedMask.colors = colorsArray;
         setMask(updatedMask);
     };
 
     const handleCheckBoxDeleted = () => {
-        const updatedMask: Mask = { ...mask };
+        const updatedMask: MaskInterface = { ...mask };
         updatedMask.deleted = !updatedMask.deleted;
         setMask(updatedMask);
     };

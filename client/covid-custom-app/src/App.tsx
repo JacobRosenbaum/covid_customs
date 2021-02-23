@@ -17,6 +17,7 @@ import NotFound from './components/NotFound';
 import Login from './components/Login';
 import Register from './components/Register';
 import AuthContext, { AuthContextInterface } from './components/AuthContext';
+import { MaskInterface, Order, Customer } from './components/Interfaces';
 
 import AdminCustomers from './components/Admin/AdminCustomers';
 import AdminMasks from './components/Admin/AdminMasks';
@@ -41,18 +42,28 @@ function App() {
 
   const [user, setUser] = useState({} as User);
   const [customerId, setCustomerId] = useState<number>(0);
-  const [customer, setCustomer] = useState<[]>([]);
+  const [customer, setCustomer] = useState({} as Customer);
   const [customerName, setCustomerName] = useState<string>('Loyal Customer');
-  const [order, setOrder] = useState<[]>([]);
+  const [order, setOrder] = useState({} as Order);
   const history = useHistory();
 
   useEffect(() => {
-    findCustomerByCustomerEmail();
+    if (user.email == undefined) {
+      console.log('no user')
+    }
+    else {
+      findCustomerByCustomerEmail()
+    }
   }, [user]);
 
   useEffect(() => {
-    findOrderByCustomerId()
-  }, [customerId]);
+    if (customer.email == undefined) {
+      console.log('no customer')
+    }
+    else {
+      findOrderByCustomerId()
+    }
+  }, [customer]);
 
   const updateOrder = (order: any) => {
     setOrder(order)
@@ -69,8 +80,9 @@ function App() {
           "Authorization": `Bearer ${auth.user.token}`
         },
       })
-      const data = await response.json();
       if (response.status === 200) {
+        const data = await response.json();
+        console.log(data)
         setCustomerId(data.customerId)
         setCustomer(data)
         setCustomerName(data.firstName)
@@ -95,14 +107,16 @@ function App() {
       })
       const data = await response.json();
       if (response.status === 200) {
-        if (data[0].orderId) {
-          console.log(customer)
-          console.log(data[0])
-          updateOrder(data[0])
-
-        }
-        else {
-          console.log('here')
+        console.log(data)
+        for (let i = 0; i < data.length; i++) {
+          if (!data[i].purchased) {
+            updateOrder(data[i])
+            break;
+          }
+          else if (data[i].purchased){
+            addOrder();
+            break;
+          }
         }
       }
       else {
@@ -121,17 +135,29 @@ function App() {
   };
 
   async function addOrder() {
-    const newOrder = {
+    const newOrder: Order = {
+      orderId: 0,
       customer: auth.customer,
       masks: [
         {
-          maskId: 1,
-          quantity: 1
+          mask: {
+            maskId: 1,
+            material: "POLY_COT",
+            style: "ATHLETIC",
+            colors: [
+              "RED"
+            ],
+            cost: 0.00,
+            custom: false,
+            image: "",
+            deleted: false
+          },
+          quantity: 0
         }
       ],
-      total: 0.00,
+      total: 0,
       purchased: false,
-      purchaseDate: null
+      purchaseDate: undefined
     };
     const body = JSON.stringify(newOrder);
     try {
@@ -143,15 +169,19 @@ function App() {
         },
         body
       });
-      const data = await response.json();
+
       if (response.status === 201 || response.status === 400) {
-        console.log(response.status + ' hit message')
-        console.log(data)
-        setOrder(data)
+        const data = await response.json();
+        if (response.status === 201) {
+          console.log(response.status + ' hit message')
+          console.log(data)
+          setOrder(data)
+        } else if (response.status === 400) {
+          console.log(response)
+        }
       } else {
         console.log(response.status)
         let message = 'Error Error! Sorry:(';
-        // setErrors(message)
         throw new Error(message);
       }
     } catch (e) {
@@ -198,7 +228,7 @@ function App() {
 
   const logout = () => {
     setUser({} as User);
-    setOrder([]);
+    setOrder({} as Order);
     history.push('/');
   }
 
@@ -216,11 +246,11 @@ function App() {
 
   const adminExists = () => {
     console.log(user.email);
-    if (user.email!==undefined)
-    {if (user.roles[0] == "ROLE_ADMIN"){
-      return true;
+    if (user.email !== undefined) {
+      if (user.roles[0] == "ROLE_ADMIN") {
+        return true;
+      }
     }
-    } 
     return false;
   }
 
@@ -241,7 +271,7 @@ function App() {
           </Route>
 
           <Route exact path="/admin/masks">
-            {adminExists()? (<AdminMasks />) : (<Redirect to="/login" />)}
+            {adminExists() ? (<AdminMasks />) : (<Redirect to="/login" />)}
           </Route>
 
           <Route exact path="/admin/orders">
@@ -249,7 +279,7 @@ function App() {
           </Route>
 
           <Route exact path="/admin/customers">
-            {adminExists()? (<AdminCustomers />) : (<Redirect to="/login" />)}
+            {adminExists() ? (<AdminCustomers />) : (<Redirect to="/login" />)}
           </Route>
 
 

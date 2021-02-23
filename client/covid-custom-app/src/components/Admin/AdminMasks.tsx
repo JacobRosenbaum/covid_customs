@@ -2,13 +2,13 @@ import AdminControls from "./AdminControls";
 import { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import AuthContext from '../AuthContext';
-import { Mask } from '../Interfaces';
+import { MaskInterface } from '../Interfaces';
 
 function AdminMasks() {
     const auth = useContext(AuthContext);
     const history = useHistory();
 
-    const [masks, setMasks] = useState<Mask[]>([]);
+    const [masks, setMasks] = useState<MaskInterface[]>([]);
 
     const getAllMasks = () => {
         fetch('http://localhost:8080/api/mask/admin')
@@ -36,7 +36,7 @@ function AdminMasks() {
                 if (response.status === 204) {
                     getAllMasks();
                 } else if (response.status === 404) {
-                    Promise.reject(`Mask Id #${e.target.value} not found.`);
+                    Promise.reject(`MaskInterface Id #${e.target.value} not found.`);
                 } else {
                     Promise.reject('Something went wrong!');
                 }
@@ -57,7 +57,7 @@ function AdminMasks() {
                     {masks.map(mask => (<div key={mask.maskId} className="col">
                         <div className="card h-100">
                             <div className="card-body">
-                                <img src={process.env.PUBLIC_URL + mask.image} alt="Mask" className="card-img-top" />
+                                <img src={process.env.PUBLIC_URL + mask.image} alt="MaskInterface" className="card-img-top" />
                                 <div><h5 className="card-title">Cost: ${mask.cost}</h5>
                                     <p className="card-text">
                                         Style: {mask.style} <br />

@@ -10,6 +10,7 @@
 // export default AuthContext;
 
 import React from 'react';
+import { Order, Customer } from './Interfaces';
 
 export interface AuthContextInterface {
     authenticate: any;
@@ -17,8 +18,8 @@ export interface AuthContextInterface {
     user: any
     logout: any;
     customerId: number;
-    customer: [];
-    order: any;
+    customer: Customer;
+    order: Order;
     customerName: string;
     updateOrder: (order: any) => void
     //updateCustomer: (customer: any) => void
@@ -30,10 +31,8 @@ export const authContextDefaults: AuthContextInterface = {
     user: null,
     logout: null,
     customerId: 0,
-    customer: [],
-    order: {
-        masks: []
-    },
+    customer: {} as Customer,
+    order: {} as Order,
     customerName: 'Loyal Shopper',
     updateOrder: (order: any) => {}
     //updateCustomer: (customer: any) => {}

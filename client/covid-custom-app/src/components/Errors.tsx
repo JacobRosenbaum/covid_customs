@@ -8,12 +8,9 @@ function Errors({ errors }:any) {
   
     return (
       <div className="alert alert-danger">
-        The following errors were found:
-        <ul>
           {errors.map((error: any) => (
-            <li key={error}>{error}</li>
+            <div key={error}>{error}</div>
           ))}
-        </ul>
       </div>
     );
   }

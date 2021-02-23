@@ -49,7 +49,7 @@ function Register() {
         setModalIsOpen(false);
     }
 
-    function openModel() {
+    function openModal() {
         setModalIsOpen(true);
     }
 
@@ -84,9 +84,10 @@ function Register() {
                     throw new Error('Unknown Error');
                 }
             }
-            else {
-                console.log(response);
-                setErrors(['Form is missing required fields']);
+            else if (response.status === 400) {
+                const data = await response.json();
+                console.log(data);
+                setErrors(data);
                 closeModal();
                 // setErrors(response);
             }
@@ -120,7 +121,8 @@ function Register() {
                     </div>
                 </div>
                 <button
-                    onClick={openModel}
+                    onClick={openModal
+            }
                     className="btn btn-primary create">Create my Account!</button>
                 <h5 className='signUp'>
                     Already have an account with us? <Link to={'/login'}> <span id='clickHere'>Login</span> </Link>
