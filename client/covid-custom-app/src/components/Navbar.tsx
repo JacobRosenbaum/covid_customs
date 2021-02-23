@@ -5,6 +5,7 @@ import { useContext } from 'react';
 
 
 function Navbar() {
+    
     const auth: AuthContextInterface = useContext(AuthContext);
     const adminExists = () => {
         if (auth.user.email === undefined) {
