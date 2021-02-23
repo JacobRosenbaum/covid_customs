@@ -59,6 +59,7 @@ function App() {
   useEffect(() => {
     if (customer.email == undefined) {
       console.log('no customer')
+      console.log(auth.customer);
     }
     else {
       findOrderByCustomerId()
@@ -67,6 +68,10 @@ function App() {
 
   const updateOrder = (order: any) => {
     setOrder(order)
+  }
+
+  const updateCustomer = (customer: any) => {
+    setCustomer(customer)
   }
 
   const findCustomerByCustomerEmail = async () => {
@@ -241,11 +246,11 @@ function App() {
     customer,
     order,
     customerName,
-    updateOrder
+    updateOrder,
+    updateCustomer
   }
 
   const adminExists = () => {
-    console.log(user.email);
     if (user.email !== undefined) {
       if (user.roles[0] == "ROLE_ADMIN") {
         return true;

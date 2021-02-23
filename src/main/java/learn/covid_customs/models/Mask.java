@@ -43,7 +43,7 @@ public class Mask {
 
     @Getter
     @Setter
-    @NotNull(message = "Image cannot be null.")
+    @NotEmpty(message = "Image cannot be null.")
     private String image;
 
     @Getter
