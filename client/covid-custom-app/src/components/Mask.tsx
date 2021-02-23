@@ -81,7 +81,6 @@ function Mask(props: any) {
             let updatedQuantity = quantity;
             for (let i = 0; i < maskOrder.length; i++) {
                 if (maskOrder[i].mask.maskId == customerMask.maskId) {
-                    // maskOrder[i].quantity = quantity + maskOrder[i].quantity
                     updatedQuantity = maskOrder[i].quantity + updatedQuantity;
                     maskOrder.splice(i, 1)
                 }

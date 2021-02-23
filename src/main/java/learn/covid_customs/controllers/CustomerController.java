@@ -51,7 +51,7 @@ public class CustomerController {
     }
 
     @PostMapping("/create_account")
-    public ResponseEntity<Object> createAccount(@RequestBody @Valid Customer customer) {
+    public ResponseEntity<Object> createAccount(@RequestBody Customer customer) {
 
         customer.setRole("USER");
         Result<Customer> result = customerService.add(customer);

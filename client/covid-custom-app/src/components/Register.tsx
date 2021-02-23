@@ -84,9 +84,10 @@ function Register() {
                     throw new Error('Unknown Error');
                 }
             }
-            else {
-                console.log(response);
-                setErrors(['Form is missing required fields']);
+            else if (response.status === 400) {
+                const data = await response.json();
+                console.log(data);
+                setErrors(data);
                 closeModal();
                 // setErrors(response);
             }
