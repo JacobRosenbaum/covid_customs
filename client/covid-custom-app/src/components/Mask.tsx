@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import '../assets/css/mask.css';
+import '../assets/css/maskCSS.css';
 import Navbar from './Navbar';
 import AuthContext from './AuthContext';
 import Modal from 'react-modal';
