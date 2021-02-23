@@ -63,7 +63,7 @@ public class CustomerController {
 
 
     @PutMapping("/{customerId}")
-    public ResponseEntity<Object> update(@PathVariable int customerId, @RequestBody @Valid Customer customer) {
+    public ResponseEntity<Object> update(@PathVariable int customerId, @RequestBody Customer customer) {
         if (customer.getCustomerId() != customerId) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }

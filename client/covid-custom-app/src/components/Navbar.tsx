@@ -72,7 +72,7 @@ function Navbar() {
                             </a>
                         </div>
                         <div className="float-end">
-                            <p className="nav-link-login color-red"><b>Hello {auth.customerName}!</b></p>
+                            <p className="nav-link-login color-red"><b>Hello {auth.customer.firstName}!</b></p>
                         </div>
 
                     </div>

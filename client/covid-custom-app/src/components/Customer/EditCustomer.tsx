@@ -13,16 +13,9 @@ function EditCustomer() {
   const auth = useContext(AuthContext);
   const history = useHistory();
 
-  const [customer, setCustomer] = useState<any>([]);
+  const [customer, setCustomer] = useState<any>({...auth.customer});
   const [error, setErrors] = useState<any>([]);
 
-
-  useEffect( () => {
-    fetch(`http://localhost:8080/api/customer/${auth.customerId}`)
-      .then(response => response.json())
-      .then(data => setCustomer(data))
-      .catch(error => console.log(error)); //set errors here?
-  },[]);
 
   ORGINAL_CUSTOMER = customer;
 
@@ -47,10 +40,12 @@ function EditCustomer() {
     })
       .then(response => {
           if (response.status === 204) {
-              history.push('/account')
-              return null;
-          } else if (response.status === 400) {
+              
+              //history.push('/account')
             console.log("kitty")
+
+            return null;
+          } else if (response.status === 400) {
             setCustomer(ORGINAL_CUSTOMER);
               return response.json();
           } else {
@@ -59,7 +54,11 @@ function EditCustomer() {
       })
       .then(data => {
           if (!data) {
-              history.push('/');
+            console.log(customer);
+            const cust = {...customer}
+            console.log(cust);
+            auth.updateCustomer(cust);
+              history.push('/account');
           } else {
               setErrors(data);
           }
