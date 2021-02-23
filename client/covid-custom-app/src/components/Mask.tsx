@@ -150,7 +150,7 @@ function Mask(props: any) {
     }
     return (
         <>
-            <Navbar cartCount={cartCount} />
+            <Navbar />
             <div className='container'>
                 <div className='jumbotron'>
                     <h1 className='title'>
