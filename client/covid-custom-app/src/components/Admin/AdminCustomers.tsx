@@ -1,29 +1,15 @@
 import AdminControls from "./AdminControls";
 import { useState, useEffect, useContext } from 'react';
 import AuthContext from '../AuthContext';
+import { Customer } from '../Interfaces';
 
 function AdminCustomer() {
     const auth = useContext(AuthContext);
-
-    interface Customer {
-        customerId: number;
-        firstName: String;
-        lastName: String;
-        email: String;
-        password: String;
-        addressLine: String;
-        city: String;
-        State: String;
-        zipCode: number;
-        phone: String;
-        role: String;
-    }
-
     const [customers, setCustomer] = useState<Customer[]>([]);
 
     useEffect(() => {
         getAllCustomers();
-     }, []);
+    }, []);
 
     const getAllCustomers = () => {
         fetch('http://localhost:8080/api/customer')
@@ -35,9 +21,9 @@ function AdminCustomer() {
     const deleteCustomer = (e: any) => {
         fetch(`http://localhost:8080/api/customer/${e.target.value}`, {
             method: "DELETE",
-            //   headers: {
-            //     "Authorization": `Bearer ${auth.user.token}`
-            //   },  
+            headers: {
+                "Authorization": `Bearer ${auth.user.token}`
+            },
         })
             .then(response => {
                 if (response.status === 204) {

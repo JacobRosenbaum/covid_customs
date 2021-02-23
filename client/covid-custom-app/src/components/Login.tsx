@@ -21,7 +21,7 @@ function Login() {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(username, password);
+        //console.log(username, password);
 
         try {
             await auth.authenticate(username, password)
