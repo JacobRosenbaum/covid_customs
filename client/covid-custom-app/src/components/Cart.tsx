@@ -7,7 +7,6 @@ import AuthContext from './AuthContext';
 function Cart() {
 
   const auth = useContext(AuthContext);
-  console.log(auth.orderId);
 
   return (
     <>
