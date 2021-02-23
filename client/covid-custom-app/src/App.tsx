@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 import jwt_decode from 'jwt-decode';
 import About from './components/About';
-import CovidAPI from './components/CovidAPI';
+import CovidAPI from './components/CovidApi/CovidAPI';
 import Mask from './components/Mask';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
@@ -25,11 +25,11 @@ import MaskAdd from './components/Admin/MaskAdd';
 import MaskEdit from './components/Admin/MaskEdit';
 import { useState, useEffect } from 'react';
 
-import CustomerAccount from './components/CustomerAccount';
-import OrderHistory from './components/OrderHistory';
-import Cart from './components/Cart';
-import LogoutPage from './components/LogoutPage';
-import EditCustomer from './components/EditCustomer';
+import CustomerAccount from './components/Customer/CustomerAccount';
+import OrderHistory from './components/Customer/OrderHistory';
+import Cart from './components/Cart/Cart';
+import LogoutPage from './components/Customer/LogoutPage';
+import EditCustomer from './components/Customer/EditCustomer';
 
 
 function App() {
@@ -274,7 +274,7 @@ function App() {
           </Route>
 
           <Route exact path="/account">
-            <CustomerAccount />
+            {auth.customerId ? (<CustomerAccount/>):(<Login/>)}
           </Route>
 
           <Route exact path="/edit_customer">

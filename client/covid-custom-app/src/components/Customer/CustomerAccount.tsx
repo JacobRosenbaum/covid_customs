@@ -1,18 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
-import Navbar from './Navbar';
-import AuthContext from './AuthContext';
-import '../assets/css/customer.css';
-import Button from 'react-bootstrap/esm/Button';
+import Navbar from '../Navbar';
+import AuthContext from '../AuthContext';
+import '../../assets/css/customer.css';
 import { Link } from 'react-router-dom';
 
-//must login then declare const auth to get credentials of user
 
 function CustomerAccount() {
-
-  // var testCustomer: any = {
-  //   customerId: 1,
-  // }
-
 
   const auth = useContext(AuthContext);
 
@@ -29,11 +22,6 @@ function CustomerAccount() {
   },[]);
 
 
-
-
-//all links in my sideNav need to be <Link to=/abc.src /> because my current setup causes a refresh which loses my auth.user
-
-
   return (
     <>
       <Navbar/>
@@ -47,12 +35,12 @@ function CustomerAccount() {
       <div className="main">
         <h1><strong>Customer Account</strong></h1>
         <h4><strong>Account #:</strong> {customer.customerId}</h4>
-        <h4><strong>Name:</strong> {auth.user.firstName} {customer.lastName}</h4>
+        <h4><strong>Name:</strong> {customer.firstName} {customer.lastName}</h4>
         <h4><strong>Email(username):</strong> {customer.email}</h4>
         <h4><strong>Phone:</strong> {customer.phone}</h4>
         <h4><strong>Address Line 1:</strong> {customer.addressLine}</h4>
         <h4><strong>Address Line 2:</strong> {customer.city}, {customer.state} {customer.zipCode}</h4>
-        <Button>Update Contact Information</Button>
+        <Link to="/edit_customer" className="cartLink">Update Information</Link>
 
         
       </div>

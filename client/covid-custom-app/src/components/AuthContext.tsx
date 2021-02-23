@@ -21,6 +21,7 @@ export interface AuthContextInterface {
     order: any;
     customerName: string;
     updateOrder: (order: any) => void
+    //updateCustomer: (customer: any) => void
 }
 
 export const authContextDefaults: AuthContextInterface = {
@@ -35,6 +36,7 @@ export const authContextDefaults: AuthContextInterface = {
     },
     customerName: 'Loyal Shopper',
     updateOrder: (order: any) => {}
+    //updateCustomer: (customer: any) => {}
 };
 
 const AuthContext = React.createContext<AuthContextInterface>(

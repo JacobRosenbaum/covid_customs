@@ -1,6 +1,6 @@
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 import { useState, useEffect } from 'react';
-import '../assets/css/covidApi.css';
+import '../../assets/css/covidApi.css';
 import UsaMap from './UsaMap';
 
 

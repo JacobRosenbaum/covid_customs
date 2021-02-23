@@ -1,40 +1,18 @@
 import { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/esm/Button';
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 import OrderTable from './OrderTable';
-import '../assets/css/customer.css';
-import AuthContext from './AuthContext';
+import '../../assets/css/customer.css';
+import AuthContext from '../AuthContext';
+import { Link } from 'react-router-dom';
+
 
 
 function OrderHistory() {
 
-
-  //const [customer, setCustomer] = useState<any>([]);
   const [orders, setOrders] = useState<any[]>([]);
-
   const [error, setErrors] = useState<any>([0]);
-
   const auth = useContext(AuthContext);
-
-
-  //setCustomer(testCustomer);
-
-  // useEffect( () => {
-  //   fetch(`http://localhost:8080/api/customer/${customer.customerId}`)
-  //     .then(response => response.json())
-  //     .then(data => setCustomer(data))
-  //     .catch(error => console.log(error));
-  // },[]);
-
-
-  // useEffect(() => {
-  //   fetch('http://localhost:8080/api/customer/1')
-  //     .then(response => response.json())
-  //     .then(data => setCustomer(data))
-  //     .catch(error => console.log(error));
-  // }, []);
-
-  console.log(auth.customerId);
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/order/customer/${auth.customerId}`)
@@ -51,14 +29,18 @@ console.log(orders);
     <>
       <Navbar />
       <div className="sidenav">
-        <a href="/account">My Info</a>
-        <a href="/cart">View Cart</a>
-        <a href="/order_history">Order History</a>
-        <a href="/logout">Logout</a>
+        <Link to="/account">My Info</Link>
+        <Link to="/cart">View Cart</Link>
+        <Link to="/order_history">Order History</Link>
+        <Link to="/logout">Logout</Link>
       </div>
       <div>
         <div className="main">
           <h1>Order History</h1>
+          {auth.order.masks ? 
+          
+          (
+
           <div className="accordion">
             {orders.map(order => (
               <div key={order.orderId}>
@@ -76,13 +58,12 @@ console.log(orders);
                 </div>
               </div>
 
-
-
-
-
             ))}
 
           </div>
+          
+          ) : (<h2>No Orders To View</h2>)}
+          
         </div>
       </div>
 
