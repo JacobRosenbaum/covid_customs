@@ -32,7 +32,7 @@ import CustomerAccount from './components/CustomerAccount';
 function App() {
   interface User {
     email: string;
-    roles: string;
+    roles: String[];
     token: string;
   }
 
@@ -77,6 +77,7 @@ function App() {
     console.log(auth.customerId);
 
     try {
+      console.log(auth.user.token);
       const response = await fetch(`http://localhost:8080/api/order/customer/${auth.customerId}`, {
         method: 'GET',
         headers: {
@@ -207,6 +208,16 @@ function App() {
     order
   }
 
+  const adminExists = () => {
+    console.log(user.email);
+    if (user.email!==undefined)
+    {if (user.roles[0] == "ROLE_ADMIN"){
+      return true;
+    }
+    } 
+    return false;
+  }
+
   return (
     <AuthContext.Provider value={auth}>
       <Router>
@@ -216,23 +227,22 @@ function App() {
           </Route>
 
           <Route exact path="/admin/masks/add">
-              <MaskAdd />
+            {adminExists() ? (<MaskAdd />) : (<Redirect to="/login" />)}
           </Route>
-
           <Route path="/admin/masks/edit/:maskId">
-              <MaskEdit />
+            {adminExists() ? (<MaskEdit />) : (<Redirect to="/login" />)}
           </Route>
 
           <Route exact path="/admin/masks">
-              <AdminMasks />
+            {adminExists()? (<AdminMasks />) : (<Redirect to="/login" />)}
           </Route>
 
           <Route exact path="/admin/orders">
-              <AdminOrders />
+            {adminExists() ? (<AdminOrders />) : (<Redirect to="/login" />)}
           </Route>
 
           <Route exact path="/admin/customers">
-              <AdminCustomers />
+            {adminExists()? (<AdminCustomers />) : (<Redirect to="/login" />)}
           </Route>
 
           <Route exact path="/aboutUs">

@@ -3,27 +3,8 @@ import AdminControls from "./AdminControls";
 import Errors from '../../components/Errors';
 import { Link, useHistory } from 'react-router-dom';
 import AuthContext from '../AuthContext';
+import { Color, Mask } from '../Interfaces';
 
-interface Mask {
-    maskId: number;
-    material: string;
-    style: string;
-    colors: String[];
-    cost: number;
-    image: any;
-    custom: boolean;
-    deleted: boolean;
-}
-
-interface Color {
-    red: boolean;
-    orange: boolean;
-    blue: boolean;
-    white: boolean;
-    black: boolean;
-    green: boolean;
-    violet: boolean;
-}
 
 const DEFAULT_MASK: Mask = {
     maskId: 0,
@@ -39,6 +20,8 @@ const DEFAULT_MASK: Mask = {
 function MaskAdd() {
     const history = useHistory();
     const auth = useContext(AuthContext);
+    console.log("user token: "+ auth.user.token)
+
     const switchColorsAddToObject = (color: String, colorStart: Color) => {
         switch (color) {
             case "RED":
@@ -89,35 +72,36 @@ function MaskAdd() {
     const handlingFormSubmit = (e: any) => {
         e.preventDefault();
         console.log(mask);
+        console.log(auth.user.token);
         const newMask: Mask = mask;
-      
-          const body = JSON.stringify(newMask);
 
-          fetch('http://localhost:8080/api/mask', {
+        const body = JSON.stringify(newMask);
+
+        fetch('http://localhost:8080/api/mask', {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
-              //"Authorization": `Bearer ${auth.user.token}`
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth.user.token}`
             },
             body
-          })
+        })
             .then(response => {
-              if (response.status === 201 || response.status === 400) {
-                return response.json();
-              } else {
-                Promise.reject('Something went wrong!');
-              }
+                if (response.status === 201 || response.status === 400) {
+                    return response.json();
+                } else {
+                    Promise.reject('Something went wrong!');
+                }
             })
             .then(data => {
-              if (data.maskId) {
-                history.push('/admin/masks');
-              } else {
-                setErrors(data);
-              }
+                if (data.maskId) {
+                    history.push('/admin/masks');
+                } else {
+                    setErrors(data);
+                }
             })
             .catch(error => console.log(error));
     };
-    
+
 
     const handleCheckBox = (e: any) => {
         const colorStart: any = { ...colors };
@@ -132,7 +116,6 @@ function MaskAdd() {
 
     const handlingOnChange = (e: any) => {
         const updatedMask: any = { ...mask };
-        console.log(e.target.name + " " + e.target.value)
         updatedMask[e.target.name] = e.target.value;
         setMask(updatedMask);
     };
@@ -218,7 +201,7 @@ function MaskAdd() {
                             value={mask.image}></input>
                     </div>
                     <button className="btn btn-success" type="submit">add</button>
-                    <Link className="btn btn-warning ml-2" to="/admin/masks">Cancel</Link> 
+                    <Link className="btn btn-warning ml-2" to="/admin/masks">Cancel</Link>
                 </form>
             </div>
         </>
