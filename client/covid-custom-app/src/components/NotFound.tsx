@@ -15,7 +15,6 @@ function NotFound() {
         switch (randomNumber) {
             case 1:
                 return (<>
-                <Navbar />
                     <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Thank You Health Care Works!</h2>
@@ -27,7 +26,6 @@ function NotFound() {
                 </>);
             case 2:
                 return (<>
-                    <Navbar />
                     <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Thank You Essential Works!</h2>
@@ -39,7 +37,6 @@ function NotFound() {
                 </>);
             case 3:
                 return (<>
-                <Navbar />
                     <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Please Wear Your Masks!</h2>
@@ -51,7 +48,6 @@ function NotFound() {
                 </>);
             case 4:
                 return (<>
-                <Navbar />
                     <div className="card m-2" >
                         <div className="card-body">
                             <h2 className="card-title">Wash Your Hands!</h2>
@@ -76,12 +72,15 @@ function NotFound() {
     }
 
     return (
-        <div className="container">
-            <div className="move_down">
-                <h1 className="h1_special">Page Not Found</h1>
-                {getRandomNumber()}
+        <>
+            <Navbar />
+            <div id='notFound' className="container">
+                <div className="move_down">
+                    <h1 className="h1_special">Page Not Found</h1>
+                    {getRandomNumber()}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

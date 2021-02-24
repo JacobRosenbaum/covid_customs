@@ -5,7 +5,7 @@
 }
 
 h3 {
-    font-size: 40px
+    font-size: 40px;
 }
 
 label {
@@ -95,4 +95,9 @@ input {
 .submitButton:hover {
     background-color: salmon !important;
     border-color: salmon !important;
+}
+
+.modalTitle{
+    position: relative;
+    top: 30px
 }

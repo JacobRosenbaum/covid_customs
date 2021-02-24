@@ -13,7 +13,7 @@ function OrderTable(props:any) {
 
   return (
     <>
-      <h6>orderId: {props.order.orderId}</h6>
+      {/* <h6>orderId: {props.order.orderId}</h6> */}
       <table className="table">
         <tbody>
           <tr>

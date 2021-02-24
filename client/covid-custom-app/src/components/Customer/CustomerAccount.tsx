@@ -3,59 +3,98 @@ import Navbar from '../Navbar';
 import AuthContext from '../AuthContext';
 import '../../assets/css/customer.css';
 import { Link } from 'react-router-dom';
-
+import Modal from 'react-modal';
 
 function CustomerAccount() {
 
   const auth = useContext(AuthContext);
 
-
   const [customer, setCustomer] = useState<any>([]);
   const [error, setErrors] = useState<any>([0]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-
-  useEffect( () => {
+  useEffect(() => {
     fetch(`http://localhost:8080/api/customer/${auth.customerId}`)
       .then(response => response.json())
       .then(data => setCustomer(data))
       .catch(error => console.log(error)); //set errors here?
-  },[]);
+  }, []);
 
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      width: "550px",
+      height: "550px",
+      fontSize: "24px",
+      marginTop: "20px",
+      backgroundColor: "white",
+      color: "firebrick",
+      borderColor: "white",
+      borderRadius: "6px",
+      border: ".5px solid white",
+      padding: 5
+    }
+  };
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
 
   return (
     <>
-      <Navbar/>
-      <div className="sidenav">
-        <Link to="/account">My Info</Link>
-        <Link to="/cart">View Cart</Link>
-        <Link to="/order_history">Order History</Link>
-        <Link to="/logout">Logout</Link>
-      </div>
-
+      <Navbar />
       <div className="main">
-        <h1><strong>Customer Account</strong></h1>
-        <h4><strong>Account #:</strong> {customer.customerId}</h4>
-        <h4><strong>Name:</strong> {customer.firstName} {customer.lastName}</h4>
-        <h4><strong>Email(username):</strong> {customer.email}</h4>
-        <h4><strong>Phone:</strong> {customer.phone}</h4>
-        <h4><strong>Address Line 1:</strong> {customer.addressLine}</h4>
-        <h4><strong>Address Line 2:</strong> {customer.city}, {customer.state} {customer.zipCode}</h4>
-        <Link to="/edit_customer" className="cartLink">Update Information</Link>
-
-        
+        <h1>My Account</h1>
+        <div id='navigation'>
+          <Link className='menu' to="/account">My Info</Link>
+          <Link className='menu' to="/cart">View Cart</Link>
+          <Link className='menu' to="/order_history">Order History</Link>
+          <span className='menu' onClick={openModal}>Logout</span>
+        </div>
+        <div className="row align-items-start m-3">
+          <div id='info' className="col m-3">
+            <h4><span className='black'>Name: </span>{customer.firstName} {customer.lastName}</h4>
+            <h4><span className='black'>Email(username):</span> {customer.email}</h4>
+            <h4><span className='black'>Phone: </span>{customer.phone}</h4>
+            <h4><span className='black'>Address: </span>{customer.addressLine} {customer.city}, {customer.state} {customer.zipCode}</h4>
+          </div>
+          <div className="col m-3 fancyBox">
+            <Link id='update' to="/edit_customer" className="cartLink">Edit My Info</Link>
+          </div>
+        </div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          ariaHideApp={false} >
+          <div className='sure'>
+            Are you sure you want to log out?
+          </div>
+          <div>
+            <button id='no' onClick={closeModal} className="btn btn-primary submitButton">No</button>
+          </div>
+          <div>
+            <a href="/" id='yes' type='button' onClick={auth.logout} className="btn btn-primary submitButton">Yes</a>
+          </div>
+        </Modal>
       </div>
-      
-
-      
-
     </>
 
-);
+  );
 
 
 
 
- 
+
 };
 
 export default CustomerAccount;

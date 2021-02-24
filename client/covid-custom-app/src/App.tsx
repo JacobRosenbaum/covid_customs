@@ -121,15 +121,22 @@ function App() {
       })
       const data = await response.json();
       if (response.status === 200) {
+
+        console.log(data)
+        let orderData= null;
+
         for (let i = 0; i < data.length; i++) {
           if (!data[i].purchased) {
-            updateOrder(data[i])
+            orderData= data[i];
             break;
           }
-          else if (data[i].purchased){
-            addOrder();
-            break;
-          }
+        }
+        console.log(orderData);
+        if (orderData){
+          updateOrder(orderData);
+        }
+        else{
+          addOrder()
         }
       }
       else {

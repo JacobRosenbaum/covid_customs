@@ -9,11 +9,11 @@
     height: 550px !important;
 }
 
-th {
+.th {
     position: sticky;
     top: 0;
     font-weight: bolder;
-    z-index: 100;
+    z-index: 1;
     background-color: firebrick !important;
     color: white
 }
