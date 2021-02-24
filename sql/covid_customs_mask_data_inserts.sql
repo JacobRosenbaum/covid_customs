@@ -20,18 +20,18 @@ set sql_safe_updates = 1;
     ( 7, "Cotton", "Athletic", 11.00, false, "/images/mask_white_cotton_athletic.png", false),
 	( 8, "Cotton", "Athletic", 11.00, false, "/images/mask_red_cotton_athletic.png", false),
 	( 9, "Polyester", "Wrap", 13.00, false, "/images/mask_red_white_blue_polyester_wrap.png", false),
-    ( 10, "Cotton", "Over the Ear", 11.50, false, "/images/mask_covid_red_cot_ear.png", true),
+    ( 10, "Cotton", "Over the Ear", 11.50, false, "/images/mask_covid_red_cot_ear.png", false),
     ( 11, "Cotton", "Over the Ear", 11.50, false, "/images/mask_covid_white_cot_ear.png", true),
-	( 12, "Cotton", "Over the Ear", 13.50, false, "/images/mask_greenfunk_black_cot_ear.png", true),
+	( 12, "Cotton", "Over the Ear", 13.50, false, "/images/mask_greenfunk_black_cot_ear.png", false),
 	( 13, "Cotton", "Over the Ear", 13.50, false, "/images/mask_greenfunk_green_cot_ear.png", true),
     ( 14, "Cotton", "Over the Ear", 13.50, false, "/images/mask_greenfunk_pink_cot_ear.png", true),
     ( 15, "Cotton", "Over the Ear", 12.50, false, "/images/mask_polka_orange_cot_ear.png", true),
 	( 16, "Cotton", "Over the Ear", 12.50, false, "/images/mask_polka_yellow_cot_ear.png", true),
-    ( 17, "Cotton", "Over the Ear", 12.50, false, "/images/mask_polka_purple_cot_ear.png", true),
-	( 18, "Cotton", "Over the Ear", 13.50, false, "/images/mask_squares_blue_cot_ear.png", true),
+    ( 17, "Cotton", "Over the Ear", 12.50, false, "/images/mask_polka_purple_cot_ear.png", false),
+	( 18, "Cotton", "Over the Ear", 13.50, false, "/images/mask_squares_blue_cot_ear.png", false),
     ( 19, "Cotton", "Over the Ear", 13.50, false, "/images/mask_squares_red_cot_ear.png", true),
     ( 20, "Cotton", "Over the Ear", 12.50, false, "/images/mask_stripes_black_cot_ear.png", true),
-	( 21, "Cotton", "Over the Ear", 12.50, false, "/images/mask_stripes_yellow_cot_ear.png", true),
+	( 21, "Cotton", "Over the Ear", 12.50, false, "/images/mask_stripes_yellow_cot_ear.png", false),
     ( 22, "Cotton", "Over the Ear", 12.50, false, "/images/mask_stripes_white_cot_ear.png", true);
     
     insert into color values
