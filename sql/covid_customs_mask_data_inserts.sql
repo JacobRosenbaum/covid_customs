@@ -62,7 +62,7 @@ set sql_safe_updates = 1;
 
     
 	insert into customer values
-	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW","andover","MN",55304, "ADMIN"),
+	(1, "Austin", "Shinnick", "austin@aol.com","763-464-6002","827 413rd Ave NW","andover","MN",55304, "USER"),
     (2, "SythJacob", "Rosenbaum", "jacob@yahoo.com","111-111-1111","that's no moon...","andover","MN",55304, "USER"),
     (3, "Kendra", "Krosch", "kk@covidCustoms.com", "222-222-2222", "Colorful Colorado","andover","MN",55304, "USER"),
     (4, "Admin", "Admin", "admin@admin.com", "555-555-5555", "123 Lane", "Minneapolis", "MN", 55414, "ADMIN");
@@ -110,5 +110,7 @@ from customer c
 inner join user_account ua on c.customer_id = ua.customer_id;
 
 select * from customer;
-select * from orders;
+select * from order_mask;
+
+
 

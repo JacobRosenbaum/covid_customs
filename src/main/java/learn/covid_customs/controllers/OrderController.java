@@ -54,14 +54,14 @@ public class OrderController {
     }
 
     @PutMapping("/{orderId}")
-    public ResponseEntity<Object> update(@PathVariable int orderId, @RequestBody @Valid Order order) {
+    public ResponseEntity<Object> update(@PathVariable int orderId, @RequestBody Order order) {
         if (order.getOrderId() != orderId) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         Result<Order> result = orderService.update(order);
         if (result.isSuccess()) {
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
         }
 
         return ErrorResponse.build(result);

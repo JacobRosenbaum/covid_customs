@@ -120,9 +120,8 @@ function Mask() {
                     console.log(data)
                     if (response.status === 200) {
                         setErrors([]);
-                        auth.updateOrder(data.payload)
-                        //console.log(data.payload)
-                        closeModal()
+                        auth.updateOrder(data);
+                        closeModal();
                     }
                     else if (response.status === 400) {
                         setErrors(data);

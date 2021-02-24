@@ -16,9 +16,9 @@ function EditCustomer() {
   const [error, setErrors] = useState<any>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-
   const handleChange = (event: any) => {
     const updatedCustomer: any = { ...customer };
+
     updatedCustomer[event.target.name] = event.target.value;
     setCustomer(updatedCustomer);
   };

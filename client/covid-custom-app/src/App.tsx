@@ -49,7 +49,7 @@ function App() {
 
   useEffect(() => {
     if (user.email == undefined) {
-      console.log('no user')
+      // console.log('no user')
     }
     else {
       findCustomerByCustomerEmail()
@@ -58,13 +58,27 @@ function App() {
 
   useEffect(() => {
     if (customer.email == undefined) {
-      console.log('no customer')
-      console.log(auth.customer);
+      // console.log('no customer')
+      // console.log(auth.customer);
     }
     else {
       findOrderByCustomerId()
     }
   }, [customer]);
+
+
+
+  useEffect(() => {
+    if (!auth.order.purchased) {
+      // console.log('no Order')
+      // console.log(auth.order);
+    }
+    else {
+      findOrderByCustomerId()
+    }
+  }, [order]);
+
+
 
   const updateOrder = (order: any) => {
     setOrder(order)
@@ -75,8 +89,7 @@ function App() {
   }
 
   const findCustomerByCustomerEmail = async () => {
-    console.log(auth.user.email);
-    console.log(user.email);
+
     try {
       const response = await fetch(`http://localhost:8080/api/customer/email/${auth.user.email}`, {
         method: 'GET',
@@ -87,7 +100,6 @@ function App() {
       })
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data)
         setCustomerId(data.customerId)
         setCustomer(data)
         setCustomerName(data.firstName)
@@ -98,11 +110,8 @@ function App() {
   };
 
   const findOrderByCustomerId = async () => {
-    console.log(auth.user);
-    console.log(auth.customerId);
 
     try {
-      console.log(auth.user.token);
       const response = await fetch(`http://localhost:8080/api/order/customer/${auth.customerId}`, {
         method: 'GET',
         headers: {
@@ -112,8 +121,10 @@ function App() {
       })
       const data = await response.json();
       if (response.status === 200) {
+
         console.log(data)
         let orderData= null;
+
         for (let i = 0; i < data.length; i++) {
           if (!data[i].purchased) {
             orderData= data[i];
@@ -132,7 +143,7 @@ function App() {
         console.log(response)
       }
     } catch (error) {
-      console.log(error + ' EMPTY CART');
+      //console.log(error + ' EMPTY CART');
       const errorString = error.toString();
       if (errorString.includes('SyntaxError: Unexpected end of JSON input')) {
         addOrder()
@@ -325,7 +336,7 @@ function App() {
           </Route>
 
           <Route exact path="/cart">
-            <Cart />
+          {auth.customerId ? ( <Cart />) : (<Redirect to="/login" />)}
           </Route>
 
           <Route exact path="/logout">
