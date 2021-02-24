@@ -1,8 +1,8 @@
-import nurse from '../assets/images/nurse.jpg';
-import socialDistance from '../assets/images/socialDistance.jpeg';
-import essentialWorker from '../assets/images/essentialWorker.jpg';
-import washHands from '../assets/images/washHands.jpeg';
-import wearMask from '../assets/images/wearMask.jpg';
+import nurse from '../assets/images/nurse.png';
+import socialDistance from '../assets/images/socialDistance.png';
+import essentialWorker from '../assets/images/essentialWorker.png';
+import washHands from '../assets/images/washHands.png';
+import wearMask from '../assets/images/wearMask.png';
 import '../assets/css/notfound.css';
 import Navbar from './Navbar';
 

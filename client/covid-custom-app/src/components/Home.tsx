@@ -1,7 +1,7 @@
-import banner1 from '../assets/images/download.jpg';
-import banner2 from '../assets/images/banner.jpg';
-import banner3 from '../assets/images/banner2.jpg';
-import customMasks from '../assets/images/customization.jpg';
+import banner1 from '../assets/images/covid_banner.png';
+import banner2 from '../assets/images/wearmask_banner.png';
+import banner3 from '../assets/images/personmask_banner.png';
+import customMasks from '../assets/images/personmask_banner.png';
 import '../assets/css/home.css';
 import Navbar from './Navbar';
 
