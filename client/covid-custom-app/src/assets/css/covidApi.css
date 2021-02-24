@@ -21,3 +21,22 @@
 tr {
     z-index: 0;
 }
+
+.main {
+  margin-left: 200px;
+  /* Same width as the sidebar + left position in px */
+  margin-right: 200px;
+  margin-bottom: 0px;
+  font-size: 28px;
+  /* Increased text to enable scrolling */
+  top: 10px;
+  left: 10px;
+  padding: 100px 10px;
+  color: gray !important
+}
+
+.mapdiv{
+  position: relative;
+  bottom: 185px;
+  text-align: center;
+}

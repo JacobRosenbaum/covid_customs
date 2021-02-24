@@ -45,6 +45,7 @@ function App() {
   const [customer, setCustomer] = useState({} as Customer);
   const [customerName, setCustomerName] = useState<string>('Loyal Customer');
   const [order, setOrder] = useState({} as Order);
+  const [mapState, setMapState] = useState<any>(0);
   const history = useHistory();
 
   useEffect(() => {
@@ -86,6 +87,10 @@ function App() {
 
   const updateCustomer = (customer: any) => {
     setCustomer(customer)
+  }
+
+  const updateMapState = (mapState: any) => {
+    setMapState(mapState)
   }
 
   const findCustomerByCustomerEmail = async () => {
@@ -261,6 +266,8 @@ function App() {
     customer,
     order,
     customerName,
+    mapState,
+    updateMapState,
     updateOrder,
     updateCustomer
   }
