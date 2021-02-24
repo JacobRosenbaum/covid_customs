@@ -33,7 +33,7 @@ h1{
 .card-text{
     position: relative;
     top: 13px;
-    text-align: center;
+    text-align: left;
     color: rgb(70, 70, 70);
 }
 

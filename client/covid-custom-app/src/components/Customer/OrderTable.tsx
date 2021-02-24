@@ -6,7 +6,7 @@ import Mask from '../Mask';
 
 
 
-function OrderTable(props:any) {
+function OrderTable(props: any) {
 
   const [masks, setMasks] = useState<any[]>([]);
   const [total, setTotal] = useState<any>(0);
@@ -23,30 +23,31 @@ function OrderTable(props:any) {
             <th>Ext. Cost</th>
           </tr>
 
-          {props.order.masks.map((mask:any) => (
-            
-          <tr key={mask.mask.maskId}>
-            <td>
-              <img id='mask' src={process.env.PUBLIC_URL + mask.mask.image} alt="Mask" width="100"/>
-            </td>
-            <td>$ {mask.mask.cost.toFixed(2)}</td>
-            <td>{mask.quantity}</td>
-            <td><strong>$ {(mask.mask.cost * mask.quantity).toFixed(2)}</strong></td>
+          {props.order.masks.map((mask: any) => (
+
+            <tr key={mask.mask.maskId}>
+              <td>
+                <img id='mask' src={process.env.PUBLIC_URL + mask.mask.image} alt="Mask" width="100" />
+              </td>
+              <td>${mask.mask.cost.toFixed(2)}</td>
+              <td>{mask.quantity}</td>
+              <td><strong>${(mask.mask.cost * mask.quantity).toFixed(2)}</strong></td>
+            </tr>
+
+          ))}
+
+          <tr className='tableBottom'>
+            <td><strong>TOTAL</strong></td>
+            <td></td>
+            <td></td>
+            <td><strong>${props.order.total.toFixed(2)}</strong></td>
           </tr>
 
-      ))}
-        
-        <tr className="bg-warning">
-          <td><strong>TOTAL</strong></td>
-          <td></td>
-          <td></td>
-          <td><strong>$ {props.order.total.toFixed(2)}</strong></td>
-        </tr>
-
-         </tbody> 
+        </tbody>
       </table>
-      
-      <Link className="cartLink" to="/cart">{props.order.purchaseDate ? "":"View Order In Cart"}</Link>
+      <div style={{textAlign: 'center'}}>
+        <Link className="cartLink" to="/cart">{props.order.purchaseDate ? "" : "View Order In Cart"}</Link>
+      </div>
     </>
 
   );

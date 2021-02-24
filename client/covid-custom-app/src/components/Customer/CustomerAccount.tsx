@@ -54,20 +54,20 @@ function CustomerAccount() {
       <Navbar />
       <div className="main">
         <h1>My Account</h1>
-        <div id='navigation'>
-          <Link className='menu' to="/account">My Info</Link>
-          <Link className='menu' to="/cart">View Cart</Link>
-          <Link className='menu' to="/order_history">Order History</Link>
-          <span className='menu' onClick={openModal}>Logout</span>
+        <div className="sidenav">
+          <Link to="/account">My Info</Link>
+          <Link to="/cart">View Cart</Link>
+          <Link to="/order_history">Order History</Link>
+          <div className='menu' onClick={openModal}>Logout</div>
         </div>
         <div className="row align-items-start m-3">
           <div id='info' className="col m-3">
-            <h4><span className='black'>Name: </span>{customer.firstName} {customer.lastName}</h4>
-            <h4><span className='black'>Email(username):</span> {customer.email}</h4>
-            <h4><span className='black'>Phone: </span>{customer.phone}</h4>
-            <h4><span className='black'>Address: </span>{customer.addressLine} {customer.city}, {customer.state} {customer.zipCode}</h4>
+            <h4 className='customerInfo'><span className='black'>Name: </span>{customer.firstName} {customer.lastName}</h4>
+            <h4 className='customerInfo'><span className='black'>Email (username):</span> {customer.email}</h4>
+            <h4 className='customerInfo'><span className='black'>Phone: </span>{customer.phone}</h4>
+            <h4 className='customerInfo'> <span className='black'>Address: </span>{customer.addressLine} {customer.city}, {customer.state} {customer.zipCode}</h4>
           </div>
-          <div className="col m-3 fancyBox">
+          <div className="col m-3 fancyBox red">
             <Link id='update' to="/edit_customer" className="cartLink">Edit My Info</Link>
           </div>
         </div>

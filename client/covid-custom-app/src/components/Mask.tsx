@@ -6,6 +6,8 @@ import AuthContext from './AuthContext';
 import Modal from 'react-modal';
 import Errors from './Errors';
 import { Order, MaskInterface } from './Interfaces';
+import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
 
 function Mask() {
     const auth = useContext(AuthContext);
@@ -122,6 +124,9 @@ function Mask() {
                         setErrors([]);
                         auth.updateOrder(data);
                         closeModal();
+                        toaster.notify("We have added this mask to your cart", {
+                            duration: 4500
+                          });
                     }
                     else if (response.status === 400) {
                         setErrors(data);
@@ -142,7 +147,10 @@ function Mask() {
             };
         }
         else {
-            setErrors(['Please log in to purchase our masks!'])
+            // setErrors(['Please log in to purchase our masks!'])
+            toaster.notify("Please log in to purchase our masks!", {
+                duration: 5500,
+              });
             console.log('undefined')
             closeModal()
         }
@@ -196,7 +204,7 @@ function Mask() {
                                 <Dropdown.Item onClick={() => (
                                     sort('OVER_EAR'))}>Over the Ear</Dropdown.Item>
                                 <Dropdown.Item onClick={() => (
-                                    sort('WRAP'))}>Gator</Dropdown.Item>
+                                    sort('WRAP'))}>Wrap</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
@@ -245,7 +253,7 @@ function Mask() {
                                     ariaHideApp={false} >
                                     <i id="closeMask" className="fa fa-times" onClick={closeModal}></i>
                                     <h1 style={{ color: 'gray' }} className='modalTitle'>
-                                        {customerMask.material}
+                                    {customerMask.style} 
                                     </h1>
                                     <form>
                                         <div className='row flexContainer'>
