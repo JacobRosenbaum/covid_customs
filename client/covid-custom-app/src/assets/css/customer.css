@@ -1,4 +1,3 @@
-
 .sidenav {
   width: 190px;
   position: fixed;
@@ -7,45 +6,163 @@
   left: 10px;
   background: #eee;
   overflow-x: hidden;
-  padding: 8px 0;
+  padding: 30px 0;
 }
 
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
-  color: #2196F3;
+  text-decoration: none !important;
+  color: gray !important;
   display: block;
 }
 
 .sidenav a:hover {
-  color: #064579;
+  text-decoration: none !important;
+  color: firebrick !important;
 }
 
 .main {
-  margin-left: 200px; /* Same width as the sidebar + left position in px */
+  margin-left: 200px;
+  /* Same width as the sidebar + left position in px */
   margin-right: 200px;
-  font-size: 28px; /* Increased text to enable scrolling */
+  font-size: 28px;
+  /* Increased text to enable scrolling */
   top: 10px;
   left: 10px;
   padding: 100px 10px;
+  color: gray !important
+}
+
+#confirm {
+  background-color: firebrick !important;
+  color: white !important;
+  border-color: firebrick;
+  position: absolute;
+  right: 400px;
+  bottom: 170px
+}
+
+#confirm:hover {
+  color: salmon;
+  border-color: salmon
+}
+
+#navigation {
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+.info {
+  text-align: left !important;
+  color: gray
 }
 
 .cartLink {
-  text-decoration: underline !important;
-  font-size: 20px !important;
-  color: blue !important;
+  text-decoration: none !important;
+  /* font-size: 20px !important; */
+  color: gray !important;
+}
+
+#yes {
+  position: relative;
+  top: 60px;
+  /* margin-left: 70px; */
+  color: white !important
+}
+
+#no {
+  position: relative;
+  top: 50px;
+  /* margin-right: 70px */
+}
+
+.sure {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 130px
+}
+
+.cartLink:hover {
+  color: firebrick !important
 }
 
 .form-floating {
   font-size: 16px !important;
 }
 
-.form-control {
-  height:20px !important;
+/* .form-control {
+  height: 20px !important;
+} */
+
+.menu {
+  margin-left: 40px;
 }
 
+.menu:hover {
+  text-decoration: none !important;
+  color: firebrick !important;
+  cursor: pointer
+}
+
+.black {
+  color: black !important
+}
+
+#update {
+  position: relative;
+  top: 50px
+}
+
+#logout {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  text-decoration: none !important;
+  color: gray !important;
+  display: block;
+}
+
+#logout:hover {
+  text-decoration: none !important;
+  color: firebrick !important;
+}
+
+.fancyBox {
+  background-color: rgb(182, 45, 45);
+  height: 30px;
+}
+
+table {
+  z-index: 1 !important;
+  text-align: center;
+  margin-top: 10px
+}
+
+#total {
+  text-align: center;
+  color: black !important
+}
+
+#history {
+  margin-top: 30px
+}
+
+.cartData {
+  color: gray !important
+}
+
+/* .cartHead{
+  background-color: firebrick !important
+} */
+
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
 }
