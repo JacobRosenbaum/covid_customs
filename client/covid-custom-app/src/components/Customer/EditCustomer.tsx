@@ -4,8 +4,7 @@ import Navbar from '../Navbar';
 import { Link, useHistory } from 'react-router-dom';
 import AuthContext from '../AuthContext';
 import Modal from 'react-modal';
-
-
+import { allStates } from '../States';
 
 function EditCustomer() {
 
@@ -86,17 +85,18 @@ function EditCustomer() {
   function openModal() {
     setModalIsOpen(true);
   }
+
   return (
     <>
       <Navbar />
       <div className="main">
-      <h1>Edit My Info</h1>
-      <div className="sidenav">
-        <Link to="/account">My Info</Link>
-        <Link to="/cart">View Cart</Link>
-        <Link to="/order_history">Order History</Link>
-        <div className='menu' onClick={openModal}>Logout</div>
-      </div>
+        <h1>Edit My Info</h1>
+        <div className="sidenav">
+          <Link to="/account">My Info</Link>
+          <Link to="/cart">View Cart</Link>
+          <Link to="/order_history">Order History</Link>
+          <div className='menu' onClick={openModal}>Logout</div>
+        </div>
         <>
           {error.length !== 0 ? (
             <div>
@@ -115,11 +115,11 @@ function EditCustomer() {
             <div id='editBox' className="container">
               <div className="row">
                 <div className="col-2">
-                <label htmlFor='title' className="h4"><strong>First Name: </strong></label>
+                  <label htmlFor='title' className="h4"><strong>First Name: </strong></label>
                 </div>
                 <div className="col">
                   <div className="form-floating">
-                  <input className="form-control" type='text' id='firstName' name='firstName' value={customer.firstName} onChange={handleChange} placeholder="" />
+                    <input className="form-control" type='text' id='firstName' name='firstName' value={customer.firstName} onChange={handleChange} placeholder="" />
                     <label htmlFor="firstName">First Name</label>
                   </div>
                 </div>
@@ -131,7 +131,7 @@ function EditCustomer() {
                 </div>
                 <div className="col">
                   <div className="form-floating">
-                  <input className="form-control" type='text' id='lastName' name='lastName' value={customer.lastName} onChange={handleChange} placeholder="" />
+                    <input className="form-control" type='text' id='lastName' name='lastName' value={customer.lastName} onChange={handleChange} placeholder="" />
                     <label htmlFor="lastName">Last Name</label>
                   </div>
                 </div>
@@ -183,8 +183,9 @@ function EditCustomer() {
                 </div>
                 <div className="col">
                   <div className="form-floating">
-                    <input className="form-control" type='text' id='state' name='state' value={customer.state} onChange={handleChange} placeholder="" />
-                    <label htmlFor="state">State</label>
+                    <select value={customer.state} onChange={handleChange} id="state" name="state" className="form-select">
+                      {allStates.map(st => (<option value={st.abbreviation}>{st.name}</option>))}
+                    </select>
                   </div>
                 </div>
                 <div className="col" />
@@ -205,12 +206,13 @@ function EditCustomer() {
               <div className="row">
                 <div className="col-2">
                 </div>
+
                 <div id='buttonDiv' className="col">
+                  <Link id='cancel' to="/account" className="btn btn-danger">Back</Link>
                   <button id='confirm' type='submit' className="btn btn-primary">Confirm Changes</button>
                 </div>
                 <div className="col" />
               </div>
-              {/* <button onClick={handleCancelClick} className="btn btn-danger">Cancel</button> */}
             </div>
           </form>
         </>
