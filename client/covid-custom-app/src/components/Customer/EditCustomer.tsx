@@ -91,11 +91,11 @@ function EditCustomer() {
       <Navbar />
       <div className="main">
       <h1>Edit My Info</h1>
-      <div id='navigation'>
-        <Link className='menu' to="/account">My Info</Link>
-        <Link className='menu' to="/cart">View Cart</Link>
-        <Link className='menu' to="/order_history">Order History</Link>
-          <span className='menu' onClick={openModal}>Logout</span>
+      <div className="sidenav">
+        <Link to="/account">My Info</Link>
+        <Link to="/cart">View Cart</Link>
+        <Link to="/order_history">Order History</Link>
+        <div className='menu' onClick={openModal}>Logout</div>
       </div>
         <>
           {error.length !== 0 ? (
@@ -112,24 +112,30 @@ function EditCustomer() {
             )}
 
           <form onSubmit={handleSubmitClick}>
-            <div className="container">
-
+            <div id='editBox' className="container">
               <div className="row">
                 <div className="col-2">
-                  <label htmlFor='title' className="h4"><strong>Name: </strong></label>
+                <label htmlFor='title' className="h4"><strong>First Name: </strong></label>
                 </div>
                 <div className="col">
                   <div className="form-floating">
-                    <input className="form-control" type='text' id='firstName' name='firstName' value={customer.firstName} onChange={handleChange} placeholder="" />
+                  <input className="form-control" type='text' id='firstName' name='firstName' value={customer.firstName} onChange={handleChange} placeholder="" />
                     <label htmlFor="firstName">First Name</label>
                   </div>
                 </div>
+                <div className="col" />
+              </div>
+              <div className="row">
+                <div className="col-2">
+                  <label htmlFor='lastName' className="h4"><strong>Last Name: </strong></label>
+                </div>
                 <div className="col">
                   <div className="form-floating">
-                    <input className="form-control" type='text' id='lastName' name='lastName' value={customer.lastName} onChange={handleChange} placeholder="" />
+                  <input className="form-control" type='text' id='lastName' name='lastName' value={customer.lastName} onChange={handleChange} placeholder="" />
                     <label htmlFor="lastName">Last Name</label>
                   </div>
                 </div>
+                <div className="col" />
               </div>
 
               <div className="row">
@@ -196,7 +202,14 @@ function EditCustomer() {
                 </div>
                 <div className="col" />
               </div>
-              <button id='confirm' type='submit' className="btn btn-primary">Confirm Changes</button>
+              <div className="row">
+                <div className="col-2">
+                </div>
+                <div id='buttonDiv' className="col">
+                  <button id='confirm' type='submit' className="btn btn-primary">Confirm Changes</button>
+                </div>
+                <div className="col" />
+              </div>
               {/* <button onClick={handleCancelClick} className="btn btn-danger">Cancel</button> */}
             </div>
           </form>

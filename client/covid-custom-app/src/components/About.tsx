@@ -12,10 +12,10 @@ function About() {
             <div id="carouselExampleDark" className="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     <div className="carousel-item carsoleHeight active" data-bs-interval="10000">
-                        <img src={banner3} className="d-block w-100" alt={banner3} />
+                        <img src={banner1} className="d-block w-100" alt={banner1} />
                     </div>
                     <div className="carousel-item carsoleHeight" data-bs-interval="10000">
-                        <img src={banner1} className="d-block w-100 h-auto" alt={banner1} />
+                        <img src={banner3} className="d-block w-100 h-auto" alt={banner3} />
                     </div>
                     <div className="carousel-item carsoleHeight" data-bs-interval="10000">
                         <img src={banner2} className="d-block w-100" alt={banner2} />
@@ -41,13 +41,13 @@ function About() {
                             </h4>
                             <div className='row' style={{marginTop: '25px'}}>
                                 <div className= 'col-md-4'>
-                                        <a className = 'link' href = 'https://www.linkedin.com/in/jacobrosenbaum/' target='blank'>Austin</a>
+                                        <a className = 'link' href = 'https://www.linkedin.com/in/austin-shinnick-191257115/' target='blank'>Austin</a>
                                 </div>
                                 <div className= 'col-md-4'>
                                         <a className = 'link' href = 'https://www.linkedin.com/in/kendra-krosch/' target='blank'>Kendra</a>
                                 </div>
                                 <div className= 'col-md-4'>
-                                        <a className = 'link' href = 'https://www.linkedin.com/in/austin-shinnick-191257115/' target='blank'>Jacob</a>
+                                        <a className = 'link' href = 'https://www.linkedin.com/in/jacobrosenbaum/' target='blank'>Jacob</a>
                                 </div>
                             </div>
                         </div>

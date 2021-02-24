@@ -1,3 +1,16 @@
-body{
+body {
     font-family: 'Josefin Sans', sans-serif;
 }
+
+/* .Toaster__alert {
+    background-color: white !important;
+} */
+
+.Toaster__alert_text {
+    /* color: gray !important; */
+    font-family: 'Josefin Sans', sans-serif !important
+}
+
+/* .Toaster__alert_close{
+    color: gray !important
+} */

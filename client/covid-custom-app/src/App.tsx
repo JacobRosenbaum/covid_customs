@@ -29,7 +29,6 @@ import { useState, useEffect } from 'react';
 import CustomerAccount from './components/Customer/CustomerAccount';
 import OrderHistory from './components/Customer/OrderHistory';
 import Cart from './components/Cart/Cart';
-import LogoutPage from './components/Customer/LogoutPage';
 import EditCustomer from './components/Customer/EditCustomer';
 
 
@@ -339,9 +338,9 @@ function App() {
           {auth.customerId ? ( <Cart />) : (<Redirect to="/login" />)}
           </Route>
 
-          <Route exact path="/logout">
+          {/* <Route exact path="/logout">
             <LogoutPage />
-          </Route>
+          </Route> */}
 
           <Route exact path="/">
             <Home />
