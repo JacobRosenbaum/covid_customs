@@ -86,7 +86,9 @@ function OrderHistory() {
 
               ) : (
 
-                  <></>))
+                  <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                    <Link to="/shopMask" className="cartLink">Nothing yet! Check out the merch here!</Link>
+                  </div>))
 
             ))}
           </div>
