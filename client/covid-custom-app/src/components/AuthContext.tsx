@@ -21,6 +21,8 @@ export interface AuthContextInterface {
     customer: Customer;
     order: Order;
     customerName: string;
+    mapState: any;
+    updateMapState: (mapState: any) => void;
     updateOrder: (order: any) => void;
     updateCustomer: (customer: any) => void;
 }
@@ -34,6 +36,8 @@ export const authContextDefaults: AuthContextInterface = {
     customer: {} as Customer,
     order: {} as Order,
     customerName: 'Loyal Shopper',
+    mapState: 0,
+    updateMapState: (mapState: any) => {},
     updateOrder: (order: any) => {},
     updateCustomer: (customer: any) => {}
 };
