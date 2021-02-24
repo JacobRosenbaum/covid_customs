@@ -15,7 +15,7 @@ function EditCustomer() {
   const [error, setErrors] = useState<any>([]);
 
   const handleChange = (event:any) => {
-    const updatedCustomer: any ={...customer};
+    const updatedCustomer: any = {...customer};
     updatedCustomer[event.target.name] = event.target.value;
     setCustomer(updatedCustomer);
   };
