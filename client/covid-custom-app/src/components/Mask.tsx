@@ -198,7 +198,7 @@ function Mask() {
                         <Dropdown className='col-md-3 button_margin'>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Style
-                    </Dropdown.Toggle>
+                            </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item onClick={() => (
                                     sort('ATHLETIC'))}>Athletic</Dropdown.Item>
@@ -208,7 +208,7 @@ function Mask() {
                                     sort('WRAP'))}>Wrap</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <button className="col-md-3 button_margin btn allMaskButton" onClick={()=> setFilteredMasks([])}> All Masks</button>
+                        <button className="col-md-3 button_margin btn allMaskButton" onClick={()=> setFilteredMasks([])}>Reset Filters</button>
                     </div>
                 
                     <div className="row row-cols-1 row-cols-md-3 g-4">

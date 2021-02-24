@@ -37,6 +37,7 @@
   padding-right: 4px;
   height: 38px;
   width: 100px;
+  margin-left: 100px !important
 }
 .img:hover {
   zoom: 101%;
