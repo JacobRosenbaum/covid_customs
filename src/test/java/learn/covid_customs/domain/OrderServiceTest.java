@@ -98,7 +98,7 @@ class OrderServiceTest {
     void shouldUpdate() {
         Order orderIn = makeOrder();
         orderIn.setOrderId(3);
-        when(repository.update(orderIn)).thenReturn(true);
+        when(repository.update(orderIn)).thenReturn(orderIn);
         Result<Order> actual = service.update(orderIn);
         assertEquals(ResultType.SUCCESS, actual.getType());
         assertEquals(orderIn, actual.getPayload());
@@ -108,7 +108,7 @@ class OrderServiceTest {
     void shouldNotUpdateIfNotFound() {
         Order orderIn = makeOrder();
         orderIn.setOrderId(300);
-        when(repository.update(orderIn)).thenReturn(false);
+        when(repository.update(orderIn)).thenReturn(null);
         Result<Order> actual = service.update(orderIn);
         assertEquals(ResultType.NOT_FOUND, actual.getType());
         assertEquals("Mask Id 300 not found.", actual.getMessages().get(0));

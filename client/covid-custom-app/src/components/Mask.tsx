@@ -73,10 +73,10 @@ function Mask(props: any) {
     }
 
     const handleAddSubmit = async (maskId: number) => {
-        console.log(auth.order)
+        //console.log(auth.order)
         if (auth.user.token) {
             // console.log(auth.order[0].masks)
-            console.log(auth.order.masks)
+            //console.log(auth.order.masks)
             let maskOrder = [...auth.order.masks];
             let updatedQuantity = quantity;
             for (let i = 0; i < maskOrder.length; i++) {
@@ -105,7 +105,7 @@ function Mask(props: any) {
             const body = JSON.stringify(newOrder);
 
             try {
-                console.log(body)
+                //console.log(body)
                 const response = await fetch(`http://localhost:8080/api/order/${auth.order.orderId}`, {
                     method: "PUT",
                     headers: {

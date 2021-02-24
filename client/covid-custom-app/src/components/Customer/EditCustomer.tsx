@@ -8,16 +8,11 @@ import AuthContext from '../AuthContext';
 
 function EditCustomer() {
 
-  var ORGINAL_CUSTOMER:any; 
-
   const auth = useContext(AuthContext);
   const history = useHistory();
 
-  const [customer, setCustomer] = useState<any>({...auth.customer});
+  const [customer, setCustomer] = useState<any>(auth.customer);
   const [error, setErrors] = useState<any>([]);
-
-
-  ORGINAL_CUSTOMER = customer;
 
   const handleChange = (event:any) => {
     const updatedCustomer: any ={...customer};
@@ -40,13 +35,8 @@ function EditCustomer() {
     })
       .then(response => {
           if (response.status === 204) {
-              
-              //history.push('/account')
-            console.log("kitty")
-
             return null;
           } else if (response.status === 400) {
-            setCustomer(ORGINAL_CUSTOMER);
               return response.json();
           } else {
               Promise.reject('Something went wrong!');
@@ -54,11 +44,8 @@ function EditCustomer() {
       })
       .then(data => {
           if (!data) {
-            console.log(customer);
-            const cust = {...customer}
-            console.log(cust);
-            auth.updateCustomer(cust);
-              history.push('/account');
+            auth.updateCustomer(customer);
+            history.push('/account');
           } else {
               setErrors(data);
           }
