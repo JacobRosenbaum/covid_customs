@@ -19,6 +19,7 @@ function AdminOrders() {
             .catch(error => console.log(error));
     }
 
+    console.log(orders);
 
 
     return (

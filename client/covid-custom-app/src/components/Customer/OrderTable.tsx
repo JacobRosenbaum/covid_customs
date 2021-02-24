@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import '../../assets/css/customer.css';
 import AuthContext from '../AuthContext';
+import { Link } from 'react-router-dom';
+
 
 
 function OrderTable(props:any) {
@@ -8,27 +10,12 @@ function OrderTable(props:any) {
   const [masks, setMasks] = useState<any[]>([]);
   const [total, setTotal] = useState<any>(0);
 
-
- 
-
-
-
-  // useEffect(() => {
-
-  // }, []);
-
   console.log("all masks per order:")
   console.log(props.order.masks);
 
 
   return (
     <>
-      <div className="sidenav">
-        <a href="/account">My Info</a>
-        <a href="/cart">View Cart</a>
-        <a href="/order_history">Order History</a>
-        <a href="/logout">Logout</a>
-      </div>
       <h6>orderId: {props.order.orderId}</h6>
       <table className="table">
         <tbody>
@@ -62,7 +49,7 @@ function OrderTable(props:any) {
          </tbody> 
       </table>
       
-      <a className="cartLink" href="/cart">{props.order.purchaseDate ? "":"View Order In Cart"}</a>
+      <Link className="cartLink" to="/cart">{props.order.purchaseDate ? "":"View Order In Cart"}</Link>
     </>
 
   );
