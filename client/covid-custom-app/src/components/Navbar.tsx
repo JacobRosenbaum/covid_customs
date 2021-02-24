@@ -86,21 +86,9 @@ function Navbar() {
         </div>
         )}
         <div className="float-end">
-          
-          {auth.user.email ? (
-
-            <Link to="/cart" className="nav-link fa-stack fa-w-18 fa-1x has-badge " data-count={cartCount()}>
-              <i className="fa fa-shopping-cart fa-w-18 fa-2x red-cart"></i>
-            </Link>
-
-          ) : (
-
-              <Link to="/login" className="nav-link fa-stack fa-w-18 fa-1x has-badge " data-count={cartCount()}>
-                <i className="fa fa-shopping-cart fa-w-18 fa-2x red-cart"></i>
-              </Link>
-
-            )}
-
+          <Link to="/cart" className="nav-link fa-stack fa-w-18 fa-1x has-badge " data-count={cartCount()}>
+            <i className="fa fa-shopping-cart fa-w-18 fa-2x red-cart"></i>
+          </Link>
         </div>
       </div>
     </>

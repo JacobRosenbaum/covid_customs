@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import '../../assets/css/customer.css';
 import AuthContext from '../AuthContext';
 import { Link } from 'react-router-dom';
+import Mask from '../Mask';
 
 
 
@@ -9,10 +10,6 @@ function OrderTable(props:any) {
 
   const [masks, setMasks] = useState<any[]>([]);
   const [total, setTotal] = useState<any>(0);
-
-  console.log("all masks per order:")
-  console.log(props.order.masks);
-
 
   return (
     <>
@@ -28,7 +25,7 @@ function OrderTable(props:any) {
 
           {props.order.masks.map((mask:any) => (
             
-          <tr >
+          <tr key={mask.mask.maskId}>
             <td>
               <img id='mask' src={process.env.PUBLIC_URL + mask.mask.image} alt="Mask" width="100"/>
             </td>

@@ -25,7 +25,6 @@ function Cart() {
     let maskToUpdateIndex = updatedOrder.masks.findIndex((mask: any) => mask.mask.maskId == event.target.value);
 
     if((updatedOrder.masks[maskToUpdateIndex].quantity -= 1) <= 0 && updatedOrder.masks.length === 1) {
-      console.log("empty cart")
     } 
     else if((updatedOrder.masks[maskToUpdateIndex].quantity) <= 0) {
       updatedOrder.masks = updatedOrder.masks.filter((mask: any) => mask.mask.maskId != event.target.value);
@@ -44,7 +43,13 @@ function Cart() {
 
   const handleDeleteClick =(event:any) => {
     const updatedOrder: any = {...order};
-    updatedOrder.masks = updatedOrder.masks.filter((mask: any) => mask.mask.maskId != event.target.value);
+    if(auth.order.masks.length == 1) {
+
+      updatedOrder.masks[0].quantity = 0;
+      //updatedOrder.masks
+    } else {
+     updatedOrder.masks = updatedOrder.masks.filter((mask: any) => mask.mask.maskId != event.target.value);
+    }
     setOrder(updatedOrder);
   }
 
@@ -59,7 +64,6 @@ function Cart() {
 
     updatedOrder.purchased = true;
     updatedOrder.purchaseDate = stringToday;
-    console.log(updatedOrder);
     setOrder(updatedOrder);
   }
 
@@ -79,11 +83,8 @@ function Cart() {
     })
       try {
           if (response.status === 200) {
-            console.log("response 200 from DB here")
             const data = await response.json();
-            console.log(data);
             auth.updateOrder(data);
-            //history.push('/cart');
             setRefresh(refresh+1);
           } else if (response.status === 400) {
             const data = await response.json();

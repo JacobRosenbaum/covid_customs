@@ -21,10 +21,6 @@ function OrderHistory() {
       .catch(error => console.log(error));
   }, []);
 
-
-console.log(orders);
-
-
   return (
     <>
       <Navbar />
@@ -37,12 +33,12 @@ console.log(orders);
       <div>
         <div className="main">
           <h1>Order History</h1>
-          {(auth.order.masks[0].quantity != 0 && orders.length === 0) ? 
-          
-          (
 
           <div className="accordion">
-            {orders.map(order => (
+            {orders.map(order => ( 
+
+            (order.masks[0].quantity != 0 ? (
+
               <div key={order.orderId}>
                   <div className="accordion-item" >
                     <h2 className="accordion-header">
@@ -57,15 +53,20 @@ console.log(orders);
                   </div>
                 </div>
               </div>
+         
+          ) : (
+          
+          <></>))
 
             ))}
-
           </div>
           
-          ) : (<h2>No Orders To View</h2>)}
+         
           
         </div>
+            
       </div>
+            
 
 
 

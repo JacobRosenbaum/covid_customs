@@ -118,10 +118,12 @@ function Mask(props: any) {
                     const data = await response.json();
                     console.log(data)
                     if (response.status === 200) {
-                        setErrors([]);
-                        auth.updateOrder(data.payload)
-                        console.log(data.payload)
-                        closeModal()
+                      console.log(data);
+                  
+                      setErrors([]);
+                        auth.updateOrder(data);
+                        
+                        closeModal();
                     }
                     else if (response.status === 400) {
                         setErrors(data);
