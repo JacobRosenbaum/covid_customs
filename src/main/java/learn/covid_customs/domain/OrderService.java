@@ -53,12 +53,15 @@ public class OrderService {
             result.addMessage("OrderId must be set for update a order.", ResultType.INVALID);
             return result;
         }
-        if (!repository.update(order)) {
+
+        Order updatedOrder = repository.update(order);
+
+        if (updatedOrder == null) {
             String message = String.format("Mask Id %s not found.", order.getOrderId());
             result.addMessage(message, ResultType.NOT_FOUND);
             return result;
         }
-        result.setPayload(order);
+        result.setPayload(updatedOrder);
         return result;
     }
 

@@ -37,7 +37,7 @@ console.log(orders);
       <div>
         <div className="main">
           <h1>Order History</h1>
-          {auth.order.masks[0].quantity != 0 ? 
+          {(auth.order.masks[0].quantity != 0 || orders.length !== 0) ? 
           
           (
 

@@ -69,7 +69,9 @@ set sql_safe_updates = 1;
     ( 4, 4, 1);
    
    insert into user_account values
-     (1, 'austin@aol.com', 'Password1234!'),
+   (1, "austin@aol.com", "$2a$10$1R0dwNymy05UyET3Dr7DMuSgl4X.dFwbQVZkw7xKiTT98VWDl5lk2"),
+   (2, "jacob@yahoo.com", "$2a$10$1R0dwNymy05UyET3Dr7DMuSgl4X.dFwbQVZkw7xKiTT98VWDl5lk2"),
+   (3,  "kk@covidCustoms.com", "$2a$10$1R0dwNymy05UyET3Dr7DMuSgl4X.dFwbQVZkw7xKiTT98VWDl5lk2"),
      (4, 'admin@admin.com', "$2a$10$1R0dwNymy05UyET3Dr7DMuSgl4X.dFwbQVZkw7xKiTT98VWDl5lk2");
      
      
@@ -87,4 +89,7 @@ select
     c.user_role
 from customer c
 inner join user_account ua on c.customer_id = ua.customer_id;
+
+select * from customer;
+select * from orders;
 

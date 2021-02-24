@@ -82,7 +82,7 @@ class OrderJdbcTemplateRepositoryTest {
     void shouldUpdate(){
         Order order= makeOrder();
         order.setOrderId(1);
-        assertTrue(repository.update(order));
+        assertNotNull(repository.update(order));
         Order actualFind = repository.findById(1);
         assertEquals(actualFind.getMasks().size(), 2);
     }
@@ -91,7 +91,7 @@ class OrderJdbcTemplateRepositoryTest {
     void shouldNotUpdate(){
         Order order= makeOrder();
         order.setOrderId(100);
-        assertFalse(repository.update(order));
+        assertNull(repository.update(order));
     }
 
     @Test

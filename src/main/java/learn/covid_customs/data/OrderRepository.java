@@ -20,7 +20,7 @@ public interface OrderRepository {
     Order add(Order order);
 
     @Transactional
-    boolean update(Order order);
+    Order update(Order order);
 
     @Transactional
     boolean deleteById(int orderId);

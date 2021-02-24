@@ -130,7 +130,7 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
 
     @Override
     @Transactional
-    public boolean update(Order order) {
+    public Order update(Order order) {
         final String sql = "update orders set "
                 + "customer_id = ?, "
                 + "purchased = ?, "
@@ -139,11 +139,11 @@ public class OrderJdbcTemplateRepository implements OrderRepository {
         if (jdbcTemplate.update(sql, order.getCustomer().getCustomerId(),
                 order.isPurchased(),
                 order.getPurchaseDate(), order.getOrderId()) <= 0) {
-            return false;
+            return null;
         }
         deletingOrderMask(order.getOrderId());
         addingToOrderMaskTable(order);
-        return true;
+        return findById(order.getOrderId());
     }
 
     @Override
