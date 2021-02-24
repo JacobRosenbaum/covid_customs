@@ -1,10 +1,28 @@
-.move_down{
+.move_down {
     position: relative;
-    top: 85px;
+    top: 55px;
 }
 
-.fancyBox{
+.fancyBox {
     background-color: rgb(182, 45, 45);
     height: 30px;
 }
 
+.red{
+    background-color: firebrick;
+    height: 163px;
+    color: white;
+    text-align: center
+}
+
+.link{
+    color: white !important;
+    
+    text-decoration: underline !important;
+}
+
+.link:hover{
+    color: white !important;
+    zoom: 103%;
+    text-decoration: underline !important
+}

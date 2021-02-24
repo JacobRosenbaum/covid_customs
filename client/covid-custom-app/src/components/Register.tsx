@@ -5,6 +5,7 @@ import AuthContext from './AuthContext';
 import Navbar from './Navbar';
 import '../assets/css/register.css';
 import Modal from 'react-modal';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 function Register() {
@@ -148,8 +149,27 @@ function Register() {
                                     type="text" className="form-control" placeholder="Address" required />
                                 <input onChange={e => { setCity(e.target.value); console.log('city ' + e.target.value) }}
                                     type="text" className="form-control" placeholder="City" required />
-                                <input onChange={e => { setState(e.target.value); console.log('state ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="State" required />
+
+                                {/* <input onChange={e => { setState(e.target.value); console.log('state ' + e.target.value) }}
+                                    type="text" className="form-control" placeholder="State" required /> */}
+
+                            <Dropdown className='col-md-4'>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                State
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
+                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
+                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
+                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
+                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
+                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
+                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
+                                {/* <Dropdown.Item onClick={() => (sortByColor('INDIGOE'))}>Indigo</Dropdown.Item>
+                            <Dropdown.Item onClick={() => (sortByColor('YELLOW'))}>Yellow</Dropdown.Item> */}
+                            </Dropdown.Menu>
+                        </Dropdown>
+
                                 <input onChange={e => { setZipCode(e.target.value); console.log('zip ' + e.target.value) }}
                                     type="text" className="form-control" placeholder="Zip code" required />
                                 <input onChange={e => { setPhone(e.target.value); console.log('phone ' + e.target.value) }}

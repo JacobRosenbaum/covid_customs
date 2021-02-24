@@ -65,12 +65,12 @@ function CovidAPI() {
                         <table className="table table-striped">
                             <thead id='head'>
                                 <tr>
-                                    <th scope="col">State</th>
-                                    <th scope="col">Total Deaths</th>
-                                    <th scope="col">Currently Hospitlized</th>
-                                    <th scope="col">Current Positive Cases</th>
-                                    <th scope="col">Currently on a Ventilator</th>
-                                    <th scope="col">Last Updated</th>
+                                    <th className='th' scope="col">State</th>
+                                    <th className='th' scope="col">Total Deaths</th>
+                                    <th className='th' scope="col">Currently Hospitlized</th>
+                                    <th className='th' scope="col">Current Positive Cases</th>
+                                    <th className='th' scope="col">Currently on a Ventilator</th>
+                                    <th className='th' scope="col">Last Updated</th>
                                 </tr>
                             </thead>
                             <tbody>
