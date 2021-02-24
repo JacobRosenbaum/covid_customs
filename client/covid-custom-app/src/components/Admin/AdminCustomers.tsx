@@ -14,7 +14,14 @@ function AdminCustomer() {
     const getAllCustomers = () => {
         fetch('http://localhost:8080/api/customer')
             .then(response => response.json())
-            .then(data => setCustomer(data))
+            .then(data => {
+                const customersNotAdmin: Customer[]= [];
+                for(let i= 0; i< data.length; i++){
+                    if(data[i].role=="USER"){
+                        customersNotAdmin.push(data[i]);
+                    }
+                }
+                setCustomer(customersNotAdmin)})
             .catch(error => console.log(error));
     }
 
@@ -45,7 +52,8 @@ function AdminCustomer() {
                 <br /><br /><br />
                 <h1>Welcome Admin</h1>
                 <h2>Customer Overview</h2>
-                <table className="table table-striped">
+                {customers.length==0 ? (<p>No Customers</p>): 
+                (<table className="table table-striped">
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -66,7 +74,8 @@ function AdminCustomer() {
                             </td>
                         </tr>))}
                     </tbody>
-                </table>
+                </table>)}
+                
             </div>
         </>
     );

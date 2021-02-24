@@ -46,3 +46,8 @@ export interface Color {
     green: boolean;
     violet: boolean;
 }
+
+export interface State {
+    abbreviation: string;
+    name: string;
+}

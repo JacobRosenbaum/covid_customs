@@ -61,9 +61,9 @@ function AdminMasks() {
                                 <div><h5 className="card-title cost-font">Cost: ${mask.cost.toFixed(2)}</h5>
                                     <p className="card-text">
                                         Style: {mask.style} <br />
-                                        Colors: {mask.colors} <br />
+                                        Colors: {mask.colors.map(color => (<span>{color} </span>))} <br />
                                         Material: {mask.material} <br />
-                                        Status: {mask.deleted ? 'Discontinued or Unavaliable' : 'Instock'}</p>
+                                        Status: {mask.deleted ? 'UNAVAILABLE' : 'INSTOCK'}</p>
                                 </div>
                                 <div className="position-absolute top-0 end-0">
                                     {!mask.deleted ? <button onClick={deleteMask} value={mask.maskId} className="btn btn-danger btn-sm m-1">Delete</button> : <></>}
