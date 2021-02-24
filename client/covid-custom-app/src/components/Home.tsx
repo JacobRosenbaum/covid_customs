@@ -16,13 +16,13 @@ function Home() {
         <Navbar />
             <div id="carouselExampleDark" className="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div className="carousel-inner">
-                    <div className="carousel-item carsoleHeight active" data-bs-interval="10000">
-                        <img src={banner3} className="d-block w-100" alt={banner3} />
+                    <div className="carousel-item carsoleHeight active" data-bs-interval="5000">
+                        <img src={banner1} className="d-block w-100" alt={banner3} />
                     </div>
-                    <div className="carousel-item carsoleHeight" data-bs-interval="10000">
-                        <img src={banner1} className="d-block w-100 h-auto" alt={banner1} />
+                    <div className="carousel-item carsoleHeight" data-bs-interval="5000">
+                        <img src={banner3} className="d-block w-100 h-auto" alt={banner1} />
                     </div>
-                    <div className="carousel-item carsoleHeight" data-bs-interval="10000">
+                    <div className="carousel-item carsoleHeight" data-bs-interval="5000">
                         <img src={banner2} className="d-block w-100" alt={banner2} />
                     </div>
                 </div>

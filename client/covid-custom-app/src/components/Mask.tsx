@@ -5,15 +5,15 @@ import Navbar from './Navbar';
 import AuthContext from './AuthContext';
 import Modal from 'react-modal';
 import Errors from './Errors';
+import { Order, MaskInterface } from './Interfaces';
 
-function Mask(props: any) {
+function Mask() {
     const auth = useContext(AuthContext);
 
-    const [masks, setMasks] = useState<any[]>([]);
-    const [customerMask, setCustomerMask] = useState<any>('');
-    const [errors, setErrors] = useState<any>([]);
-    const [filteredMasks, setFilteredMasks] = useState<any[]>([]);
-    const [cartCount, setCartCount] = useState<number>(0)
+    const [masks, setMasks] = useState<MaskInterface[]>([]);
+    const [customerMask, setCustomerMask] = useState({} as MaskInterface);
+    const [errors, setErrors] = useState<String[]>([]);
+    const [filteredMasks, setFilteredMasks] = useState<MaskInterface[]>([]);
     const [quantity, setQuantity] = useState<number>(1);
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -42,9 +42,10 @@ function Mask(props: any) {
         setModalIsOpen(false);
     }
 
-    function openModal(mask: any) {
+    function openModal(mask: MaskInterface) {
         setModalIsOpen(true);
         setCustomerMask(mask)
+   
     }
 
     useEffect(() => {
@@ -53,8 +54,8 @@ function Mask(props: any) {
                 const response = await fetch('http://localhost:8080/api/mask');
                 const data = await response.json();
                 setMasks(data)
-                console.log(data)
-                console.log(auth.customerId)
+                //console.log(data)
+                //console.log(auth.customerId)
 
             } catch (error) {
                 console.log(error);
@@ -68,12 +69,12 @@ function Mask(props: any) {
             m.material.includes(s) ||
             m.colors.includes(s)
         ));
-        console.log(filteredMasks);
-        console.log(s)
+        //console.log(filteredMasks);
+       // console.log(s)
     }
 
-    const handleAddSubmit = async (maskId: number) => {
-        //console.log(auth.order)
+    const handleAddSubmit = async () => {
+        console.log(auth.order)
         if (auth.user.token) {
             // console.log(auth.order[0].masks)
             //console.log(auth.order.masks)
@@ -88,19 +89,19 @@ function Mask(props: any) {
                     maskOrder.splice(i, 1)
                 }
             }
-            console.log(maskOrder)
-            console.log(updatedQuantity)
+            //console.log(maskOrder)
+            //console.log(updatedQuantity)
             maskOrder.push({
                 mask: customerMask,
                 quantity: updatedQuantity
             });
-            const newOrder = {
+            const newOrder: Order = {
                 orderId: auth.order.orderId,
                 customer: auth.customer,
                 masks: maskOrder,
                 total: 0.00,
                 purchased: false,
-                purchaseDate: null
+                purchaseDate: undefined
             };
             const body = JSON.stringify(newOrder);
 
@@ -120,7 +121,7 @@ function Mask(props: any) {
                     if (response.status === 200) {
                         setErrors([]);
                         auth.updateOrder(data.payload)
-                        console.log(data.payload)
+                        //console.log(data.payload)
                         closeModal()
                     }
                     else if (response.status === 400) {
@@ -200,28 +201,45 @@ function Mask(props: any) {
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>
-                    <div className="row flexContainer">
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
                         {filteredMasks.length ? filteredMasks.map(mask => (
-                            <div key={mask.maskId} className="col-sm-6 col-m-4 col-12 maskImage">
-                                <img id='mask' className="img" src={process.env.PUBLIC_URL + mask.image} alt="Mask" />
-                                <p>
-                                    ${mask.cost}
-                                </p>
-                                <button onClick={openModal}
-                                    className='btn' id='addButton'>
-                                    Add to Cart
-                                    </button>
+                            <div key={mask.maskId} className="col">
+                            <div className="card h-100 colomn-top-margin">
+                                <div className="card-body">
+                                    <img src={process.env.PUBLIC_URL + mask.image} alt="MaskInterface" id='mask' className="card-img-top" />
+                                    <div ><p className="card-text">
+                                            <b className="bold">Style:</b> {mask.style.toLowerCase()} <br />
+                                            <b className="bold">Colors:</b> {mask.colors.map(color => (<span>{color.toLowerCase()} </span>))} <br />
+                                            <b className="bold">Material:</b> {mask.material.toLowerCase()} <br />_________<br/>
+                                            <span className="cost-font">Cost: ${mask.cost.toFixed(2)} </span><br /></p>
+                                            <div className="position-relative box-margin"><button onClick={() => (openModal(mask))} className='btn btn-sm position-absolute bottom-0 end-15 addButton'> 
+                                            Add to Cart
+                                            </button></div>
+                                    </div>
+                                    
+                                </div>
                             </div>
+                        </div>
+
                         )) : masks.map(mask => (
-                            <div key={mask.maskId} className="col-sm-6 col-m-4 col-12 maskImage">
-                                <img id='mask' className="img" src={process.env.PUBLIC_URL + mask.image} alt="Mask" />
-                                <p>
-                                    ${mask.cost}
-                                </p>
-                                <button onClick={() => (openModal(mask))} className='btn' id='addButton'>
-                                    Add to Cart
-                                    </button>
-                                <Modal
+                            <div key={mask.maskId} className="col">
+                                <div className="card h-100 colomn-top-margin">
+                                    <div className="card-body">
+                                        <img src={process.env.PUBLIC_URL + mask.image} alt="MaskInterface" id='mask' className="card-img-top" />
+                                        <div ><p className="card-text">
+                                                <b className="bold">Style:</b> {mask.style.toLowerCase()} <br />
+                                                <b className="bold">Colors:</b> {mask.colors.map(color => (<span>{color.toLowerCase()} </span>))} <br />
+                                                <b className="bold">Material:</b> {mask.material.toLowerCase()} <br />_________<br/>
+                                                <span className="cost-font">Cost: ${mask.cost.toFixed(2)} </span><br /></p>
+                                                <div className="position-relative box-margin"><button onClick={() => (openModal(mask))} className='btn btn-sm position-absolute bottom-0 end-15 addButton'> 
+                                                Add to Cart
+                                                </button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ))}
+                            <Modal
                                     isOpen={modalIsOpen}
                                     onRequestClose={closeModal}
                                     style={customStyles}
@@ -241,10 +259,9 @@ function Mask(props: any) {
                                                     type="number" min="1" className="form-control" placeholder="Quanity" />
                                             </div>
                                         </div>
-                                        <button onClick={() => (handleAddSubmit(customerMask))} type='button' className="btn btn-primary submitButton">Add to Cart</button>
+                                        <button onClick={()=>(handleAddSubmit())} type='button' className="btn btn-primary submitButton">Add to Cart</button>
                                     </form>
                                 </Modal>
-                            </div>))}
                     </div>
                 </div>
             </div>

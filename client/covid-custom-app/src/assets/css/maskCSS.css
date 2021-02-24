@@ -6,7 +6,7 @@
   color: gray;
   text-align: center;
   font-size: 60px !important;
-  margin-top: 160px !important
+  margin-top: 100px !important
 }
 
 .img {
@@ -23,7 +23,7 @@
   text-align: center
 }
 
-#addButton {
+.addButton {
   background-color: firebrick;
   border-color: firebrick;
   color: white
@@ -44,10 +44,10 @@
   margin-top: 15px
 }
 
-a {
+/* a {
   text-decoration: none !important;
   color: gray !important
-}
+} */
 
 #customerMask {
   text-align: center;
@@ -76,4 +76,27 @@ a {
 
 #closeMask:hover {
   zoom: 101%;
+}
+
+.bold{
+  font-family: Arial, sans-serif;
+  font-size: 11pt;
+}
+
+.box-margin{
+  margin-top: 10px;
+  position: relative;
+  left: 35px;
+}
+
+.colomn-top-margin{
+  margin-top: 45px;
+}
+
+.cost-font{
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color:firebrick;
+  
+  
 }
