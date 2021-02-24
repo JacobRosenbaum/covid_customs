@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../assets/css/navbar.css';
 import AuthContext, { AuthContextInterface } from './AuthContext';
 import { useContext } from 'react';
 
 
 function Navbar() {
-    
+    const location = useLocation();
     const auth: AuthContextInterface = useContext(AuthContext);
     const adminExists = () => {
         if (auth.user.email === undefined) {
@@ -39,23 +39,23 @@ function Navbar() {
                         <Link to="/" className="navbar-brand"><b>CovidCustoms</b></Link>
                         <div className="navbar-nav">
                             <div className="nav-item">
-                                <Link to="/" className="nav-link active" aria-current="page">Home</Link>
+                                <Link to="/" className= {`${location.pathname=="/" ? "nav-link active" : "nav-link"}`} aria-current="page">Home</Link>
                             </div>
                             <div className="nav-item">
-                                <Link to="/shopMask" className="nav-link">Shop</Link>
+                                <Link to="/shopMask" className={`${location.pathname=="/shopMask" ? "nav-link active" : "nav-link"}`}>Shop</Link>
                             </div>
                             <div className="nav-item">
-                                <Link to="/aboutUs" className="nav-link">About Us</Link>
+                                <Link to="/aboutUs" className={`${location.pathname=="/aboutUs" ? "nav-link active" : "nav-link"}`}>About Us</Link>
                             </div>
                             <div className="nav-item">
-                                <Link to="/covidInfo" className="nav-link">Covid Info</Link>
+                                <Link to="/covidInfo" className={`${location.pathname=="/covidInfo" ? "nav-link active" : "nav-link"}`}>Covid Info</Link>
                             </div>
                             {auth.user.email !== undefined && (<div className="nav-item">
-                                <Link to="/account" className="nav-link">My Account</Link>
+                                <Link to="/account" className={`${location.pathname=="/account" ? "nav-link active" : "nav-link"}`}>My Account</Link>
                             </div>)}
                             {adminExists() ? (
                                 <div className="nav-item">
-                                    <Link className="nav-link" to="/admin">Admin</Link>
+                                    <Link className={`${location.pathname=="/admin" ? "nav-link active" : "nav-link"}`} to="/admin">Admin</Link>
                                 </div>
                             ) : (<></>)}
                         </div>
@@ -79,10 +79,10 @@ function Navbar() {
                 )}
                 {!auth.user.token && (<div className="box-container-login float-end">
                     <div className="float-end">
-                        <Link className="nav-link-login" to="/register">Sign Up</Link>
+                        <Link className={`${location.pathname=="/register" ? "nav-link-login solid-white" : "nav-link-login"}`} to="/register">Sign Up</Link>
                     </div>
                     <div className="float-end">
-                        <Link className="nav-link-login" to="/login">Login</Link>
+                        <Link className={`${location.pathname=="/login" ? "nav-link-login solid-white" : "nav-link-login"}`} to="/login">Login</Link>
                     </div>
                 </div>
                 )}

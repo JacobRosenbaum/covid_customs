@@ -58,20 +58,22 @@
 .nav-link-login{
     margin-right: 15px;
     display: inline;
+    text-decoration: none !important;
+    color: gray ;
 }
 
-.nav-link:hover{
-    cursor: pointer;
-    color: firebrick;
+.nav-link-login:hover{
+    margin-right: 15px;
+    display: inline;
+    text-decoration: none !important;
+    color: rgb(207, 207, 207) !important;
+}
+.solid-white{
+    color: white;
 }
 
-.navbar-brand{
-    color: firebrick; 
-}
 
-.nav-item:hover{
-    color: firebrick;  
-}
+
 .color-red{
     color: firebrick;
 }

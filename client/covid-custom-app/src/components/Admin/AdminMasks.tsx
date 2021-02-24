@@ -58,7 +58,7 @@ function AdminMasks() {
                         <div className="card h-100">
                             <div className="card-body">
                                 <img src={process.env.PUBLIC_URL + mask.image} alt="MaskInterface" className="card-img-top" />
-                                <div><h5 className="card-title">Cost: ${mask.cost}</h5>
+                                <div><h5 className="card-title cost-font">Cost: ${mask.cost.toFixed(2)}</h5>
                                     <p className="card-text">
                                         Style: {mask.style} <br />
                                         Colors: {mask.colors} <br />
