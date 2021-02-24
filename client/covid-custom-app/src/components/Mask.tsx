@@ -159,13 +159,14 @@ function Mask() {
         <>
             <Navbar />
             <div className='container'>
-                <div className='jumbotron'>
+                <div className='jumbotron position-relative'>
                     <h1 className='title'>
                         Shop Masks
                     </h1>
                     <Errors errors={errors} />
+            
                     <div className='row dropdown'>
-                        <Dropdown className='col-md-4'>
+                        <Dropdown className='col-md-3 button_margin'>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Color
                             </Dropdown.Toggle>
@@ -181,7 +182,7 @@ function Mask() {
                             <Dropdown.Item onClick={() => (sortByColor('YELLOW'))}>Yellow</Dropdown.Item> */}
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Dropdown className='col-md-4'>
+                        <Dropdown className=' col-md-3 button_margin'>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Material
                     </Dropdown.Toggle>
@@ -194,7 +195,7 @@ function Mask() {
                                     sort('COTTON'))}>Cotton</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Dropdown className='col-md-4'>
+                        <Dropdown className='col-md-3 button_margin'>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Style
                     </Dropdown.Toggle>
@@ -207,7 +208,9 @@ function Mask() {
                                     sort('WRAP'))}>Wrap</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
+                        <button className="col-md-3 button_margin btn allMaskButton" onClick={()=> setFilteredMasks([])}> All Masks</button>
                     </div>
+                
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         {filteredMasks.length ? filteredMasks.map(mask => (
                             <div key={mask.maskId} className="col">

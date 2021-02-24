@@ -23,6 +23,11 @@ input {
     text-align: left;
 }
 
+select {
+    margin-top: 15px;
+    text-align: left;
+} 
+
 .flexContainer {
     text-align: center
 }

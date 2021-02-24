@@ -14,7 +14,7 @@
   height: 220px;
 }
 
-.col-m-4 {
+.col-m-3 {
   margin: auto;
   margin-top: 30px;
 }
@@ -29,6 +29,15 @@
   color: white
 }
 
+.allMaskButton {
+  background-color: firebrick;
+  border-color: firebrick;
+  color: white;
+  padding-left: 4px;
+  padding-right: 4px;
+  height: 38px;
+  width: 100px;
+}
 .img:hover {
   zoom: 101%;
   cursor: pointer
@@ -40,9 +49,10 @@
 }
 
 .dropdown {
-  text-align: center;
-  margin-top: 15px
+  text-align: center !important;
 }
+
+
 
 /* a {
   text-decoration: none !important;
@@ -98,5 +108,11 @@
   font-weight: bold;
   color:firebrick;
   
-  
+}
+
+.box-width-menu{
+  position: relative;
+  margin: auto 0;
+  width: 500px;
+  text-align: center;
 }

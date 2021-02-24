@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import '../assets/css/register.css';
 import Modal from 'react-modal';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { allStates } from './States';
 
 
 function Register() {
@@ -20,7 +21,7 @@ function Register() {
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
-    const [state, setState] = useState('');
+    const [state, setState] = useState("");
     const [zipCode, setZipCode] = useState('');
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -39,9 +40,8 @@ function Register() {
             marginTop: "20px",
             backgroundColor: "lightgrey",
             color: "white",
-            borderColor: "firebrick",
             borderRadius: "6px",
-            border: ".5px solid white",
+            border: "3px solid white",
             padding: 5
         }
     };
@@ -70,7 +70,7 @@ function Register() {
                     email: username,
                     password: password,
                     addressLine: address,
-                    city, 
+                    city,
                     state,
                     zipCode,
                     phone,
@@ -87,7 +87,6 @@ function Register() {
             }
             else if (response.status === 400) {
                 const data = await response.json();
-                console.log(data);
                 setErrors(data);
                 closeModal();
                 // setErrors(response);
@@ -123,7 +122,7 @@ function Register() {
                 </div>
                 <button
                     onClick={openModal
-            }
+                    }
                     className="btn btn-primary create">Create my Account!</button>
                 <h5 className='signUp'>
                     Already have an account with us? <Link to={'/login'}> <span id='clickHere'>Login</span> </Link>
@@ -142,34 +141,16 @@ function Register() {
                         <div className='row flexContainer'>
                             <div className="form-group col-sm-6 col-m-4 col-12">
                                 <input onChange={e => { setFirstName(e.target.value); console.log('first ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="First name" required  />
+                                    type="text" className="form-control" placeholder="First name" required />
                                 <input onChange={e => { setLastName(e.target.value); console.log('last ' + e.target.value) }}
                                     type="text" className="form-control" placeholder="Last name" required />
                                 <input onChange={e => { setAddress(e.target.value); console.log('address ' + e.target.value) }}
                                     type="text" className="form-control" placeholder="Address" required />
                                 <input onChange={e => { setCity(e.target.value); console.log('city ' + e.target.value) }}
                                     type="text" className="form-control" placeholder="City" required />
-
-                                {/* <input onChange={e => { setState(e.target.value); console.log('state ' + e.target.value) }}
-                                    type="text" className="form-control" placeholder="State" required /> */}
-
-                            <Dropdown className='col-md-4'>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                State
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
-                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
-                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
-                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
-                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
-                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
-                                <Dropdown.Item onClick={() => (setState('AS'))}>Alaska</Dropdown.Item>
-                                {/* <Dropdown.Item onClick={() => (sortByColor('INDIGOE'))}>Indigo</Dropdown.Item>
-                            <Dropdown.Item onClick={() => (sortByColor('YELLOW'))}>Yellow</Dropdown.Item> */}
-                            </Dropdown.Menu>
-                        </Dropdown>
-
+                                <select value={state} onChange={(e) => (setState(e.target.value))} id="state" name="state" className="form-select">
+                                    {allStates.map(st => (<option value={st.abbreviation}>{st.name}</option>))}
+                                </select>
                                 <input onChange={e => { setZipCode(e.target.value); console.log('zip ' + e.target.value) }}
                                     type="text" className="form-control" placeholder="Zip code" required />
                                 <input onChange={e => { setPhone(e.target.value); console.log('phone ' + e.target.value) }}

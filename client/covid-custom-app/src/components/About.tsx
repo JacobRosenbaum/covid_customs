@@ -58,7 +58,7 @@ function About() {
                             take out extra money our company makes and puts it toward communities that
                             are having difficulties due to the pandemic. We are hoping that through our
                             sales we can make a difference and hope to have everyone proudly wear a mask
-                    of their own design. Help us make a difference by wearing a mask!</p>
+                            of their own design. Help us make a difference by wearing a mask!</p>
                         </div>
                     </div>
                 </div>

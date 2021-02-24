@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function AdminControls() {
+    const location = useLocation();
     return (
         <>
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -12,13 +13,13 @@ function AdminControls() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav" >
                             <li className="nav-item">
-                                <Link to="/admin/masks" className="nav-link">Masks</Link>
+                                <Link to="/admin/masks" className={`${location.pathname=="/admin/masks" ? "nav-link active" : "nav-link"}`}>Masks</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/admin/customers" className="nav-link">Customers</Link>
+                                <Link to="/admin/customers" className={`${location.pathname=="/admin/customers" ? "nav-link active" : "nav-link"}`}>Customers</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to="/admin/orders" className="nav-link">Orders</Link>
+                                <Link to="/admin/orders" className={`${location.pathname=="/admin/orders" ? "nav-link active" : "nav-link"}`}>Orders</Link>
                             </li>
                         </ul>
                     </div>
