@@ -70,9 +70,9 @@ set sql_safe_updates = 1;
     
     insert into orders values
     ( 1, 1, false, null),
-    ( 2, 4, true, "2020-02-12"),
-    ( 3, 4, true, "2020-02-15"),
-    ( 4, 4, false, null);
+    ( 2, 2, true, "2020-02-12"),
+    ( 3, 2, true, "2020-02-15"),
+    ( 4, 3, false, null);
     
     insert into order_mask values
     ( 1, 1, 3),

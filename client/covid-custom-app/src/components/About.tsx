@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import banner1 from '../assets/images/covid_banner.png';
 import banner2 from '../assets/images/wearmask_banner.png';
 import banner3 from '../assets/images/personmask_banner.png';
-import customMasks from '../assets/images/personmask_banner.png';
+
 
 function About() {
     return (

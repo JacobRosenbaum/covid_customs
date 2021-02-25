@@ -3,12 +3,13 @@ import { useState, useEffect, useContext } from 'react';
 import '../../assets/css/covidApi.css';
 import UsaMap from './UsaMap';
 import AuthContext from '../AuthContext';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import shopLinkBanner from '../../assets/images/shopLinkBanner.png';
 
 
 function CovidAPI() {
 
+  const history= useHistory();
   const [data, setData] = useState<any[]>([]);
   //const [stateVar, setStateVar] = useState();
   const [casesByState, setCasesByState] = useState<any>();
@@ -18,6 +19,7 @@ function CovidAPI() {
   const [totalDeaths, setTotalDeaths] = useState<any>();
 
   const auth = useContext(AuthContext);
+  const nfObject = new Intl.NumberFormat('en-US');
 
   useEffect(() => {
     const getData = async () => {
@@ -38,7 +40,7 @@ function CovidAPI() {
   useEffect(() => {
     updateStateInfo()
     updateCountryInfo()
-    window.scrollTo(0, 50);
+    // window.scrollTo(0, 50);
   }, [data]);
 
   const updateStateInfo = () => {
@@ -50,13 +52,13 @@ function CovidAPI() {
 
       setCasesByState(data[stateIndex].positive);
       setDeathsByState(data[stateIndex].death > 0 ? data[stateIndex].death : 0);
-      setLastUpdateByState(data[stateIndex].lastUpdateEt);
+      setLastUpdateByState(data[stateIndex].lastUpdateEt ? data[stateIndex].lastUpdateEt : "--");
     }
   }
 
   const updateCountryInfo = () => {
     if (data.length != 0) {
-    
+
       let casesArray = data.map(e => e.positive)
       const caseReducer = (accumulator: any, currentValue: any) => accumulator + currentValue;
       setTotalCases(casesArray.reduce(caseReducer));
@@ -70,50 +72,49 @@ function CovidAPI() {
 
   return (
     <>
-      <div className='container'>
-        <Navbar />
-      </div>
+      <h1 className="selectState" id="covidTitle"><strong>Current Covid Conditions</strong></h1>
+      {auth.mapState != 0 ? (<></>) : (<h1 className="covid-data-box-header">Select a State: </h1>)}
+      <div className="row move-me-down">
+        <div className="col">
+          <div className="covid-data-box">
 
-      <div className="main">
-        <h1 id="covidTitle"><strong>Current Covid Conditions</strong></h1>
-        <div className='jumbotron'>
-          <div id='table'>
-            <table className="table table-striped">
-              <thead id='head'>
-                <tr>
-                  <th className='th' scope="col">Location</th>
-                  <th className='th' scope="col">Total Cases</th>
-                  <th className='th' scope="col">Total Deaths</th>
-                  {auth.mapState != 0 ? (<th className='th' scope="col">Last Updated</th>) : (<></>)}
-                </tr>
-              </thead>
-              <tbody>
+            {auth.mapState != 0 ? (<p className="covid-data-box-header">{auth.mapState}</p>) : (<p className="covid-data-box-header">USA</p>)}
+            <p><strong>Total Cases: </strong>{auth.mapState != 0 ? (<span>{nfObject.format(casesByState)}</span>) : (<span>{nfObject.format(totalCases)}</span>)}</p>
+            <p><strong>Total Deaths: </strong> {auth.mapState != 0 ? (<span>{nfObject.format(deathsByState)}</span>) : (<span>{nfObject.format(totalDeaths)}</span>)}</p>
+            {auth.mapState != 0 ? (<p><strong>Last Updated: </strong> {auth.mapState != 0 ? (<span>{lastUpdateByState}</span>) : (<></>)}</p>) : (<></>)}
 
-                <tr>
-                  {auth.mapState != 0 ? (<td>{auth.mapState}</td>) : (<td>USA</td>)}
-                  {auth.mapState != 0 ? (<td>{casesByState}</td>) : (<td>{totalCases}</td>)}
-                  {auth.mapState != 0 ? (<td>{deathsByState}</td>) : (<td>{totalDeaths}</td>)}
-                  {auth.mapState != 0 ? (<td>{lastUpdateByState}</td>) : (<></>)}
-                </tr>
 
-              </tbody>
-            </table>
           </div>
         </div>
+        <div className="col map-box">
+          <UsaMap />
+        </div>
 
-        {auth.mapState != 0 ? (<></>) : (<h2>Select a State: </h2>)}
-      </div>
-      <div className='mapdiv'>
-        <UsaMap />
-      </div>
 
-      <div className="img-box">
-      <h1 id="covidTitle"><strong>Help Stop The Spread!</strong></h1>
-        <Link to="/shopMask">
-          <img className="img" src={shopLinkBanner}/>
-        </Link>      
+      </div>
+      <br /><br />
+      <div className="big-red-box">
+        <p className="selectState2" ><strong>Help Stop The Spread!</strong> </p>
       </div>
       
+      
+        <br />
+      <div className='row dropdown'>
+        <div className="col-md-4">
+          <img className="mask-images" src={process.env.PUBLIC_URL + "/images/mask_white_cotton_athletic.png"} alt="MaskInterface" />
+        </div>
+        <div className="col-md-4">
+          <img className="mask-images" src={process.env.PUBLIC_URL + "/images/mask_covid_red_cot_ear.png"} alt="MaskInterface" />
+        </div>
+        <div className="col-md-4">
+          <img className="mask-images" src={process.env.PUBLIC_URL + "/images/mask_green_black_polyester_wrap.png"} alt="MaskInterface" />
+        </div>
+      </div>
+      <p onClick={()=> history.push("/shopMask")} className="selectState3"> Wear A Mask<i onClick={()=> history.push("/shopMask")} className="bi-forward-fill fill" ></i> </p> 
+      <br />
+      
+
+
 
     </>
   );
@@ -121,4 +122,3 @@ function CovidAPI() {
 
 export default CovidAPI;
 
-//banner image do your part

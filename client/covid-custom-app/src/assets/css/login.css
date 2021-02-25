@@ -5,12 +5,13 @@
 }
 
 #loginEye {
-    /* position: absolute;
-    top: 34.45%;
-    right: 41.5%; */
     position: relative;
+    float:right;
+    right: 10px;
+    bottom: 28px;
+    /* position: relative;
     left: 133px;
-    bottom: 31.5px
+    bottom: 31.5px */
 }
 
 #loginEye:hover {
@@ -20,4 +21,8 @@
 
 h3{
     font-size: 40px
+}
+
+.eyeball-fix{
+    position: relative;
 }

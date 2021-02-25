@@ -74,6 +74,7 @@ function NotFound() {
     return (
         <>
             <Navbar />
+            <br/>
             <div id='notFound' className="container">
                 <div className="move_down">
                     <h1 className="h1_special">Page Not Found</h1>
