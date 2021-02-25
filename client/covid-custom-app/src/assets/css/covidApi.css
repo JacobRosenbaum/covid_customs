@@ -1,12 +1,12 @@
 #covidTitle {
-    margin-top: 150px !important;
+    /* margin-top: 150px !important; */
     color: firebrick !important
 }
 
 #table {
     text-align: center;
-    overflow-y: scroll;
-    height: 550px !important;
+    position: relative;
+    bottom: 50px;
 }
 
 .th {
@@ -23,20 +23,24 @@ tr {
 }
 
 .main {
-  margin-left: 200px;
-  /* Same width as the sidebar + left position in px */
-  margin-right: 200px;
-  margin-bottom: 0px;
-  font-size: 28px;
-  /* Increased text to enable scrolling */
-  top: 10px;
-  left: 10px;
-  padding: 100px 10px;
-  color: gray !important
+
 }
 
 .mapdiv{
   position: relative;
   bottom: 185px;
+  text-align: center;
+}
+
+.img{
+  border-radius: 80%;
+  width: 1000px !important;
+  height: 400px !important;
+  text-align: center !important;
+}
+
+.img-box{
+  position: relative;
+  bottom: 260px;
   text-align: center;
 }

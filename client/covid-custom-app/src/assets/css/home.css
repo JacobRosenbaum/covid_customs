@@ -43,3 +43,8 @@ h1{
     width: auto;
     overflow: hidden;
 }
+
+.covidAPI{
+  position: relative;
+  bottom: 90px;
+}

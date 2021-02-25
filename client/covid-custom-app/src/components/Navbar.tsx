@@ -47,9 +47,9 @@ function Navbar() {
                             <div className="nav-item">
                                 <Link to="/aboutUs" className={`${location.pathname=="/aboutUs" ? "nav-link active" : "nav-link"}`}>About Us</Link>
                             </div>
-                            <div className="nav-item">
+                            {/* <div className="nav-item">
                                 <Link to="/covidInfo" className={`${location.pathname=="/covidInfo" ? "nav-link active" : "nav-link"}`}>Covid Info</Link>
-                            </div>
+                            </div> */}
                             {auth.user.email !== undefined && (<div className="nav-item">
                                 <Link to="/account" className={`${location.pathname=="/account" ? "nav-link active" : "nav-link"}`}>My Account</Link>
                             </div>)}
