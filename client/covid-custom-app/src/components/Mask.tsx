@@ -9,11 +9,22 @@ import { Order, MaskInterface } from './Interfaces';
 import toaster from "toasted-notes";
 import "toasted-notes/src/styles.css";
 
+const DEFAULT_MASK: MaskInterface = {
+    maskId: 0,
+    material: "COTTON",
+    style: "OVER_EAR",
+    colors: [],
+    cost: 0,
+    image: "/images/mask_black_polycot_ear.png",
+    custom: false,
+    deleted: false
+}
+
 function Mask() {
     const auth = useContext(AuthContext);
 
     const [masks, setMasks] = useState<MaskInterface[]>([]);
-    const [customerMask, setCustomerMask] = useState({} as MaskInterface);
+    const [customerMask, setCustomerMask] = useState(DEFAULT_MASK);
     const [errors, setErrors] = useState<String[]>([]);
     const [filteredMasks, setFilteredMasks] = useState<MaskInterface[]>([]);
     const [quantity, setQuantity] = useState<number>(1);
@@ -42,6 +53,7 @@ function Mask() {
 
     function closeModal() {
         setModalIsOpen(false);
+        
     }
 
     function openModal(mask: MaskInterface) {
@@ -263,10 +275,10 @@ function Mask() {
                                             <div className="form-group col-sm-6 col-m-4 col-12">
                                                 <img id='customerMask' className="img" src={process.env.PUBLIC_URL + customerMask.image} alt="Mask" />
                                                 <p id='cost'>
-                                                    ${customerMask.cost}
+                                                    ${customerMask.cost.toFixed(2)}
                                                 </p>
                                                 <input id='quantity' onChange={e => { setQuantity(parseInt(e.target.value)); console.log('quantity ' + e.target.value) }}
-                                                    type="number" min="1" className="form-control" placeholder="Quanity" />
+                                                    type="number" min="1" className="form-control" placeholder="Quantity" />
                                             </div>
                                         </div>
                                         <button onClick={()=>(handleAddSubmit())} type='button' className="btn btn-primary submitButton">Add to Cart</button>
