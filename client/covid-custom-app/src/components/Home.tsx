@@ -4,6 +4,7 @@ import banner3 from '../assets/images/personmask_banner.png';
 import customMasks from '../assets/images/personmask_banner.png';
 import '../assets/css/home.css';
 import Navbar from './Navbar';
+import CovidAPI from './CovidApi/CovidAPI';
 
 import { Link } from 'react-router-dom';
 
@@ -35,30 +36,8 @@ function Home() {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-
-            <div className="container">
-
-                <h1 className="m-5">Welcome to Covid Customs</h1>
-
-                <div className="row align-items-start m-5">
-                    <div className="col card m-2" >
-                        <div className="card-body">
-                            <h2 className="card-title">Customize Your Mask</h2>
-                            <p className="card-text">Want the freedom to sylize your mask?</p>
-                        </div>
-                        <div className="img-box"><img src={customMasks} className="card-img-top" alt="..." /></div>
-                        <Link to="/shopMask" className="btn btn-danger">Customize Mask</Link>
-                    </div>
-
-                    <div className="col card m-2" >
-                        <div className="card-body">
-                            <h2 className="card-title">Get your Mask</h2>
-                            <p className="card-text">Check out out latest styles of masks.</p>
-                        </div>
-                        <div className="img-box"><img src={customMasks} className="card-img-top" alt="..." /></div>
-                        <Link to="/shopMask" className="btn btn-danger">Shop Masks </Link>
-                    </div>
-                </div>
+            <div className="covidAPI"> 
+              <CovidAPI/>
             </div>
         </>
     );
