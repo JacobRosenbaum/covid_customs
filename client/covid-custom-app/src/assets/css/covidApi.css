@@ -3,27 +3,53 @@
     color: firebrick !important
 }
 
-#table {
-    text-align: center;
-    position: relative;
-    bottom: 50px;
+
+
+.covid-data-box {
+  margin: auto;
+  position: relative;
+  top: 15%;
+  padding: 20px;
+  border: solid 2px firebrick;
+  border-radius: 6px;
+  width: 85%;
 }
 
-.th {
-    position: sticky;
-    top: 0;
-    font-weight: bolder;
-    z-index: 1;
-    background-color: firebrick !important;
-    color: white
+.selectState{
+  font-family: Arial, sans-serif;
 }
 
-tr {
-    z-index: 0;
+.selectState2{
+  color: rgb(241, 233, 233);
+  font-family: Arial, sans-serif;
+  font-size: 45pt;
+  text-align: center;
 }
 
-.main {
+.selectState3{
+  color: firebrick;
+  font-family: Arial, sans-serif;
+  font-size: 45pt;
+  text-align: center;
+  position: relative;
+  top: -20px;
+}
 
+
+.big-red-box{
+  width: 100%;
+  height: 95px;
+  background-color: firebrick;
+}
+
+.covid-data-box-header {
+  color: firebrick !important;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 23px;
+  width: 100%;
 }
 
 .mapdiv{
@@ -32,15 +58,43 @@ tr {
   text-align: center;
 }
 
-.img{
-  border-radius: 80%;
-  width: 1000px !important;
-  height: 400px !important;
-  text-align: center !important;
-}
-
-.img-box{
+.map-box{
+  margin: auto;
   position: relative;
-  bottom: 260px;
   text-align: center;
 }
+
+.mask-images{
+  width: 75%;
+}
+
+
+.fill{
+  font-size: 7rem; color: firebrick;
+margin-left: 15px;
+position: relative;
+top: 11px;
+animation: move 0.5s infinite;
+animation-direction: alternate;}
+
+
+
+  .selectState3:hover{
+    color:  rgb(202, 85, 85); 
+    cursor: pointer;
+  }
+
+  .selectState3:hover .fill{
+  color: rgb(202, 85, 85); margin-left: 15px;
+   animation:none;
+   cursor: pointer;
+  }
+
+  @keyframes move {
+    0% {
+      left: 20px;
+    }
+    100% {
+      left: 0px;
+    }
+  }

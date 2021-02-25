@@ -60,12 +60,13 @@ select {
 }
 
 #eye {
-    /* position: relative;
-    top: 40.5%;
-    right: 41.5%; */
     position: relative;
+    float:right;
+    right: 10px;
+    bottom: 28px;
+    /* position: relative;
     left: 133px;
-    bottom: 31.5px
+    bottom: 31.5px */
 }
 
 #eye:hover {
