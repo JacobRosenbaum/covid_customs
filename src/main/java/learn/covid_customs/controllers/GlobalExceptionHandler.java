@@ -35,11 +35,11 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
-        return new ResponseEntity<>(List.of("Invalid form input. Please try again."),
-                HttpStatus.BAD_REQUEST);
-    }
+ //    @ExceptionHandler(HttpMessageNotReadableException.class)
+//    public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+//        return new ResponseEntity<>(List.of("Invalid form input. Please try again."),
+//                HttpStatus.BAD_REQUEST);
+//    }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<?> handleException(MethodArgumentTypeMismatchException ex) {
